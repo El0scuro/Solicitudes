@@ -1,41 +1,107 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =========================
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Dependencias
 
-# testing
-/coverage
+# =========================
 
-# next.js
-/.next/
-/out/
+/front-end/node_modules/
+/back-end/node_modules/
 
-# production
-/build
+# =========================
 
-# misc
-.DS_Store
-*.pem
+# Next.js
 
-# debug
+# =========================
+
+/front-end/.next/
+/front-end/out/
+
+# =========================
+
+# NestJS
+
+# =========================
+
+/back-end/dist/
+/back-end/build/
+
+# =========================
+
+# Variables de entorno
+
+# =========================
+
+/front-end/.env
+/front-end/.env.local
+/front-end/.env.development.local
+/front-end/.env.test.local
+/front-end/.env.production.local
+
+/back-end/.env
+/back-end/.env.local
+/back-end/.env.development.local
+/back-end/.env.test.local
+/back-end/.env.production.local
+
+# =========================
+
+# Logs
+
+# =========================
+
+*.log
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# =========================
 
-# vercel
-.vercel
+# Tests
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# =========================
+
+/front-end/coverage/
+/back-end/coverage/
+
+# =========================
+
+# IDEs y editores
+
+# =========================
+
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VSCode
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# =========================
+
+# Sistema operativo
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+
+# Archivos temporales
+
+# =========================
+
+.temp
+.tmp
+*.pid
+*.pid.lock
