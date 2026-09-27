@@ -1,0 +1,17 @@
+import { Module } from '@nestjs/common';
+import { SolicitudService } from './solicitud.service.js';
+import { SolicitudController } from './solicitud.controller.js';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Solicitud } from './entities/solicitud.entity.js';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature(
+      [Solicitud],
+      "solicitudes"
+    )
+  ],
+  controllers: [SolicitudController],
+  providers: [SolicitudService],
+})
+export class SolicitudModule {}

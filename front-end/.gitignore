@@ -1,0 +1,118 @@
+# =========================
+
+# Dependencias
+
+# =========================
+
+node_modules/
+
+# =========================
+
+# Next.js
+
+# =========================
+
+.next/
+out/
+
+# =========================
+
+# Variables de entorno
+
+# =========================
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================
+
+# Caché
+
+# =========================
+
+.cache/
+*.cache
+.eslintcache
+
+# =========================
+
+# Logs
+
+# =========================
+
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+
+# Tests
+
+# =========================
+
+coverage/
+
+# =========================
+
+# TypeScript
+
+# =========================
+
+*.tsbuildinfo
+
+# =========================
+
+# IDEs y editores
+
+# =========================
+
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VS Code
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# =========================
+
+# Sistema operativo
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+
+# Archivos temporales
+
+# =========================
+
+.temp/
+.tmp/
+*.pid
+*.pid.lock
+
+# =========================
+
+# Llaves criptográficas
+
+# =========================
+
+keys/
+*.pem
+*.key

@@ -3,11 +3,12 @@ export interface Estudiante {
     Segundo_Nombre: string;
     Primer_Apellido: string;
     Segundo_Apellido: string;
-    Celular: number | null;
+    Celular: string;
     Mail: string;
-    Rut: number | null;
-    Dig_Verificador: number | null;
-    Ano_Ingreso: number | null; 
+    Contrasena: string;
+    Rut: string;
+    Dig_Verificador: string;
+    Ano_Ingreso: string; 
     Sede: string;
     Semestre: string;
 }

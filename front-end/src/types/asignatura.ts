@@ -1,4 +1,7 @@
+import { Seccion } from "./seccion";
+
 export interface Asignatura {
-    Codigo: number | null;
+    Codigo: string;
     Nombre: string;
+    secciones: Seccion[];
 }

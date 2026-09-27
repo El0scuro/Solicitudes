@@ -1,4 +1,7 @@
+//import { Estudiante } from "./estudiante";
+
 export interface Ficha {
-     ID_Ficha: number | null;
      Fecha_Actual: string;
+     Estado: string;
+     //estudiante: Estudiante;
 }

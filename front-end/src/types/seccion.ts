@@ -1,5 +1,5 @@
 export interface Seccion {
     ID_Seccion: number;
-    Codigo: number | null;
+    Codigo: string;
     ID_Profesor: number | null;
 }
