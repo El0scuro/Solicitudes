@@ -501,10 +501,10 @@ export class EstudianteService {
                 Iv_Celular: '',
                 Tag_Celular: '',
 
-                // Mail
-                Mail: '',
-                Iv_Mail: '',
-                Tag_Mail: '',
+                //Rut
+                Rut: '',
+                Iv_Rut: '',
+                Tag_Rut: '',
 
                 // Dígito Verificador
                 Digito_Verificador: '',
@@ -640,9 +640,9 @@ export class EstudianteService {
             indiceCifrado++;
 
             // Mail
-            estudianteCifrado.Mail = datosEncriptados[indiceCifrado].valor;
-            estudianteCifrado.Iv_Mail = datosEncriptados[indiceCifrado].ivValor;
-            estudianteCifrado.Tag_Mail = datosEncriptados[indiceCifrado].authTag;
+            estudianteCifrado.Rut = datosEncriptados[indiceCifrado].valor;
+            estudianteCifrado.Iv_Rut = datosEncriptados[indiceCifrado].ivValor;
+            estudianteCifrado.Tag_Rut = datosEncriptados[indiceCifrado].authTag;
             indiceCifrado++;
 
             // Dígito Verificador

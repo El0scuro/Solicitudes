@@ -4,7 +4,7 @@ export class CreateMetadatosCifradoDto {
 
     @IsString()
     @IsNotEmpty()
-    Rut: string;
+    Mail: string;
 
     @IsString()
     @IsNotEmpty()
