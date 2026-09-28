@@ -7,17 +7,24 @@ services:
     build:
       context: ./front-end
       dockerfile: Dockerfile
+      network: host
+
     container_name: ficha-frontend
+
     ports:
       - "3001:3000"
+
     volumes:
       - ./front-end:/app
       - /app/node_modules
+
     depends_on:
       - backend
+
     environment:
       BACKEND_INTERNAL_URL: http://backend:4000/api
       NEXT_PUBLIC_BACKEND_URL: http://localhost:4000/api
+
     networks:
       - ficha-network
 
@@ -29,7 +36,10 @@ services:
     build:
       context: ./back-end
       dockerfile: Dockerfile
+      network: host
+
     container_name: ficha-backend
+
     ports:
       - "4001:4000"
 
@@ -121,25 +131,15 @@ services:
       - ficha-network
 
 
-# =========================
-# VOLUMENES
-# =========================
 volumes:
 
   mysql_data:
-
   mysql_transporte_front_data:
-
   mysql_transporte_back_data:
-
   mysql_almacenamiento_data:
-
   crypto_keys:
 
 
-# =========================
-# RED
-# =========================
 networks:
 
   ficha-network:
