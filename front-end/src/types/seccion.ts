@@ -1,5 +1,7 @@
+import { Asignatura } from "./asignatura";
+
 export interface Seccion {
-    ID_Seccion: number;
-    Codigo: string;
-    ID_Profesor: number | null;
+    num_Seccion: number;
+    asignatura: Asignatura;
+    mail_Profesor: string;
 }

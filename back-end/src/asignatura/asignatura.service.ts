@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAsignaturaDto } from './dto/create-asignatura.dto.js';
 import { UpdateAsignaturaDto } from './dto/update-asignatura.dto.js';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -34,7 +34,7 @@ export class AsignaturaService {
     });
 
     if(!asignatura){
-      return "Asignatura no existente";
+      throw new NotFoundException("Asignatura no existente");
     }
 
     return asignatura;
@@ -52,7 +52,7 @@ export class AsignaturaService {
     });
 
     if(!asignatura){
-      return "Asignatura no existente";
+      throw new NotFoundException("Asignatura no existente");
     }
 
     return asignatura;
@@ -69,8 +69,8 @@ export class AsignaturaService {
       },
     });
 
-    if(!asignaturas){
-      return "Semestre no existente";
+    if(asignaturas.length === 0){
+      throw new NotFoundException("Semestre no existente");
     }
 
     return asignaturas;

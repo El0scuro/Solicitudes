@@ -19,6 +19,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from "axios";
 import __url from "@/lib/const";
+import { Asignatura } from "@/types/asignatura";
+import { Seccion } from "@/types/seccion";
 
 //interfaz para el estudiante cifrado para transporte
 interface EstudianteCifrado {
@@ -707,11 +709,17 @@ function Inscribir_Page({close}: PropRamo){
 
     const [valorBusqueda, setValorBusqueda] = useState<string>('');
 
-    const [filtroMarcado, setFiltroMarcado] = useState(false);
 
+    const [stateRespuesta, setStateRespuesta] = useState(false);
 
-    const [errorBusqueda, setErrorBusqueda] = useState(false);
+    const [stateError, setStateError] = useState(false);
+
+    const [stateExito, setStateExito] = useState(false);
+
+    const [respuestaServidor, setRespuestaServidor] = useState<Asignatura[]>();
+    
     const [mensajeError, setMensajeError] = useState<string>();
+
 
     const [semestreMarcado, setSemestreMarcado] = useState(false);
 
@@ -719,19 +727,18 @@ function Inscribir_Page({close}: PropRamo){
 
     const [nombreMarcado, setNombreMarcado] = useState(false);
 
-    const [ramos, setRamos] = useState<string[][]>([]);
+    const [secciones, setSecciones] = useState<Seccion[]>([]);
 
-    const seleccionarRamo = (ramo: { codigo: string; nombre: string }) => {
-        setRamos((ramosActuales) => {
-            const yaSeleccionado = ramosActuales.some(
-                ([codigo]) => codigo === ramo.codigo
-            );
+    const seleccionarSeccion = (seccion: Seccion) => {
+        setSecciones((seccionesActuales) => {
+
+            const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
 
             if (yaSeleccionado) {
-                return ramosActuales;
+                return seccionesActuales;
             }
 
-            return [...ramosActuales, [ramo.codigo, ramo.nombre]];
+            return [...seccionesActuales, seccion];
         });
     };
 
@@ -740,1266 +747,277 @@ function Inscribir_Page({close}: PropRamo){
     const buscar = async() => {
         let response;
 
-        switch(parametroBusqueda){
+       try {
+        switch (parametroBusqueda) {
             case "Codigo":
-                response = await axios.get(`${__url}/asignatura/buscar-codigo/${valorBusqueda}`);
-                if(response.data === "Asignatura no existente"){
-                    setMensajeError("El código ingresado no es válido.")
-                }
-                break;
-            case "Nombre":
-                response = await axios.get(`${__url}/asignatura/buscar-nombre/${valorBusqueda}`);
-                if(response.data === "Asignatura no existente"){
-                    setMensajeError("El nombre ingresado no es válido.")
-                }
-                break;
-            case "Semestre":
-                response = await axios.get(`${__url}/asignatura/buscar-semestre/${valorBusqueda}`);
-                if(response.data === "Semestre no existente"){
-                    setMensajeError(`La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`)
-                }
-                break;
-        }
-    }
+            response = await axios.get(
+                `${__url}/asignatura/buscar-codigo/${valorBusqueda}`
+            );
+            break;
 
-    const deseleccionarRamo = (ramo: string[]) => {
-        setRamos(ramos.filter(ram => ram[0] !== ramo[0]));
-        return ramos;
+            case "Nombre":
+            response = await axios.get(
+                `${__url}/asignatura/buscar-nombre/${valorBusqueda}`
+            );
+            break;
+
+            case "Semestre":
+            response = await axios.get(
+                `${__url}/asignatura/buscar-semestre/${valorBusqueda}`
+            );
+            break;
+        }
+
+        setStateRespuesta(true);
+        setRespuestaServidor(response.data);
+        setStateExito(true);
+
+        } catch (error) {
+        setStateExito(false);
+        setStateRespuesta(false);
+        setStateError(true);
+
+        if (parametroBusqueda === "Codigo") {
+            setMensajeError("El código ingresado no es válido.");
+        }
+
+        if (parametroBusqueda === "Nombre") {
+            setMensajeError("El nombre ingresado no es válido.");
+        }
+
+        if (parametroBusqueda === "Semestre") {
+            setMensajeError(
+            `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
+            );
+        }
+        }
+    };
+
+    const deseleccionarRamo = (seccion: Seccion) => {
+        setSecciones(secciones.filter(sec => sec !== seccion));
+        return secciones;
     };
 
     return(
         <Box
         sx={{
-            display:'flex',
-            height:'auto',
-            gap: 20,
-            ml:'10%',
-            alignItems: 'flex-start'
+            ml:'2%',
+            alignItems: 'flex-start',
+            width:'1480px'
         }}
         >
-
-            {/*CheckBox's */}
             <Box
             component="fieldset"
             sx={{
-                display:'flex',
-                flexDirection:'column',
-                border: '2px solid black',
-                borderRadius: '8px',
-                padding: 0.5,
-                width: '250px'
+            display:'flex',
+            flexDirection:'column',
+            height:'auto',
+            gap: 10,
+            border: '2px solid black',
+            borderRadius: '8px',
+            padding: 1,
             }}
             >
 
-                <Typography
-                component="legend"
+                {/* Buscador - CheckBox's - Cerrar*/}
+                <Box
                 sx={{
-                    fontWeight:'bold'
+                display:'flex'
                 }}
                 >
-                    Filtros de Busqueda
-                </Typography>
-                    
-                {/*Código */}
-                <Box>
-                    <FormControlLabel
-                    control={
-                        <Checkbox
-                        checked={codigoMarcado}
-                        onChange={(event) => setCodigoMarcado(event.target.checked)}
-                        onClick={() => {
-                            setCodigoMarcado(prev => !prev);
-                            if (!codigoMarcado) {
-                                setNombreMarcado(false);
-                                setSemestreMarcado(false);
-                            }
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap:2,
+                    }}
+                    >
+                        {/*Buscador */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            ml:'20px',
+                            mt:'20px'
                         }}
-                        />
-                    }
-                    label="Código Asignatura"
-                    />
-                </Box>
+                        >
+                            {/*Buscador */}
+                            <TextField
+                            slotProps={{
+                                input: {
+                                endAdornment: (
+                                    <Button
 
-                {/*Nombre */}
-                <Box>
-                    <FormControlLabel
-                    control={
-                        <Checkbox
-                        checked={nombreMarcado}
-                        onChange={(event) => setNombreMarcado(event.target.checked)}
-                        onClick={() => {
-                            setNombreMarcado(prev => !prev);
-                            if (!nombreMarcado) {
-                                setCodigoMarcado(false);
-                                setSemestreMarcado(false);
+                                    onClick={() => buscar()}
+
+                                    disabled={
+                                        !valorBusqueda ||
+                                        (
+                                        !codigoMarcado &&
+                                        !nombreMarcado &&
+                                        !semestreMarcado
+                                        )
+                                    }
+
+                                    sx={{
+                                        borderRadius:'50px',
+                                        backgroundColor:'#006391',
+                                        color:'white'
+                                    }}
+                                    >
+                                        <SearchIcon/>
+                                    </Button>
+                                ),
+                                },
+                            }}
+                            sx={{
+                                width:'400px'
+                            }}
+
+                            value={valorBusqueda}
+
+                            onChange={(e) => setValorBusqueda(e.target.value)}
+
+                            placeholder={
+                                nombreMarcado ? "Nombre Asignatura"
+                                : codigoMarcado ? "APU 111"
+                                : semestreMarcado ? "primero, segundo, etc"
+                                : "Seleccione un filtro de Busqueda"
                             }
-                        }}
-                        />
-                    }
-                    label="Nombre Asignatura"
-                    />
-                </Box>
+                            />
 
-                {/*Semestre */}
-                <Box>
-                    <FormControlLabel
-                    control={
-                        <Checkbox
-                        checked={semestreMarcado}
-                        onChange={(event) => setSemestreMarcado(event.target.checked)}
-                        onClick={() => {
-                                setSemestreMarcado(prev => !prev);
-                                if (!semestreMarcado) {
-                                    setNombreMarcado(false);
-                                    setCodigoMarcado(false);
+                            <Button
+                            variant="text"
+                            disableRipple
+                            onClick={() => 
+                                window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
+                            }
+                            sx={{
+                                fontWeight:'bold',
+                                fontSize:'10px',
+                                '&:hover': {
+                                backgroundColor: 'transparent',
+                                },
+                                '&:active': {
+                                backgroundColor: 'transparent',
                                 }
                             }}
-                        />
-                    }
-                    label="Semestre Asignatura"
-                    />
-                </Box>
-            </Box>
+                            >
+                                Malla Curricular Oficial
+                            </Button>
 
-            {/* Buscador - Seleccionados */}
-            <Box
-            sx={{
-                display:'flex',
-                gap:5
-            }}
-            >
-                {/* Ramos seleccionados */}
-                <Box
-                component="fieldset"
-                sx={{
-                    border: '2px solid black',
-                    borderRadius: '8px',
-                    padding: 0.5,
-                    width: '300px',
-                    minHeight:'300px',
-                    height:'auto'
-                }}
-                >
-                    <Typography
-                    component="legend"
-                    sx={{
-                        fontWeight:'bold'
-                    }}
-                    >
-                        Ramos Seleccionados
-                    </Typography>
-
-                    <Table
+                        </Box>
+                        
+                        {/*CheckBox's */}
+                        <Box
+                        component="fieldset"
                         sx={{
-                            tableLayout: 'fixed',
-                            width: '190px'
+                            display:'flex',
+                            border: '2px solid black',
+                            borderRadius: '8px',
+                            padding: 0.5,
+                            width: '600px',
+                            height:'80px'
                         }}
-                    >
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    width: '65px',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    Código
-                                </TableCell>
+                        >
 
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    width: '120px',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    Asignatura
-                                </TableCell>
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    width: '120px',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    Deseleccionar Ramo
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
+                            <Typography
+                            component="legend"
+                            sx={{
+                                fontWeight:'bold',
+                                ml:'10px'
+                            }}
+                            >
+                                Buscar por
+                            </Typography>
+                                
+                            {/*Código */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={codigoMarcado}
+                                    onChange={(event) => setCodigoMarcado(event.target.checked)}
+                                    onClick={() => {
+                                        setCodigoMarcado(prev => !prev);
+                                        if (!codigoMarcado) {
+                                            setNombreMarcado(false);
+                                            setSemestreMarcado(false);
+                                        }
+                                    }}
+                                    />
+                                }
+                                label="Código Asignatura"
+                                />
+                            </Box>
 
-                        <TableBody>
-                            {ramos.map((ramo) => (
-                                <TableRow key={ramo[0]}>
-                                    <TableCell sx={{
-                                        border: '1px solid black',
-                                        py: 0.25,
-                                        px: 0.5
-                                    }}>
-                                        {ramo[0]}
-                                    </TableCell>
+                            {/*Nombre */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={nombreMarcado}
+                                    onChange={(event) => setNombreMarcado(event.target.checked)}
+                                    onClick={() => {
+                                        setNombreMarcado(prev => !prev);
+                                        if (!nombreMarcado) {
+                                            setCodigoMarcado(false);
+                                            setSemestreMarcado(false);
+                                        }
+                                    }}
+                                    />
+                                }
+                                label="Nombre Asignatura"
+                                />
+                            </Box>
 
-                                    <TableCell sx={{
-                                        border: '1px solid black',
-                                        py: 0.25,
-                                        px: 0.5
-                                    }}>
-                                        {ramo[1]}
-                                    </TableCell>
-                                    <TableCell align='center' sx={{
-                                        border: '1px solid black',
-                                        py: 0.25,
-                                        px: 0.5,
-                                    }}>
-                                        <Button
-                                        onClick={() => deseleccionarRamo(ramo)}
-                                        variant="outlined"
-                                        >
-                                            <DeleteIcon/>
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Box>
+                            {/*Semestre */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={semestreMarcado}
+                                    onChange={(event) => setSemestreMarcado(event.target.checked)}
+                                    onClick={() => {
+                                            setSemestreMarcado(prev => !prev);
+                                            if (!semestreMarcado) {
+                                                setNombreMarcado(false);
+                                                setCodigoMarcado(false);
+                                            }
+                                        }}
+                                    />
+                                }
+                                label="Semestre Asignatura"
+                                />
+                            </Box>
+                        </Box>
+                        
+                    </Box>
 
-                {/* Buscador */}
-                <Box
-                component="fieldset"
-                sx={{
-                    display: 'flex',
-                    flexDirection:'column',
-                    height:'auto',
-                    border: '2px solid black',
-                    borderRadius: '8px',
-                    padding: 2,
-                    width: '500px',
-                    gap:5
-                }}
-                >
-
-                    <Typography
-                    component="legend"
-                    variant="body1"
-                    sx={{
-                        fontWeight:'bold'
-                    }}
-                    >
-                        Seleccione los ramos que va a inscribir
-                    </Typography>
-
-                    {/* X */}
+                    {/* Cerrar */}
                     <Button
+
+                    onClick={() => close()}
                     sx={{
+                        ml:'auto',
+                        display:'flex',
+                        justifyContent:'center',
+                        alignItems: 'center',
                         backgroundColor:'red',
                         color:'white',
                         width:'30px',
                         height:'30px',
-                        ml:'auto'
-                    }}
-                    onClick={close}
+                        borderRadius:'50px'
+                        }}
                     >
                         X
                     </Button>
-
-                    {/*Buscador */}
-                    <Box
-                    sx={{
-                        display:'flex',
-                        flexDirection:'column',
-                    }}
-                    >
-                        {/*Buscador */}
-                        <TextField
-                        slotProps={{
-                            input: {
-                            endAdornment: (
-                                <Button
-
-                                onClick={() => buscar()}
-
-                                disabled={!valorBusqueda}
-
-                                sx={{
-                                    borderRadius:'50px',
-                                    backgroundColor:'#006391',
-                                    color:'white'
-                                }}
-                                >
-                                    <SearchIcon/>
-                                </Button>
-                            ),
-                            },
-                        }}
-                        sx={{
-                            width:'400px'
-                        }}
-
-                        value={valorBusqueda}
-
-                        onChange={(e) => setValorBusqueda(e.target.value)}
-
-                        placeholder={
-                            nombreMarcado ? "Nombre Asignatura"
-                            : codigoMarcado ? "Código Asignatura"
-                            : semestreMarcado ? "Indique el semestre de la Asignatura"
-                            : "Seleccione el Buscador"
-                        }
-                        />
-
-                        <Button
-                        variant="text"
-                        disableRipple
-                        onClick={() => 
-                            window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
-                        }
-                        sx={{
-                            fontWeight:'bold',
-                            fontSize:'10px',
-                            '&:hover': {
-                            backgroundColor: 'transparent',
-                            },
-                            '&:active': {
-                            backgroundColor: 'transparent',
-                            }
-                        }}
-                        >
-                            Malla Curricular Oficial
-                        </Button>
-
-                    </Box>
-
-                    {errorBusqueda && (
-                        <Typography>
-                            {mensajeError}
-                        </Typography>
-                    )}
-                        
                 </Box>
-            </Box>
-                
-
-            
-        </Box>
-            
-    )
-}
-
-function Desinscribir_Page({close}: PropRamo){
-    const primerSemestre = [
-    { codigo: "APU111", nombre: "Teoría de la Organización" },
-    { codigo: "APU112", nombre: "Fundamentos de Ciencia Política" },
-    { codigo: "APU113", nombre: "Nociones Generales de Derecho" },
-    { codigo: "APU114", nombre: "Razonamiento Lógico Matemático" },
-    { codigo: "APU115", nombre: "Inducción a la Formación Profesional" },
-    { codigo: "APU116", nombre: "Competencias Lecto-Escritoras" },
-    ];
-
-    const segundoSemestre = [
-        { codigo: "APU121", nombre: "Teoría de la Administración" },
-        { codigo: "APU122", nombre: "Sociología" },
-        { codigo: "APU123", nombre: "Derecho Constitucional" },
-        { codigo: "APU124", nombre: "Matemática para la Gestión" },
-        { codigo: "APU125", nombre: "Historia Política e Institucional de Chile" },
-        { codigo: "APU126", nombre: "Tecnologías de la Información y la Comunicación Aplicadas a la Gestión" },
-    ];
-
-    const tercerSemestre = [
-        { codigo: "APU211", nombre: "Administración Pública Chilena" },
-        { codigo: "APU212", nombre: "Ideas e Instituciones Políticas" },
-        { codigo: "APU213", nombre: "Derecho Administrativo I" },
-        { codigo: "APU214", nombre: "Estadística" },
-        { codigo: "APU215", nombre: "Gestión de Personas I" },
-        { codigo: "APU216", nombre: "Inglés I" },
-    ];
-
-    const cuartoSemestre = [
-        { codigo: "APU221", nombre: "Administración de Bienes y Servicios" },
-        { codigo: "APU222", nombre: "Comunicación Pública" },
-        { codigo: "APU223", nombre: "Derecho Administrativo II" },
-        { codigo: "APU224", nombre: "Microeconomía" },
-        { codigo: "APU225", nombre: "Gestión de Personas II" },
-        { codigo: "APU226", nombre: "Inglés II" },
-    ];
-
-    const quintoSemestre = [
-        { codigo: "APU311", nombre: "Administración Financiera del Estado" },
-        { codigo: "APU312", nombre: "Contabilidad General" },
-        { codigo: "APU313", nombre: "Régimen Laboral en el Sector Público" },
-        { codigo: "APU314", nombre: "Macroeconomía" },
-        { codigo: "APU315", nombre: "Metodología de la Investigación Cuantitativa" },
-        { codigo: "APU316", nombre: "Inglés III" },
-    ];
-
-    const sextoSemestre = [
-        { codigo: "APU321", nombre: "Finanzas Públicas" },
-        { codigo: "APU322", nombre: "Contabilidad General de la Nación" },
-        { codigo: "APU323", nombre: "Transparencia y Probidad Administrativa" },
-        { codigo: "APU324", nombre: "Economía e Integración Internacional" },
-        { codigo: "APU325", nombre: "Metodología de la Investigación Cualitativa" },
-        { codigo: "APU326", nombre: "Taller de Modelos de Toma de Decisión Pública" },
-    ];
-
-    const septimoSemestre = [
-        { codigo: "APU411", nombre: "Control de la Gestión en el Sector Público" },
-        { codigo: "APU412", nombre: "Sistemas de Información" },
-        { codigo: "APU413", nombre: "Derecho Internacional Público" },
-        { codigo: "APU414", nombre: "Práctica Profesional I" },
-        { codigo: "APU415", nombre: "Teoría y método de la fiscalización" },
-        { codigo: "APU416", nombre: "Taller de Integración Sello UV I" },
-    ];
-
-    const octavoSemestre = [
-        { codigo: "APU421", nombre: "Análisis Financiero" },
-        { codigo: "APU422", nombre: "Relaciones Internacionales" },
-        { codigo: "APU423", nombre: "Gerencia Pública" },
-        { codigo: "APU424", nombre: "Gobierno y Administración Regional" },
-        { codigo: "APU425", nombre: "Administración Municipal" },
-        { codigo: "APU426", nombre: "Taller de Integración Sello UV II" },
-    ];
-
-    const novenoSemestre = [
-        { codigo: "APU511", nombre: "Políticas Públicas" },
-        { codigo: "APU512", nombre: "Taller de Negociación y Resolución de Conflictos" },
-        { codigo: "APU513", nombre: "Práctica Profesional II" },
-        { codigo: "APU514", nombre: "Taller de Integración Ciclo Profesional" },
-        { codigo: "APU515", nombre: "Diseño y Formulación de Proyectos" },
-        { codigo: "APU516", nombre: "Taller de Integración Sello UV III" },
-    ];
-
-    const decimoSemestre = [
-        { codigo: "APU521", nombre: "Seminario de Título" },
-        { codigo: "APU522", nombre: "Taller de Investigación Aplicada" },
-        { codigo: "APU523", nombre: "Asignatura Electiva" },
-    ];
-
-    const [ramos, setRamos] = useState<string[][]>([]);
-
-    const seleccionarRamo = (ramo: { codigo: string; nombre: string }) => {
-        setRamos((ramosActuales) => {
-            const yaSeleccionado = ramosActuales.some(
-                ([codigo]) => codigo === ramo.codigo
-            );
-
-            if (yaSeleccionado) {
-                return ramosActuales;
-            }
-
-            return [...ramosActuales, [ramo.codigo, ramo.nombre]];
-        });
-    };
-
-    const deseleccionarRamo = (ramo: string[]) => {
-        setRamos(ramos.filter(ram => ram[0] !== ramo[0]));
-        return ramos;
-    };
-
-    return(
-        <Box
-        sx={{
-            display:'flex',
-            justifyContent:'center',
-            height:'auto'
-        }}
-        >
-            <Box
-            component="fieldset"
-            sx={{
-                display: 'flex',
-                flexDirection:'column',
-                height:'auto',
-                border: '4px solid black',
-                borderRadius: '20px',
-                padding: 2,
-                width: 'auto',
-                alignItems:'flex-start',
-                gap:5
-            }}
-            >
-
-                <Typography
-                component="legend"
-                variant="body1"
-                sx={{
-                    fontWeight:'bold',
-                    ml:'40%'
-                }}
-                >
-                    Seleccione los ramos que va a desinscribir
-                </Typography>
-
-                <Button
-                sx={{
-                    backgroundColor:'red',
-                    color:'white',
-                    width:'100px',
-                    ml:'auto'
-                }}
-                onClick={close}
-                >
-                    X
-                </Button>
 
                 <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection:'row',
-                    alignItems:'flex-start',
-                    gap:10
+                    display:'flex'
                 }}
                 >
-                    {/* Ramos disponibles */}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 2,
-                            width:'80%'
-                        }}
-                    >
-
-                        {/* Primer-Décimo semestre */}
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 2,
-                                ml: '2%'
-                            }}
-                        >
-                            {/* Primer-Cuarto semestre */}
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    gap: 1,
-                                }}
-                            >
-
-                                {/* PRIMER SEMESTRE */}
-                                <Box
-                                    component="fieldset"
-                                    sx={{
-                                        border: '2px solid black',
-                                        borderRadius: '8px',
-                                        padding: 0.5,
-                                        width: '200px'
-                                    }}
-                                >
-                                    <Typography component="legend">
-                                        Primer Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {primerSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => {
-                                                        seleccionarRamo(ramo);
-                                                        
-                                                    }}
-                                                    sx={{
-                                                        cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* SEGUNDO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Segundo Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {segundoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent' 
-                                                        }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* TERCER SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Tercer Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {tercerSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* CUARTO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Cuarto Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {cuartoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-                            </Box>
-
-
-                            {/* Quinto-Octavo semestre */}
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    gap: 1
-                                }}
-                            >
-
-                                {/* QUINTO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Quinto Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {quintoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* SEXTO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Sexto Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {sextoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* SÉPTIMO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Séptimo Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {septimoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent' 
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* OCTAVO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Octavo Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {octavoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-                            </Box>
-
-
-                            {/* Noveno-Décimo semestre */}
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    gap: 1
-                                }}
-                            >
-
-                                {/* NOVENO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Noveno Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {novenoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-
-                                {/* DÉCIMO SEMESTRE */}
-                                <Box component="fieldset" sx={{
-                                    border: '2px solid black',
-                                    borderRadius: '8px',
-                                    padding: 0.5,
-                                    width: '200px'
-                                }}>
-                                    <Typography component="legend">
-                                        Décimo Semestre
-                                    </Typography>
-
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {decimoSemestre.map((ramo) => (
-                                                <TableRow
-                                                    key={ramo.codigo}
-                                                    onClick={() => seleccionarRamo(ramo)}
-                                                    sx={{ cursor: 'pointer',
-                                                        backgroundColor: ramos.some(
-                                                            ([codigo]) => codigo === ramo.codigo
-                                                        )
-                                                            ? 'lightblue'
-                                                            : 'transparent'
-                                                    }}
-                                                >
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.codigo}
-                                                    </TableCell>
-
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        {ramo.nombre}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </Box>
-
-                            </Box>
-
-                        </Box>
-
-                    </Box>
 
                     {/* Ramos seleccionados */}
                     <Box
@@ -2010,7 +1028,7 @@ function Desinscribir_Page({close}: PropRamo){
                         padding: 0.5,
                         width: '300px',
                         minHeight:'300px',
-                        height:'auto'
+                        height:'auto',
                     }}
                     >
                         <Typography
@@ -2047,26 +1065,46 @@ function Desinscribir_Page({close}: PropRamo){
                                     }}>
                                         Asignatura
                                     </TableCell>
+
                                     <TableCell sx={{
                                         border: '1px solid black',
                                         width: '120px',
                                         py: 0.25,
                                         px: 0.5
                                     }}>
-                                        Deseleccionar Ramo
+                                        Seccion
+                                    </TableCell>
+
+                                    
+                                    <TableCell sx={{
+                                        border: '1px solid black',
+                                        width: '120px',
+                                        py: 0.25,
+                                        px: 0.5
+                                    }}>
+                                        Correo Profesor
+                                    </TableCell>
+
+                                    <TableCell sx={{
+                                        border: '1px solid black',
+                                        width: '120px',
+                                        py: 0.25,
+                                        px: 0.5
+                                    }}>
+                                        Acción
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody>
-                                {ramos.map((ramo) => (
-                                    <TableRow key={ramo[0]}>
+                                {secciones.map((seccion) => (
+                                    <TableRow key={seccion.num_Seccion}>
                                         <TableCell sx={{
                                             border: '1px solid black',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            {ramo[0]}
+                                            {seccion.asignatura.Codigo}
                                         </TableCell>
 
                                         <TableCell sx={{
@@ -2074,27 +1112,708 @@ function Desinscribir_Page({close}: PropRamo){
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            {ramo[1]}
+                                            {seccion.asignatura.Nombre}
                                         </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            {seccion.num_Seccion}
+                                        </TableCell>
+                                        
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            {seccion.mail_Profesor}
+                                        </TableCell>
+
                                         <TableCell align='center' sx={{
                                             border: '1px solid black',
                                             py: 0.25,
                                             px: 0.5,
                                         }}>
                                             <Button
-                                            onClick={() => deseleccionarRamo(ramo)}
+                                            onClick={() => deseleccionarRamo(seccion)}
                                             variant="outlined"
                                             >
                                                 <DeleteIcon/>
                                             </Button>
                                         </TableCell>
+
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </Box>
+
+                     {/*Respuesta servidor */}
+                    {stateRespuesta && (
+                        <Box>
+                            <Box>
+                                {stateError && (
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        justifyContent:'center',
+                                        alignItems:'center'
+                                    }}
+                                    >
+                                        <Typography>
+                                            {mensajeError}
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </Box>
+                            <Box>
+                                {stateExito && (
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        justifyContent:'center',
+                                        alignItems:'center'
+                                    }}
+                                    >
+                                        {respuestaServidor?.map(asig => (
+                                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '65px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Código
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Asignatura
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Seccion
+                                                        </TableCell>
+
+                                                        
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Correo Profesor
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+
+                                                <TableBody>
+                                                    {respuestaServidor.map(asig => 
+                                                        asig.secciones.map(seccion => (
+                                                            <TableRow
+                                                                key={asig.Codigo}
+                                                                onClick={() => {
+                                                                    seleccionarSeccion(seccion);
+                                                                    
+                                                                }}
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: secciones.find(
+                                                                        sec => sec === seccion
+                                                                    )
+                                                                        ? 'lightblue'
+                                                                        : 'transparent'
+                                                                }}
+                                                            >
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {asig.Codigo}
+                                                                </TableCell>
+
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {asig.Nombre}
+                                                                </TableCell>
+
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {asig.Codigo}
+                                                                </TableCell>
+
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {seccion.mail_Profesor}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))
+                                                    )}
+                                                    </TableBody>
+                                                </Table>
+                                                ))}
+                                    </Box>
+                                )}
+                            </Box>
+                        </Box>
+                        
+                        
+                    )}
+                </Box>
+                
+            </Box>
+                
+            
+        </Box>
+            
+    )
+}
+
+function Desinscribir_Page({close}: PropRamo){
+    
+    const [parametroBusqueda, setParametroBusqueda] = useState<"Semestre" |  "Codigo" | "Nombre">("Codigo");
+
+    const [valorBusqueda, setValorBusqueda] = useState<string>('');
+
+
+    const [stateRespuesta, setStateRespuesta] = useState(false);
+
+    const [stateError, setStateError] = useState(false);
+
+    const [stateExito, setStateExito] = useState(false);
+
+    const [respuestaServidor, setRespuestaServidor] = useState<Asignatura[]>();
+    
+    const [mensajeError, setMensajeError] = useState<string>();
+
+
+    const [semestreMarcado, setSemestreMarcado] = useState(false);
+
+    const [codigoMarcado, setCodigoMarcado] = useState(true);
+
+    const [nombreMarcado, setNombreMarcado] = useState(false);
+
+    const [secciones, setSecciones] = useState<Seccion[]>([]);
+
+    const seleccionarSeccion = (seccion: Seccion) => {
+        setSecciones((seccionesActuales) => {
+
+            const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
+
+            if (yaSeleccionado) {
+                return seccionesActuales;
+            }
+
+            return [...seccionesActuales, seccion];
+        });
+    };
+
+
+
+    const buscar = async() => {
+        let response;
+
+        switch(parametroBusqueda){
+            case "Codigo":
+                response = await axios.get(`${__url}/asignatura/buscar-codigo/${valorBusqueda}`);
+                if(response.data === "Asignatura no existente"){
+                    setMensajeError("El código ingresado no es válido.")
+                }else{
+                    setRespuestaServidor(response.data);
+                }
+                break;
+            case "Nombre":
+                response = await axios.get(`${__url}/asignatura/buscar-nombre/${valorBusqueda}`);
+                if(response.data === "Asignatura no existente"){
+                    setMensajeError("El nombre ingresado no es válido.")
+                }else{
+                    setRespuestaServidor(response.data);
+                }
+                break;
+            case "Semestre":
+                response = await axios.get(`${__url}/asignatura/buscar-semestre/${valorBusqueda}`);
+                if(response.data === "Semestre no existente"){
+                    setMensajeError(`La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`)
+                }else{
+                    setRespuestaServidor(response.data);
+                }
+
+                break;
+        }
+    }
+
+    const deseleccionarRamo = (seccion: Seccion) => {
+        setSecciones(secciones.filter(sec => sec !== seccion));
+        return secciones;
+    };
+
+    return(
+        <Box
+        sx={{
+            display:'flex',
+            height:'auto',
+            gap: 10,
+            ml:'2%',
+            alignItems: 'flex-start'
+        }}
+        >
+
+            {/* Buscador - CheckBox's */}
+            <Box
+            sx={{
+                display:'flex',
+                gap:2,
+                flexDirection:'column'
+            }}
+            >
+                {/*Buscador */}
+                <Box
+                sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                }}
+                >
+                    {/*Buscador */}
+                    <TextField
+                    slotProps={{
+                        input: {
+                        endAdornment: (
+                            <Button
+
+                            onClick={() => buscar()}
+
+                            disabled={
+                                !valorBusqueda ||
+                                (
+                                !codigoMarcado &&
+                                !nombreMarcado &&
+                                !semestreMarcado
+                                )
+                            }
+
+                            sx={{
+                                borderRadius:'50px',
+                                backgroundColor:'#006391',
+                                color:'white'
+                            }}
+                            >
+                                <SearchIcon/>
+                            </Button>
+                        ),
+                        },
+                    }}
+                    sx={{
+                        width:'400px'
+                    }}
+
+                    value={valorBusqueda}
+
+                    onChange={(e) => setValorBusqueda(e.target.value)}
+
+                    placeholder={
+                        nombreMarcado ? "Nombre Asignatura"
+                        : codigoMarcado ? "APU 111"
+                        : semestreMarcado ? "primero, segundo, etc"
+                        : "Seleccione un filtro de Busqueda"
+                    }
+                    />
+
+                    <Button
+                    variant="text"
+                    disableRipple
+                    onClick={() => 
+                        window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
+                    }
+                    sx={{
+                        fontWeight:'bold',
+                        fontSize:'10px',
+                        '&:hover': {
+                        backgroundColor: 'transparent',
+                        },
+                        '&:active': {
+                        backgroundColor: 'transparent',
+                        }
+                    }}
+                    >
+                        Malla Curricular Oficial
+                    </Button>
+
+                </Box>
+                
+                {/*CheckBox's */}
+                <Box
+                component="fieldset"
+                sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                    border: '2px solid black',
+                    borderRadius: '8px',
+                    padding: 0.5,
+                    width: '250px'
+                }}
+                >
+
+                    <Typography
+                    component="legend"
+                    sx={{
+                        fontWeight:'bold',
+                        ml:'10px'
+                    }}
+                    >
+                        Buscar por
+                    </Typography>
+                        
+                    {/*Código */}
+                    <Box>
+                        <FormControlLabel
+                        control={
+                            <Checkbox
+                            checked={codigoMarcado}
+                            onChange={(event) => setCodigoMarcado(event.target.checked)}
+                            onClick={() => {
+                                setCodigoMarcado(prev => !prev);
+                                if (!codigoMarcado) {
+                                    setNombreMarcado(false);
+                                    setSemestreMarcado(false);
+                                }
+                            }}
+                            />
+                        }
+                        label="Código Asignatura"
+                        />
+                    </Box>
+
+                    {/*Nombre */}
+                    <Box>
+                        <FormControlLabel
+                        control={
+                            <Checkbox
+                            checked={nombreMarcado}
+                            onChange={(event) => setNombreMarcado(event.target.checked)}
+                            onClick={() => {
+                                setNombreMarcado(prev => !prev);
+                                if (!nombreMarcado) {
+                                    setCodigoMarcado(false);
+                                    setSemestreMarcado(false);
+                                }
+                            }}
+                            />
+                        }
+                        label="Nombre Asignatura"
+                        />
+                    </Box>
+
+                    {/*Semestre */}
+                    <Box>
+                        <FormControlLabel
+                        control={
+                            <Checkbox
+                            checked={semestreMarcado}
+                            onChange={(event) => setSemestreMarcado(event.target.checked)}
+                            onClick={() => {
+                                    setSemestreMarcado(prev => !prev);
+                                    if (!semestreMarcado) {
+                                        setNombreMarcado(false);
+                                        setCodigoMarcado(false);
+                                    }
+                                }}
+                            />
+                        }
+                        label="Semestre Asignatura"
+                        />
+                    </Box>
                 </Box>
             </Box>
+
+            {/*Respuesta servidor */}
+            {stateRespuesta && (
+                <Box>
+                    <Box>
+                        {stateError && (
+                            <Box
+                            sx={{
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center'
+                            }}
+                            >
+                                <Typography>
+                                    {mensajeError}
+                                </Typography>
+                            </Box>
+                        )}
+                    </Box>
+                    <Box>
+                        {stateExito && (
+                            <Box
+                            sx={{
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center'
+                            }}
+                            >
+                                {respuestaServidor?.map(asig => (
+                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '65px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Código
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Asignatura
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Seccion
+                                                </TableCell>
+
+                                                
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Correo Profesor
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+
+                                        <TableBody>
+                                            {respuestaServidor.map(asig => 
+                                                asig.secciones.map(seccion => (
+                                                    <TableRow
+                                                        key={asig.Codigo}
+                                                        onClick={() => {
+                                                            seleccionarSeccion(seccion);
+                                                            
+                                                        }}
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            backgroundColor: secciones.find(
+                                                                sec => sec === seccion
+                                                            )
+                                                                ? 'lightblue'
+                                                                : 'transparent'
+                                                        }}
+                                                    >
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {asig.Codigo}
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {asig.Nombre}
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {asig.Codigo}
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {seccion.mail_Profesor}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))
+                                            )}
+                                            </TableBody>
+                                        </Table>
+                                        ))}
+                            </Box>
+                        )}
+                    </Box>
+                </Box>
+                
+                
+            )}
+
+            {/* Ramos seleccionados */}
+            <Box
+            component="fieldset"
+            sx={{
+                border: '2px solid black',
+                borderRadius: '8px',
+                padding: 0.5,
+                width: '300px',
+                minHeight:'300px',
+                height:'auto',
+                position:'relative',
+                left:'45    0px'
+            }}
+            >
+                <Typography
+                component="legend"
+                sx={{
+                    fontWeight:'bold'
+                }}
+                >
+                    Ramos Seleccionados
+                </Typography>
+
+                <Table
+                    sx={{
+                        tableLayout: 'fixed',
+                        width: '190px'
+                    }}
+                >
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '65px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Código
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Asignatura
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Seccion
+                            </TableCell>
+
+                            
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Correo Profesor
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Acción
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody>
+                        {secciones.map((seccion) => (
+                            <TableRow key={seccion.num_Seccion}>
+                                <TableCell sx={{
+                                    border: '1px solid black',
+                                    py: 0.25,
+                                    px: 0.5
+                                }}>
+                                    {seccion.asignatura.Codigo}
+                                </TableCell>
+
+                                <TableCell sx={{
+                                    border: '1px solid black',
+                                    py: 0.25,
+                                    px: 0.5
+                                }}>
+                                    {seccion.asignatura.Nombre}
+                                </TableCell>
+
+                                <TableCell sx={{
+                                    border: '1px solid black',
+                                    py: 0.25,
+                                    px: 0.5
+                                }}>
+                                    {seccion.num_Seccion}
+                                </TableCell>
+                                
+                                <TableCell sx={{
+                                    border: '1px solid black',
+                                    py: 0.25,
+                                    px: 0.5
+                                }}>
+                                    {seccion.mail_Profesor}
+                                </TableCell>
+
+                                <TableCell align='center' sx={{
+                                    border: '1px solid black',
+                                    py: 0.25,
+                                    px: 0.5,
+                                }}>
+                                    <Button
+                                    onClick={() => deseleccionarRamo(seccion)}
+                                    variant="outlined"
+                                    >
+                                        <DeleteIcon/>
+                                    </Button>
+                                </TableCell>
+
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Box>
+            
         </Box>
             
     )

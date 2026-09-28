@@ -53,6 +53,7 @@ DROP TABLE IF EXISTS `asignatura`;
 CREATE TABLE `asignatura` (
   `Codigo` varchar(100) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
+  `Semestre` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -63,6 +64,7 @@ CREATE TABLE `asignatura` (
 
 LOCK TABLES `asignatura` WRITE;
 /*!40000 ALTER TABLE `asignatura` DISABLE KEYS */;
+INSERT INTO `asignatura` VALUES ('APU 111','TEORIA DE LA ADMINISTRACION','PRIMERO'),('APU 112','FUNDAMENTOS DE LA CIENCIA POLITICA','PRIMERO'),('APU 113','NOCIONES GENERALES DE DERECHO','PRIMERO'),('APU 114','RAZONAMIENTO LOGICO MATEMATICO','PRIMERO');
 /*!40000 ALTER TABLE `asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +276,7 @@ CREATE TABLE `profesor` (
   `Primer_Apellido` varchar(100) NOT NULL,
   `Segundo_Apellido` varchar(100) NOT NULL,
   `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Digito_Verificador`,`Rut`)
+  PRIMARY KEY (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,6 +286,7 @@ CREATE TABLE `profesor` (
 
 LOCK TABLES `profesor` WRITE;
 /*!40000 ALTER TABLE `profesor` DISABLE KEYS */;
+INSERT INTO `profesor` VALUES ('12345678','9','felipe','raul','robles','naveas','correo1@gmail.com'),('87654321','8','raul','felipe','naveas','robles','correo2@gmail.com'),('23456789','1','emilia','maira','gonzalez','gonzalez','correo3@gmail.com'),('98765432','2','maira','emilia','sanchez','sanchez','correo4@gmail.com');
 /*!40000 ALTER TABLE `profesor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,15 +322,13 @@ DROP TABLE IF EXISTS `seccion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seccion` (
-  `ID_Seccion` int NOT NULL AUTO_INCREMENT,
   `Codigo` varchar(100) NOT NULL,
-  `Rut` varchar(55) NOT NULL,
-  `Digito_Verificador` varchar(55) NOT NULL,
-  PRIMARY KEY (`ID_Seccion`),
-  KEY `seccion_asignatura_FK` (`Codigo`),
-  KEY `seccion_profesor_FK` (`Digito_Verificador`,`Rut`),
+  `mail_Profesor` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `num_Seccion` int NOT NULL,
+  PRIMARY KEY (`Codigo`,`num_Seccion`),
+  KEY `seccion_profesor_FK` (`mail_Profesor`),
   CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`) REFERENCES `asignatura` (`Codigo`),
-  CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`Digito_Verificador`, `Rut`) REFERENCES `profesor` (`Digito_Verificador`, `Rut`)
+  CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`mail_Profesor`) REFERENCES `profesor` (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -337,6 +338,7 @@ CREATE TABLE `seccion` (
 
 LOCK TABLES `seccion` WRITE;
 /*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
+INSERT INTO `seccion` VALUES ('APU 111','correo1@gmail.com',1),('APU 112','correo1@gmail.com',2),('APU 113','correo2@gmail.com',1),('APU 114','correo2@gmail.com',1),('APU 111','correo3@gmail.com',2),('APU 113','correo3@gmail.com',2),('APU 112','correo4@gmail.com',1),('APU 114','correo4@gmail.com',2);
 /*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,7 +359,7 @@ CREATE TABLE `secretaria` (
   `Primer_Apellido` varchar(100) NOT NULL,
   `Segundo_Apellido` varchar(100) NOT NULL,
   `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Rut_Secretaria`,`Digito_Verificador_Secretaria`),
+  PRIMARY KEY (`Rut_Secretaria`),
   KEY `secretaria_administrador_FK` (`Rut_Administrador`,`Digito_Verificador_Administrador`),
   CONSTRAINT `secretaria_administrador_FK` FOREIGN KEY (`Rut_Administrador`, `Digito_Verificador_Administrador`) REFERENCES `administrador` (`Rut`, `Digito_Verificador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -381,12 +383,13 @@ DROP TABLE IF EXISTS `secretaria_seccion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `secretaria_seccion` (
   `Rut` varchar(55) NOT NULL,
-  `Digito_Verificador` varchar(55) NOT NULL,
-  `ID_Seccion` int NOT NULL,
-  PRIMARY KEY (`Rut`,`Digito_Verificador`,`ID_Seccion`),
-  KEY `secretaria_seccion_seccion_FK` (`ID_Seccion`),
-  CONSTRAINT `secretaria_seccion_seccion_FK` FOREIGN KEY (`ID_Seccion`) REFERENCES `seccion` (`ID_Seccion`),
-  CONSTRAINT `secretaria_seccion_secretaria_FK` FOREIGN KEY (`Rut`, `Digito_Verificador`) REFERENCES `secretaria` (`Rut_Secretaria`, `Digito_Verificador_Secretaria`)
+  `num_Seccion` int NOT NULL,
+  `Codigo` varchar(100) DEFAULT NULL,
+  KEY `secretaria_seccion_seccion_FK` (`num_Seccion`),
+  KEY `secretaria_seccion_secretaria_FK` (`Rut`),
+  KEY `FK_secretaria_seccion_1` (`Codigo`,`num_Seccion`),
+  CONSTRAINT `FK_secretaria_seccion_1` FOREIGN KEY (`Codigo`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `num_Seccion`),
+  CONSTRAINT `secretaria_seccion_secretaria_FK` FOREIGN KEY (`Rut`) REFERENCES `secretaria` (`Rut_Secretaria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -409,12 +412,14 @@ DROP TABLE IF EXISTS `solicitud`;
 CREATE TABLE `solicitud` (
   `ID_Solicitud` int NOT NULL AUTO_INCREMENT,
   `ID_Ficha` int NOT NULL,
-  `ID_Seccion` int NOT NULL,
+  `num_Seccion` int NOT NULL,
+  `Codigo` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   KEY `solicitud_ficha_FK` (`ID_Ficha`),
-  KEY `solicitud_seccion_FK` (`ID_Seccion`),
-  CONSTRAINT `solicitud_ficha_FK` FOREIGN KEY (`ID_Ficha`) REFERENCES `ficha` (`ID_Ficha`),
-  CONSTRAINT `solicitud_seccion_FK` FOREIGN KEY (`ID_Seccion`) REFERENCES `seccion` (`ID_Seccion`)
+  KEY `solicitud_seccion_FK` (`num_Seccion`),
+  KEY `FK_solicitud_seccion_` (`Codigo`,`num_Seccion`),
+  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `num_Seccion`),
+  CONSTRAINT `solicitud_ficha_FK` FOREIGN KEY (`ID_Ficha`) REFERENCES `ficha` (`ID_Ficha`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -440,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-26  1:19:09
+-- Dump completed on 2026-09-28 17:29:46
