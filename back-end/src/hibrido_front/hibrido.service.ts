@@ -121,7 +121,7 @@ export class HibridoService {
         }
 
         const response = await axios.get(
-            `http://frontend:3000/api/keys/${version}`
+            `http://192.168.0.193:3001/api/keys/${version}`
         );
 
         return {
