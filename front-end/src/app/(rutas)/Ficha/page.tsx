@@ -7,7 +7,7 @@ import { Box, Button, Table, TableBody,
 } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
@@ -98,7 +98,15 @@ interface EstudianteDescifrado {
     Semestre: string;
 }
 
-export default function Solicitud_Ficha(){
+export default function Solicitud_Ficha() {
+    return (
+        <Suspense fallback={<div>Cargando...</div>}>
+            <Solicitud_Ficha_Content />
+        </Suspense>
+    );
+}
+
+function Solicitud_Ficha_Content(){
 
     const router = useRouter();
 
