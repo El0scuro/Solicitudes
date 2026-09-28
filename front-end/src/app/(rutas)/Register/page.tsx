@@ -95,7 +95,6 @@ interface Datos {
     Version_Llave: string;
 }
 
-
 export default function RegisterPage(){
 
     const router = useRouter();
