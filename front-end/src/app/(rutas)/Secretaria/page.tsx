@@ -13,7 +13,6 @@ import { Ficha } from "@/types/ficha";
 export default function Secretarias() {
     
     const [fichasAprobadas, setFichasAprobadas] = useState<Ficha>({
-        ID_Ficha: null,
         Fecha_Actual: '',
         Estado: ''
     })
