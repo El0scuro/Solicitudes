@@ -18,7 +18,7 @@ export class MetadatosCifradoService {
 
   async create(createMetadatosCifradoDto: CreateMetadatosCifradoDto) {
     const nuevo = this.metadatadosCifradoRepository.create({
-      Rut: createMetadatosCifradoDto.Rut,
+      Mail: createMetadatosCifradoDto.Mail,
       Version_Llave: createMetadatosCifradoDto.Version_Llave,
       Iv: createMetadatosCifradoDto.Iv,
       Atributo: createMetadatosCifradoDto.Atributo,
@@ -32,20 +32,20 @@ export class MetadatosCifradoService {
     return `This action returns all metadatosCifrado`;
   }
 
-  async findOne(rut: string) {
+  async findOne(mail: string) {
     const metadatos = await this.metadatadosCifradoRepository.find();
 
     for(const metadato of metadatos){
       const llave = await this.almacenamientoService.getKey(metadato.Version_Llave);
       
-      const rutDescifrado = await this.almacenamientoService.descifrarDatoAlmacenamiento(
+      const mailDescifrado = await this.almacenamientoService.descifrarDatoAlmacenamiento(
         metadato.Iv,
         metadato.AuthTag,
-        metadato.Rut,
+        metadato.Mail,
         llave
       );
 
-      if(rut === rutDescifrado){
+      if(mail === mailDescifrado){
         return metadato;
       }
     }
