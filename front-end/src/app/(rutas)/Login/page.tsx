@@ -59,158 +59,160 @@ export default function Login() {
     
     const [perfil, setPerfil] = useState<string>();
 
-    return(
-        <Box
+    return (
+    <Box
         sx={{
-            height:'100vh',
-            display:'flex',
-            flexDirection:'column',
-            overflowY: 'hidden'
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowX: 'hidden',
+        }}
+    >
+        {/* Header/AppBar */}
+        <AppBar
+        position="static"
+        sx={{
+            backgroundColor: '#003c58',
+            padding: 3,
         }}
         >
-            <AppBar
+        <Toolbar>
+            <Box
+            component="img"
+            alt="Logo_Publica"
+            src={Logo_Publica.src}
             sx={{
-            backgroundColor:'#003c58',
-            padding:5,
-            position:'static'
+                height: '60px',
+                objectFit: 'contain',
             }}
-            >
-                <Toolbar>
-                    <Button
-                    sx={{
-                        width:'300px',
-                        height:'90px'
-                    }}
-                    >
-                        <Box
-                        component="img"
-                        alt="Logo_Publica"
-                        src={Logo_Publica.src}
-                        sx={{
-                            width: '100%',
-                            height: '100%'
-                        }}
-                        />
-                    </Button>
-                </Toolbar>
-            </AppBar>
+            />
+        </Toolbar>
+        </AppBar>
+
+        {/* Contenedor Principal (Cuerpo) */}
+        <Box
+        sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            flex: 1,
+            backgroundColor: '#00577f',
+            width: '100%',
+        }}
+        >
+        {/* Sección Izquierda: Títulos y Selección de Perfiles */}
+        <Box
+            sx={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            padding: 4,
+            gap: 4,
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            }}
+        >
+            {/* Título y Subtítulo */}
             <Box
             sx={{
-                display:'flex',
-                flexDirection:'row',
-                width:'100%',
-                height: '100%',
-                backgroundColor:'#00577f'
-                
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                maxWidth: '450px',
             }}
             >
-                {/*Texto y botones */}
-                <Box
+            <Typography
+                variant="h3"
                 sx={{
-                    display:'flex',
-                    flexDirection:'row',
-                    padding:5,
-                    gap:5
+                fontWeight: 'bold',
+                color: 'white',
+                fontSize: { xs: '2rem', md: '3rem' },
                 }}
-                >
-                    {/*Título y subtitulo */}
-                    <Box
-                    sx={{
-                        display:'flex',
-                        flexDirection:'column',
-                        justifyContent:'center',
-                        width:'auto'
-                    }}
-                    >
-                        <Typography
-                        variant="h3"
-                        sx={{
-                            fontWeight:'bold',
-                            color:'white',
-                            width:'600px'
-                        }}
-                        >
-                            Solicitudes Académicas
-                        </Typography>
-                        <Typography
-                        variant="h5"
-                        sx={{
-                            fontWeight:'bold',
-                            color:'white',
-                            width:'600px'
-                        }}
-                        >
-                            Administración Pública
-                        </Typography>
-                    </Box>
-
-                    {/*Botones */}
-                    <Box
-                    sx={{
-                        display:'flex',
-                        flexDirection:'column',
-                        gap:4,
-                        ml: verPerfil ? '0%' : '30%'
-                    }}
-                    >
-                        <Typography
-                        variant="h5"
-                        sx={{
-                            fontWeight:'bold',
-                            color:'white'
-                        }}
-                        >
-                            Seleccione un perfil
-                        </Typography>
-                        <Box
-                        sx={{
-                            display:'grid',
-                            gridTemplateColumns: 'auto auto',
-                            gridTemplateRows: 'auto auto',
-                            gap:3
-                        }}
-                        >
-                            {perfiles.map(perfil => (
-                            <Button
-                            key={perfil.id}
-                            variant="contained"
-                            onClick={() => {
-                                setVerPerfil(true);
-                                setPerfil(perfil.id);
-                            }}
-                            sx={{
-                                width:'200px',
-                                height:'200px',
-                                display:'grid',
-                                gridTemplateColumns:'auto',
-                                gridTemplateRows:'auto auto',
-                                backgroundColor:'#003c58',
-                            }}
-                            >
-                                <Box>
-                                    {perfil.icon}
-                                </Box>
-                                <Typography>
-                                    {perfil.title}
-                                </Typography>
-                            </Button> 
-                            ))}
-                        </Box>
-                    </Box>
-                    
-                </Box>
-
-                {/* Logins */}
-                
-                {verPerfil && (
-                    <PerfilLogin
-                    key={perfil}
-                    perfil={perfil}
-                    />
-                )}
+            >
+                Solicitudes Académicas
+            </Typography>
+            <Typography
+                variant="h5"
+                sx={{
+                fontWeight: 'bold',
+                color: 'white',
+                mt: 1,
+                }}
+            >
+                Administración Pública
+            </Typography>
             </Box>
-            
+
+            {/* Botones de Selección de Perfil */}
+            <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                alignItems: 'center',
+            }}
+            >
+            <Typography
+                variant="h5"
+                sx={{
+                fontWeight: 'bold',
+                color: 'white',
+                }}
+            >
+                Seleccione un perfil
+            </Typography>
+            <Box
+                sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: 2,
+                }}
+            >
+                {perfiles.map((perfil) => (
+                <Button
+                    key={perfil.id}
+                    variant="contained"
+                    onClick={() => {
+                    setVerPerfil(true);
+                    setPerfil(perfil.id);
+                    }}
+                    sx={{
+                    width: '160px',
+                    height: '160px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#003c58',
+                    '&:hover': {
+                        backgroundColor: '#00283b',
+                    },
+                    }}
+                >
+                    {perfil.icon}
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                    {perfil.title}
+                    </Typography>
+                </Button>
+                ))}
+            </Box>
+            </Box>
         </Box>
+
+        {/* Sección Derecha: Panel de Login */}
+        {verPerfil && (
+            <Box
+            sx={{
+                width: { xs: '100%', md: '380px' },
+                minWidth: '320px',
+                backgroundColor: 'white',
+            }}
+            >
+            <PerfilLogin key={perfil} perfil={perfil} />
+            </Box>
+        )}
+        </Box>
+    </Box>
     );
 }
 
