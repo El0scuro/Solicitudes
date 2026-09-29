@@ -359,7 +359,7 @@ CREATE TABLE `secretaria` (
   `Primer_Apellido` varchar(100) NOT NULL,
   `Segundo_Apellido` varchar(100) NOT NULL,
   `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Rut_Secretaria`),
+  PRIMARY KEY (`Mail`),
   KEY `secretaria_administrador_FK` (`Rut_Administrador`,`Digito_Verificador_Administrador`),
   CONSTRAINT `secretaria_administrador_FK` FOREIGN KEY (`Rut_Administrador`, `Digito_Verificador_Administrador`) REFERENCES `administrador` (`Rut`, `Digito_Verificador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -382,14 +382,14 @@ DROP TABLE IF EXISTS `secretaria_seccion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `secretaria_seccion` (
-  `Rut` varchar(55) NOT NULL,
+  `Mail` varchar(100) NOT NULL,
   `num_Seccion` int NOT NULL,
   `Codigo` varchar(100) DEFAULT NULL,
   KEY `secretaria_seccion_seccion_FK` (`num_Seccion`),
   KEY `secretaria_seccion_secretaria_FK` (`Rut`),
   KEY `FK_secretaria_seccion_1` (`Codigo`,`num_Seccion`),
   CONSTRAINT `FK_secretaria_seccion_1` FOREIGN KEY (`Codigo`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `num_Seccion`),
-  CONSTRAINT `secretaria_seccion_secretaria_FK` FOREIGN KEY (`Rut`) REFERENCES `secretaria` (`Rut_Secretaria`)
+  CONSTRAINT `secretaria_seccion_secretaria_FK` FOREIGN KEY (`Mail`) REFERENCES `secretaria` (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

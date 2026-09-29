@@ -4,23 +4,26 @@ import type { Secretaria } from "../../secretaria/entities/secretaria.entity.js"
 
 @Entity("secretaria_seccion", { schema: "solicitud" })
 export class SecretariaSeccion {
-    @PrimaryColumn("int", { name: "Rut" })
-    Rut: number;
 
-    @PrimaryColumn("int", { name: "Digito_Verificador" })
-    Digito_Verificador: number;
-
-    @PrimaryColumn("int", { name: "ID_Seccion" })
-    ID_Seccion: number;
-
+    @PrimaryColumn("int", { name: "num_Solicitud" })
+    num_Seccion: number;
+    
+    @PrimaryColumn({ type: 'varchar', length: 100 })
+    Codigo: string;
+  
+    @PrimaryColumn({ type: 'varchar', length: 100 })
+    Mail: number;
+    
     @ManyToOne("Seccion", (seccion: Seccion) => seccion.secretariaSecciones)
-    @JoinColumn([{ name: "ID_Seccion", referencedColumnName: "ID_Seccion" }])
+    @JoinColumn([
+	{ name: "num_Seccion", referencedColumnName: "num_Seccion" },
+	{ name: "Codigo", referencedColumnName: "Codigo" }
+    ])
     seccion: Seccion;
 
     @ManyToOne("Secretaria", (secretaria: Secretaria) => secretaria.secretariaSecciones)
     @JoinColumn([
-        { name: "Rut", referencedColumnName: "Rut_Secretaria" },
-        { name: "Digito_Verificador", referencedColumnName: "Digito_Verificador_Secretaria" }
+        { name: "Mail", referencedColumnName: "Mail" }
     ])
     secretaria: Secretaria;
 }

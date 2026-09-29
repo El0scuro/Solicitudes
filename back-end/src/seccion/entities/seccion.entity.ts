@@ -6,17 +6,11 @@ import type { Solicitud } from "../../solicitud/entities/solicitud.entity.js";
 
 @Entity("seccion", { schema: "solicitud" })
 export class Seccion {
-    @PrimaryGeneratedColumn({ type: "int", name: "ID_Seccion" })
-    ID_Seccion: number;
+    @PrimaryGeneratedColumn({ type: "int", name: "num_Seccion" })
+    num_Seccion: number;
 
     @Column("varchar", { name: "Codigo", length: 100 })
     Codigo: string;
-
-    @Column("int", { name: "Rut" })
-    Rut: number;
-
-    @Column("int", { name: "Digito_Verificador" })
-    Digito_Verificador: number;
 
     @ManyToOne(() => Asignatura, (asignatura) => asignatura.secciones)
     @JoinColumn([{ name: "Codigo", referencedColumnName: "Codigo" }])
@@ -24,8 +18,7 @@ export class Seccion {
 
     @ManyToOne(() => Profesor, (profesor) => profesor.secciones)
     @JoinColumn([
-        { name: "Digito_Verificador", referencedColumnName: "Digito_Verificador" },
-        { name: "Rut", referencedColumnName: "Rut" }
+        { name: "mail_Profesor", referencedColumnName: "Mail" },
     ])
     profesor: Profesor;
 

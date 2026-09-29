@@ -10,6 +10,13 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 3001
+# --- AGREGAR ESTAS DOS LÍNEAS ANTES DE BUILD ---
+ARG NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+# -----------------------------------------------
 
-CMD ["pnpm", "dev"]
+RUN pnpm build
+
+EXPOSE 3000
+
+CMD ["pnpm", "start"]

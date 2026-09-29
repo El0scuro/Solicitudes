@@ -7,27 +7,24 @@ services:
     build:
       context: ./front-end
       dockerfile: Dockerfile
-      network: host
-
+      args:
+        NEXT_PUBLIC_BACKEND_URL: https://cleaners-yours-theater-yesterday.trycloudflare.com/api
     container_name: ficha-frontend
 
     ports:
-      - "3001:3000"
-
+       - "3001:3000"
     volumes:
-      - ./front-end:/app
-      - /app/node_modules
+      - crypto_keys:/app/keys
 
     depends_on:
       - backend
 
     environment:
       BACKEND_INTERNAL_URL: http://backend:4000/api
-      NEXT_PUBLIC_BACKEND_URL: http://192.168.0.193:4001/api  
+      NEXT_PUBLIC_BACKEND_URL: https://cleaners-yours-theater-yesterday.trycloudflare.com/api
 
     networks:
       - ficha-network
-
 
   # =========================
   # BACKEND - NestJS

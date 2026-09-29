@@ -15,7 +15,7 @@ export class Solicitud {
     ficha: Ficha;
 
     @ManyToOne("Seccion", (seccion: Seccion) => seccion.solicitudes)
-    @JoinColumn([{ name: "ID_Seccion", referencedColumnName: "ID_Seccion" }])
+    @JoinColumn([{ name: "num_Seccion", referencedColumnName: "num_Seccion" }])
     seccion: Seccion;
 
     @OneToOne("CambioSeccion", (cambioSeccion: CambioSeccion) => cambioSeccion.solicitud)
