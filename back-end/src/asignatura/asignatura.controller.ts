@@ -24,7 +24,7 @@ export class AsignaturaController {
   }
 
   //Buscar asignatura por su nombre
-  @Get('Buscar-Nombre/:Nombre')
+  @Get('Buscar-nombre/:Nombre')
   findOneNombre(@Param('Nombre') Nombre: string) {
     return this.asignaturaService.findOneNombre(Nombre);
   }

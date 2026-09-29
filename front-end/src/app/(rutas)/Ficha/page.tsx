@@ -947,6 +947,7 @@ function Inscribir_Page({close}: PropRamo){
                                     onChange={(event) => setCodigoMarcado(event.target.checked)}
                                     onClick={() => {
                                         setCodigoMarcado(prev => !prev);
+                                        setParametroBusqueda("Codigo");
                                         if (!codigoMarcado) {
                                             setNombreMarcado(false);
                                             setSemestreMarcado(false);
@@ -967,6 +968,7 @@ function Inscribir_Page({close}: PropRamo){
                                     onChange={(event) => setNombreMarcado(event.target.checked)}
                                     onClick={() => {
                                         setNombreMarcado(prev => !prev);
+                                        setParametroBusqueda("Nombre");
                                         if (!nombreMarcado) {
                                             setCodigoMarcado(false);
                                             setSemestreMarcado(false);
@@ -987,6 +989,7 @@ function Inscribir_Page({close}: PropRamo){
                                     onChange={(event) => setSemestreMarcado(event.target.checked)}
                                     onClick={() => {
                                             setSemestreMarcado(prev => !prev);
+                                        setParametroBusqueda("Semestre");
                                             if (!semestreMarcado) {
                                                 setNombreMarcado(false);
                                                 setCodigoMarcado(false);
