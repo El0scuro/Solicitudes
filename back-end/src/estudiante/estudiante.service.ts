@@ -404,7 +404,7 @@ export class EstudianteService {
       const metadatosEstudiante = estudiante.metadatosCifrados;
 
       //comparo los mails
-      if( mail_Transporte_Descifrado === estudiante.Mail){
+      if( mail_Transporte_Descifrado === (estudiante.Mail + "@estudiantes.uv.cl")){
 
         //descifro la contraseña de transporte
         const contrasenaDescifrada =
