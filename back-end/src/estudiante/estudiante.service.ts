@@ -289,7 +289,7 @@ export class EstudianteService {
 
         Celular: celular_Cifrado.cifrado,
 
-        Mail: mail_Transporte_Descifrado,
+        Mail: mail_Transporte_Descifrado + "@estudiantes.uv.cl",
 
         Contrasena: ContrasenaHash,
 
