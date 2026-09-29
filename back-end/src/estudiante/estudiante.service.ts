@@ -403,43 +403,8 @@ export class EstudianteService {
       //metadatados del estudiante
       const metadatosEstudiante = estudiante.metadatosCifrados;
 
-      //Mail almacenado descifrado
-      const metadataMail = metadatosEstudiante.find(
-            metadata => metadata.Atributo === "Mail"
-        );
-
-        if (!metadataMail) {
-            throw new Error("No existe metadata para Mail");
-        }
-
-        const metadataRut = estudiante.metadatosCifrados.find(
-                metadata => metadata.Atributo === "Rut"
-            );
-            if(!metadataRut){
-                return;
-            }
-        const rutalmacenamiento = await this.almacenamientoService.descifrarDatoAlmacenamiento(
-            estudiante.Rut,
-            metadataRut?.Iv,
-            metadataRut?.AuthTag,
-            await this.almacenamientoService.getKey(
-                    metadataRut.Version_Llave
-                )
-
-        )
-        console.log(rutalmacenamiento);
-        const mailAlmacenadoDescifrado =
-            await this.almacenamientoService.descifrarDatoAlmacenamiento(
-                estudiante.Mail,
-                metadataMail.Iv,
-                metadataMail.AuthTag,
-                await this.almacenamientoService.getKey(
-                    metadataMail.Version_Llave
-                )
-            );
-
       //comparo los mails
-      if( mail_Transporte_Descifrado === mailAlmacenadoDescifrado){
+      if( mail_Transporte_Descifrado === estudiante.Mail){
 
         //descifro la contraseña de transporte
         const contrasenaDescifrada =
