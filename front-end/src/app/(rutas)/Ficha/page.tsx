@@ -1023,7 +1023,8 @@ function Inscribir_Page({close}: PropRamo){
 
                 <Box
                 sx={{
-                    display:'flex'
+                    display:'flex',
+                    gap: 10
                 }}
                 >
 
@@ -1199,7 +1200,7 @@ function Inscribir_Page({close}: PropRamo){
 
                                                     <TableCell sx={{
                                                         border: '1px solid black',
-                                                        width: '120px',
+                                                        width: '150px',
                                                         py: 0.25,
                                                         px: 0.5
                                                     }}>
@@ -1217,7 +1218,7 @@ function Inscribir_Page({close}: PropRamo){
 
                                                     <TableCell sx={{
                                                         border: '1px solid black',
-                                                        width: '120px',
+                                                        width: '150px',
                                                         py: 0.25,
                                                         px: 0.5
                                                     }}>

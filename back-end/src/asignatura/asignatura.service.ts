@@ -29,7 +29,9 @@ export class AsignaturaService {
         Codigo: Codigo
       },
       relations: {
-        secciones: true
+        secciones: {
+          profesor: true
+        }
       },
     });
 
@@ -47,7 +49,9 @@ export class AsignaturaService {
         Nombre: Nombre
       },
       relations: {
-        secciones: true
+        secciones: {
+          profesor: true
+        }
       },
     });
 
@@ -65,7 +69,9 @@ export class AsignaturaService {
         Semestre: Semestre
       },
       relations: {
-        secciones: true
+        secciones: {
+          profesor: true
+        }
       },
     });
 
