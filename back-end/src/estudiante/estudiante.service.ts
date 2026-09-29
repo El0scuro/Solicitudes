@@ -110,7 +110,8 @@ export class EstudianteService {
             createEstudianteDto.Mail, 
             createEstudianteDto.Iv_Mail, 
             createEstudianteDto.Tag_Mail,
-            llaveTemporal)
+            llaveTemporal);
+
     const existente = await this.estudianteRepository.findOne({
         where:{
             Mail: mail_Transporte_Descifrado
@@ -287,6 +288,8 @@ export class EstudianteService {
         Segundo_Apellido: segundo_Apellido_Cifrado.cifrado,
 
         Celular: celular_Cifrado.cifrado,
+
+        Mail: mail_Transporte_Descifrado,
 
         Contrasena: ContrasenaHash,
 
