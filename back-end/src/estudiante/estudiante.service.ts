@@ -521,6 +521,7 @@ export class EstudianteService {
                 if (
                     atributo === "Contrasena" ||
                     atributo === "estudianteFichas" ||
+                    atributo === "fichas" ||
                     atributo === "metadatosCifrados" ||
                     atributo === "Mail"
                 ) {
