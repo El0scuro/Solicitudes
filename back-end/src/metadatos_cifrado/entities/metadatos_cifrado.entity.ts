@@ -37,8 +37,8 @@ export class MetadatosCifrado {
     )
     @JoinColumn(
         {
-            name: 'Rut',
-            referencedColumnName: 'Rut',
+            name: 'Mail',
+            referencedColumnName: 'Mail',
         },
     )
     estudiante: Estudiante;
