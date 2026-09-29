@@ -37,9 +37,7 @@ export class AsignaturaService {
       throw new NotFoundException("Asignatura no existente");
     }
 
-    return {
-      asignatura
-    };
+    return [asignatura];
   }
 
   async findOneNombre(Nombre: string) {
@@ -57,9 +55,7 @@ export class AsignaturaService {
       throw new NotFoundException("Asignatura no existente");
     }
 
-    return {
-      asignatura
-    };
+    return [asignatura];
   }
 
   async findSemestre(Semestre: string) {
