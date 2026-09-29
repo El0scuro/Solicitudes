@@ -278,7 +278,7 @@ function Solicitud_Ficha_Content(){
                         border: '2px solid black',
                         borderRadius: '8px',
                         padding: 3,
-                        width:'25%',
+                        width:'30%',
                         height:'auto',
                         alignItems:'flex-start'
                     }}
@@ -362,7 +362,7 @@ function Solicitud_Ficha_Content(){
                                 }}
                                 >
                                     <Typography>
-                                        {estudianteDescifrado.Rut}
+                                        {estudianteDescifrado.Rut}-{estudianteDescifrado.Digito_Verificador}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -737,7 +737,7 @@ function Inscribir_Page({close}: PropRamo){
 
     const [secciones, setSecciones] = useState<Seccion[]>([]);
 
-    const seleccionarSeccion = (seccion: Seccion) => {
+    const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
         setSecciones((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
@@ -745,6 +745,8 @@ function Inscribir_Page({close}: PropRamo){
             if (yaSeleccionado) {
                 return seccionesActuales;
             }
+
+            seccion.asignatura = asignatura;
 
             return [...seccionesActuales, seccion];
         });
@@ -1236,7 +1238,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         <TableRow
                                                             key={seccion.num_Seccion}
                                                             onClick={() => {
-                                                                seleccionarSeccion(seccion);
+                                                                seleccionarSeccion(asig, seccion);
                                                             }}
                                                             sx={{
                                                                 cursor: 'pointer',
