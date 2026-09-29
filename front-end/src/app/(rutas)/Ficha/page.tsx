@@ -1137,7 +1137,7 @@ function Inscribir_Page({close}: PropRamo){
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            {seccion.mail_Profesor}
+                                            {seccion.profesor.Mail}
                                         </TableCell>
 
                                         <TableCell align='center' sx={{
@@ -1273,7 +1273,7 @@ function Inscribir_Page({close}: PropRamo){
                                                                 py: 0.25,
                                                                 px: 0.5
                                                             }}>
-                                                                {seccion.mail_Profesor}
+                                                                {seccion.profesor.Mail}
                                                             </TableCell>
                                                         </TableRow>
                                                     ))
@@ -1670,7 +1670,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                             py: 0.25,
                                                             px: 0.5
                                                         }}>
-                                                            {seccion.mail_Profesor}
+                                                            {seccion.profesor.Mail}
                                                         </TableCell>
                                                     </TableRow>
                                                 ))
@@ -1797,7 +1797,7 @@ function Desinscribir_Page({close}: PropRamo){
                                     py: 0.25,
                                     px: 0.5
                                 }}>
-                                    {seccion.mail_Profesor}
+                                    {seccion.profesor.Mail}
                                 </TableCell>
 
                                 <TableCell align='center' sx={{
