@@ -690,7 +690,8 @@ function Solicitud_Ficha_Content(){
                     <Button
                     variant="contained"
                     sx={{
-                        width:'300px'
+                        width:'300px',
+                        backgroundColor:'#003c58'
                     }}
                     >
                         Enviar Solicitud
@@ -1053,7 +1054,7 @@ function Inscribir_Page({close}: PropRamo){
                 divider={
                     <Divider
                         sx={{
-                            width: '800px',
+                            width: '1200px',
                             alignSelf: 'center',
                             borderBottomWidth: 3,
                             borderColor:'#003c58'
