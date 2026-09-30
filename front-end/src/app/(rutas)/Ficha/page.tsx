@@ -1323,7 +1323,6 @@ function Inscribir_Page({close}: PropRamo){
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 zIndex: 10,
-                                top:'300px'
                             }}
                             >
                                 <CircularProgress
