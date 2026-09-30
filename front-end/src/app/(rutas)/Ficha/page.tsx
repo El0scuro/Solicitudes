@@ -1306,41 +1306,42 @@ function Inscribir_Page({close}: PropRamo){
                                 )}
                             </Box>
 
-                            {stateBusqueda && (
-                                <Box
-                                sx={{
-                                    position: 'absolute',
-                                    inset: 0,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    zIndex: 10,
-                                }}
-                                >
-                                    <CircularProgress
-                                        size={100}
-                                        thickness={5}
-                                        sx={{
-                                            color: "#003c58",
-                                        }}
-                                    />
-
-                                    <Typography
-                                        sx={{
-                                            marginTop: 2,
-                                            color: "black",
-                                            fontWeight:'bold',
-                                        }}
-                                    >
-                                        Buscando...
-                                    </Typography>
-                                </Box>
-                            )}
-
                         </Box>
                         
                         
+                    )}
+
+                    {/*Buscando */}
+                    {stateBusqueda && (
+                        <Box
+                        sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 10,
+                        }}
+                        >
+                            <CircularProgress
+                                size={100}
+                                thickness={5}
+                                sx={{
+                                    color: "#003c58",
+                                }}
+                            />
+
+                            <Typography
+                                sx={{
+                                    marginTop: 2,
+                                    color: "black",
+                                    fontWeight:'bold',
+                                }}
+                            >
+                                Buscando...
+                            </Typography>
+                        </Box>
                     )}
                 </Box>
                 
