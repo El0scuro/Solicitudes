@@ -1288,9 +1288,11 @@ function Inscribir_Page({close}: PropRamo){
                                                                     }}
                                                                     sx={{
                                                                         cursor: 'pointer',
-                                                                        backgroundColor: secciones.find(
+                                                                        backgroundColor: (secciones.find(
                                                                             sec => sec === seccion
-                                                                        )
+                                                                        ) && secciones.find(
+                                                                            sec => sec === seccion
+                                                                        ))
                                                                             ? 'lightblue'
                                                                             : 'transparent'
                                                                     }}
@@ -1530,15 +1532,24 @@ function Desinscribir_Page({close}: PropRamo){
     const [mensajeError, setMensajeError] = useState<string>();
 
 
+    const [stateBusqueda, setStateBusqueda] = useState(false);
+
+
+    const [stateCarta, setStateCarta] = useState(false);
+
+    const [archivo, setArchivo] = useState<File | null>(null);
+
+
     const [semestreMarcado, setSemestreMarcado] = useState(false);
 
     const [codigoMarcado, setCodigoMarcado] = useState(true);
 
     const [nombreMarcado, setNombreMarcado] = useState(false);
 
+
     const [secciones, setSecciones] = useState<Seccion[]>([]);
 
-    const seleccionarSeccion = (seccion: Seccion) => {
+    const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
         setSecciones((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
@@ -1547,6 +1558,8 @@ function Desinscribir_Page({close}: PropRamo){
                 return seccionesActuales;
             }
 
+            seccion.asignatura = asignatura;
+
             return [...seccionesActuales, seccion];
         });
     };
@@ -1554,36 +1567,60 @@ function Desinscribir_Page({close}: PropRamo){
 
 
     const buscar = async() => {
+
         let response;
 
-        switch(parametroBusqueda){
-            case "Codigo":
-                response = await axios.get(`${__url}/asignatura/buscar-codigo/${valorBusqueda}`);
-                if(response.data === "Asignatura no existente"){
-                    setMensajeError("El código ingresado no es válido.")
-                }else{
-                    setRespuestaServidor(response.data);
-                }
-                break;
-            case "Nombre":
-                response = await axios.get(`${__url}/asignatura/buscar-nombre/${valorBusqueda}`);
-                if(response.data === "Asignatura no existente"){
-                    setMensajeError("El nombre ingresado no es válido.")
-                }else{
-                    setRespuestaServidor(response.data);
-                }
-                break;
-            case "Semestre":
-                response = await axios.get(`${__url}/asignatura/buscar-semestre/${valorBusqueda}`);
-                if(response.data === "Semestre no existente"){
-                    setMensajeError(`La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`)
-                }else{
-                    setRespuestaServidor(response.data);
-                }
+       try {
 
-                break;
+        
+        switch (parametroBusqueda) {
+            
+            case "Codigo":
+            response = await axios.get(
+                `${__url}/asignatura/buscar-codigo/${valorBusqueda}`
+            );
+            break;
+
+            case "Nombre":
+            response = await axios.get(
+                `${__url}/asignatura/buscar-nombre/${valorBusqueda}`
+            );
+            break;
+
+            case "Semestre":
+            response = await axios.get(
+                `${__url}/asignatura/buscar-semestre/${valorBusqueda}`
+            );
+            break;
         }
-    }
+
+        setStateBusqueda(false);
+
+        setStateRespuesta(true);
+        setRespuestaServidor(response.data);
+        setStateExito(true);
+
+        } catch (error) {
+        setStateExito(false);
+        setStateError(true);
+
+        if (parametroBusqueda === "Codigo") {
+            setMensajeError("El código ingresado no es válido.");
+        }
+
+        if (parametroBusqueda === "Nombre") {
+            setMensajeError("El nombre ingresado no es válido.");
+        }
+
+        if (parametroBusqueda === "Semestre") {
+            setMensajeError(
+            `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
+            );
+        }
+        
+        setStateBusqueda(false);
+        }
+    };
 
     const deseleccionarRamo = (seccion: Seccion) => {
         setSecciones(secciones.filter(sec => sec !== seccion));
@@ -1593,446 +1630,682 @@ function Desinscribir_Page({close}: PropRamo){
     return(
         <Box
         sx={{
-            display:'flex',
-            height:'auto',
-            gap: 10,
             ml:'2%',
-            alignItems: 'flex-start'
+            alignItems: 'flex-start',
+            width:'1480px'
         }}
         >
-
-            {/* Buscador - CheckBox's */}
-            <Box
-            sx={{
-                display:'flex',
-                gap:2,
-                flexDirection:'column'
-            }}
-            >
-                {/*Buscador */}
-                <Box
-                sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                }}
-                >
-                    {/*Buscador */}
-                    <TextField
-                    slotProps={{
-                        input: {
-                        endAdornment: (
-                            <Button
-
-                            onClick={() => buscar()}
-
-                            disabled={
-                                !valorBusqueda ||
-                                (
-                                !codigoMarcado &&
-                                !nombreMarcado &&
-                                !semestreMarcado
-                                )
-                            }
-
-                            sx={{
-                                borderRadius:'50px',
-                                backgroundColor:'#006391',
-                                color:'white'
-                            }}
-                            >
-                                <SearchIcon/>
-                            </Button>
-                        ),
-                        },
-                    }}
-                    sx={{
-                        width:'400px'
-                    }}
-
-                    value={valorBusqueda}
-
-                    onChange={(e) => setValorBusqueda(e.target.value)}
-
-                    placeholder={
-                        nombreMarcado ? "Nombre Asignatura"
-                        : codigoMarcado ? "APU 111"
-                        : semestreMarcado ? "primero, segundo, etc"
-                        : "Seleccione un filtro de Busqueda"
-                    }
-                    />
-
-                    <Button
-                    variant="text"
-                    disableRipple
-                    onClick={() => 
-                        window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
-                    }
-                    sx={{
-                        fontWeight:'bold',
-                        fontSize:'10px',
-                        '&:hover': {
-                        backgroundColor: 'transparent',
-                        },
-                        '&:active': {
-                        backgroundColor: 'transparent',
-                        }
-                    }}
-                    >
-                        Malla Curricular Oficial
-                    </Button>
-
-                </Box>
-                
-                {/*CheckBox's */}
-                <Box
-                component="fieldset"
-                sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                    border: '2px solid black',
-                    borderRadius: '8px',
-                    padding: 0.5,
-                    width: '250px'
-                }}
-                >
-
-                    <Typography
-                    component="legend"
-                    sx={{
-                        fontWeight:'bold',
-                        ml:'10px'
-                    }}
-                    >
-                        Buscar por
-                    </Typography>
-                        
-                    {/*Código */}
-                    <Box>
-                        <FormControlLabel
-                        control={
-                            <Checkbox
-                            checked={codigoMarcado}
-                            onChange={(event) => setCodigoMarcado(event.target.checked)}
-                            onClick={() => {
-                                setCodigoMarcado(prev => !prev);
-                                if (!codigoMarcado) {
-                                    setNombreMarcado(false);
-                                    setSemestreMarcado(false);
-                                }
-                            }}
-                            />
-                        }
-                        label="Código Asignatura"
-                        />
-                    </Box>
-
-                    {/*Nombre */}
-                    <Box>
-                        <FormControlLabel
-                        control={
-                            <Checkbox
-                            checked={nombreMarcado}
-                            onChange={(event) => setNombreMarcado(event.target.checked)}
-                            onClick={() => {
-                                setNombreMarcado(prev => !prev);
-                                if (!nombreMarcado) {
-                                    setCodigoMarcado(false);
-                                    setSemestreMarcado(false);
-                                }
-                            }}
-                            />
-                        }
-                        label="Nombre Asignatura"
-                        />
-                    </Box>
-
-                    {/*Semestre */}
-                    <Box>
-                        <FormControlLabel
-                        control={
-                            <Checkbox
-                            checked={semestreMarcado}
-                            onChange={(event) => setSemestreMarcado(event.target.checked)}
-                            onClick={() => {
-                                    setSemestreMarcado(prev => !prev);
-                                    if (!semestreMarcado) {
-                                        setNombreMarcado(false);
-                                        setCodigoMarcado(false);
-                                    }
-                                }}
-                            />
-                        }
-                        label="Semestre Asignatura"
-                        />
-                    </Box>
-                </Box>
-            </Box>
-
-            {/*Respuesta servidor */}
-            {stateRespuesta && (
-                <Box>
-                    <Box>
-                        {stateError && (
-                            <Box
-                            sx={{
-                                display:'flex',
-                                justifyContent:'center',
-                                alignItems:'center'
-                            }}
-                            >
-                                <Typography>
-                                    {mensajeError}
-                                </Typography>
-                            </Box>
-                        )}
-                    </Box>
-                    <Box>
-                        {stateExito && (
-                            <Box
-                            sx={{
-                                display:'flex',
-                                justifyContent:'center',
-                                alignItems:'center'
-                            }}
-                            >
-                                {respuestaServidor?.map(asig => (
-                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '65px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Código
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Asignatura
-                                                </TableCell>
-
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Seccion
-                                                </TableCell>
-
-                                                
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    width: '120px',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    Correo Profesor
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>
-
-                                        <TableBody>
-                                            {respuestaServidor.map(asig => 
-                                                asig.secciones.map(seccion => (
-                                                    <TableRow
-                                                        key={asig.Codigo}
-                                                        onClick={() => {
-                                                            seleccionarSeccion(seccion);
-                                                            
-                                                        }}
-                                                        sx={{
-                                                            cursor: 'pointer',
-                                                            backgroundColor: secciones.find(
-                                                                sec => sec === seccion
-                                                            )
-                                                                ? 'lightblue'
-                                                                : 'transparent'
-                                                        }}
-                                                    >
-                                                        <TableCell sx={{
-                                                            border: '1px solid black',
-                                                            py: 0.25,
-                                                            px: 0.5
-                                                        }}>
-                                                            {asig.Codigo}
-                                                        </TableCell>
-
-                                                        <TableCell sx={{
-                                                            border: '1px solid black',
-                                                            py: 0.25,
-                                                            px: 0.5
-                                                        }}>
-                                                            {asig.Nombre}
-                                                        </TableCell>
-
-                                                        <TableCell sx={{
-                                                            border: '1px solid black',
-                                                            py: 0.25,
-                                                            px: 0.5
-                                                        }}>
-                                                            {asig.Codigo}
-                                                        </TableCell>
-
-                                                        <TableCell sx={{
-                                                            border: '1px solid black',
-                                                            py: 0.25,
-                                                            px: 0.5
-                                                        }}>
-                                                            {seccion.profesor.Mail}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))
-                                            )}
-                                            </TableBody>
-                                        </Table>
-                                        ))}
-                            </Box>
-                        )}
-                    </Box>
-                </Box>
-                
-                
-            )}
-
-            {/* Ramos seleccionados */}
             <Box
             component="fieldset"
             sx={{
-                border: '2px solid black',
-                borderRadius: '8px',
-                padding: 0.5,
-                width: '300px',
-                minHeight:'300px',
-                height:'auto',
-                position:'relative',
-                left:'45    0px'
+            display:'flex',
+            flexDirection:'column',
+            height:'auto',
+            gap: 10,
+            border: '2px solid black',
+            borderRadius: '8px',
+            padding: 1,
             }}
             >
-                <Typography
-                component="legend"
+
+                {/* Buscador - CheckBox's - Cerrar*/}
+                <Box
                 sx={{
-                    fontWeight:'bold'
+                display:'flex'
                 }}
                 >
-                    Ramos Seleccionados
-                </Typography>
-
-                <Table
+                    <Box
                     sx={{
-                        tableLayout: 'fixed',
-                        width: '190px'
+                        display:'flex',
+                        gap:2,
                     }}
-                >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '65px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Código
-                            </TableCell>
+                    >
 
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Asignatura
-                            </TableCell>
+                        {/*CheckBox's */}
+                        <Box
+                        component="fieldset"
+                        sx={{
+                            display:'flex',
+                            border: '2px solid black',
+                            borderRadius: '8px',
+                            padding: 0.5,
+                            width: '600px',
+                            height:'80px'
+                        }}
+                        >
 
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Seccion
-                            </TableCell>
-
-                            
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Correo Profesor
-                            </TableCell>
-
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Acción
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-
-                    <TableBody>
-                        {secciones.map((seccion) => (
-                            <TableRow key={seccion.num_Seccion}>
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    {seccion.asignatura.Codigo}
-                                </TableCell>
-
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    {seccion.asignatura.Nombre}
-                                </TableCell>
-
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    {seccion.num_Seccion}
-                                </TableCell>
+                            <Typography
+                            component="legend"
+                            sx={{
+                                fontWeight:'bold',
+                                ml:'10px'
+                            }}
+                            >
+                                Buscar por
+                            </Typography>
                                 
-                                <TableCell sx={{
-                                    border: '1px solid black',
-                                    py: 0.25,
-                                    px: 0.5
-                                }}>
-                                    {seccion.profesor.Mail}
-                                </TableCell>
+                            {/*Código */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={codigoMarcado}
+                                    onChange={(event) => setCodigoMarcado(event.target.checked)}
+                                    onClick={() => {
+                                        setCodigoMarcado(prev => !prev);
+                                        setParametroBusqueda("Codigo");
+                                        if (!codigoMarcado) {
+                                            setNombreMarcado(false);
+                                            setSemestreMarcado(false);
+                                        }
+                                    }}
+                                    />
+                                }
+                                label="Código Asignatura"
+                                />
+                            </Box>
 
-                                <TableCell align='center' sx={{
-                                    border: '1px solid black',
-                                    py: 0.25,
-                                    px: 0.5,
-                                }}>
+                            {/*Nombre */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={nombreMarcado}
+                                    onChange={(event) => setNombreMarcado(event.target.checked)}
+                                    onClick={() => {
+                                        setNombreMarcado(prev => !prev);
+                                        setParametroBusqueda("Nombre");
+                                        if (!nombreMarcado) {
+                                            setCodigoMarcado(false);
+                                            setSemestreMarcado(false);
+                                        }
+                                    }}
+                                    />
+                                }
+                                label="Nombre Asignatura"
+                                />
+                            </Box>
+
+                            {/*Semestre */}
+                            <Box>
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={semestreMarcado}
+                                    onChange={(event) => setSemestreMarcado(event.target.checked)}
+                                    onClick={() => {
+                                            setSemestreMarcado(prev => !prev);
+                                        setParametroBusqueda("Semestre");
+                                            if (!semestreMarcado) {
+                                                setNombreMarcado(false);
+                                                setCodigoMarcado(false);
+                                            }
+                                        }}
+                                    />
+                                }
+                                label="Semestre Asignatura"
+                                />
+                            </Box>
+                        </Box>
+
+                        {/*Buscador */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            ml:'20px',
+                            mt:'20px'
+                        }}
+                        >
+                            {/*Buscador */}
+                            <TextField
+                            slotProps={{
+                                input: {
+                                endAdornment: (
                                     <Button
-                                    onClick={() => deseleccionarRamo(seccion)}
-                                    variant="outlined"
-                                    >
-                                        <DeleteIcon/>
-                                    </Button>
-                                </TableCell>
 
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                                    onClick={() => {
+                                        setStateBusqueda(true);
+                                        buscar();
+                                    }}
+
+                                    disabled={
+                                        !valorBusqueda ||
+                                        (
+                                        !codigoMarcado &&
+                                        !nombreMarcado &&
+                                        !semestreMarcado
+                                        )
+                                    }
+
+                                    sx={{
+                                        borderRadius:'50px',
+                                        backgroundColor:'#006391',
+                                        color:'white'
+                                    }}
+                                    >
+                                        <SearchIcon/>
+                                    </Button>
+                                ),
+                                },
+                            }}
+                            sx={{
+                                width:'400px'
+                            }}
+
+                            value={valorBusqueda}
+
+                            onChange={(e) => setValorBusqueda(e.target.value)}
+
+                            placeholder={
+                                nombreMarcado ? "Nombre Asignatura"
+                                : codigoMarcado ? "APU 111"
+                                : semestreMarcado ? "primero, segundo, etc"
+                                : "Seleccione un filtro de Busqueda"
+                            }
+                            />
+
+                            <Button
+                            variant="text"
+                            disableRipple
+                            onClick={() => 
+                                window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
+                            }
+                            sx={{
+                                fontWeight:'bold',
+                                fontSize:'10px',
+                                '&:hover': {
+                                backgroundColor: 'transparent',
+                                },
+                                '&:active': {
+                                backgroundColor: 'transparent',
+                                }
+                            }}
+                            >
+                                Malla Curricular Oficial
+                            </Button>
+
+                        </Box>
+                        
+                    </Box>
+
+                    {/* Cerrar */}
+                    <Button
+
+                    onClick={() => close()}
+                    sx={{
+                        ml:'auto',
+                        display:'flex',
+                        justifyContent:'center',
+                        alignItems: 'center',
+                        backgroundColor:'red',
+                        color:'white',
+                        width:'30px',
+                        height:'30px',
+                        borderRadius:'50px'
+                        }}
+                    >
+                        X
+                    </Button>
+
+                </Box>
+
+                <Stack
+                spacing={5}
+                divider={
+                    <Divider
+                        sx={{
+                            width: '1200px',
+                            alignSelf: 'center',
+                            borderBottomWidth: 3,
+                            borderColor:'#003c58'
+                        }}
+                    />
+                }
+                >
+                    {/*Seleccionados - respuesta - Buscando */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap: 10
+                    }}
+                    >
+
+                        {/* Ramos seleccionados */}
+                        <Box
+                        component="fieldset"
+                        sx={{
+                            border: '2px solid black',
+                            borderRadius: '8px',
+                            padding: 0.5,
+                            width: '300px',
+                            minHeight:'300px',
+                            height:'auto',
+                        }}
+                        >
+                            <Typography
+                            component="legend"
+                            sx={{
+                                fontWeight:'bold'
+                            }}
+                            >
+                                Ramos Seleccionados
+                            </Typography>
+
+                            <Table
+                                sx={{
+                                    tableLayout: 'fixed',
+                                    width: '190px'
+                                }}
+                            >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '65px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Código
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '150px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Asignatura
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '120px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Seccion
+                                        </TableCell>
+
+                                        
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '150px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Correo Profesor
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '120px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Acción
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+
+                                <TableBody>
+                                    {secciones.map((seccion) => (
+                                        <TableRow key={seccion.num_Seccion}>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {seccion.asignatura.Codigo}
+                                            </TableCell>
+
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {seccion.asignatura.Nombre}
+                                            </TableCell>
+
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {seccion.num_Seccion}
+                                            </TableCell>
+                                            
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {seccion.profesor.Mail}
+                                            </TableCell>
+
+                                            <TableCell align='center' sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5,
+                                            }}>
+                                                <Button
+                                                onClick={() => deseleccionarRamo(seccion)}
+                                                variant="outlined"
+                                                >
+                                                    <DeleteIcon/>
+                                                </Button>
+                                            </TableCell>
+
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+
+                        {/*Respuesta servidor - Buscando */}
+                        <Box
+                        sx={{
+                            position:'relative'
+                        }}
+                        >
+                            {/*Respuesta servidor */}
+                            {stateRespuesta && (
+                                <Box>
+                                    <Box>
+                                        {stateError && (
+                                            <Box
+                                            sx={{
+                                                display:'flex',
+                                                justifyContent:'center',
+                                                alignItems:'center'
+                                            }}
+                                            >
+                                                <Typography>
+                                                    {mensajeError}
+                                                </Typography>
+                                            </Box>
+                                        )}
+                                    </Box>
+                                    <Box>
+                                        {stateExito && (
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell sx={{
+                                                                border: '1px solid black',
+                                                                width: '65px',
+                                                                py: 0.25,
+                                                                px: 0.5
+                                                            }}>
+                                                                Código
+                                                            </TableCell>
+
+                                                            <TableCell sx={{
+                                                                border: '1px solid black',
+                                                                width: '150px',
+                                                                py: 0.25,
+                                                                px: 0.5
+                                                            }}>
+                                                                Asignatura
+                                                            </TableCell>
+
+                                                            <TableCell sx={{
+                                                                border: '1px solid black',
+                                                                width: '120px',
+                                                                py: 0.25,
+                                                                px: 0.5
+                                                            }}>
+                                                                Seccion
+                                                            </TableCell>
+
+                                                            <TableCell sx={{
+                                                                border: '1px solid black',
+                                                                width: '150px',
+                                                                py: 0.25,
+                                                                px: 0.5
+                                                            }}>
+                                                                Correo Profesor
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+
+                                                    <TableBody>
+                                                        {respuestaServidor?.map(asig =>
+                                                            asig.secciones.map(seccion => (
+                                                                <TableRow
+                                                                    key={seccion.num_Seccion}
+                                                                    onClick={() => {
+                                                                        seleccionarSeccion(asig, seccion);
+                                                                    }}
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        backgroundColor: (secciones.find(
+                                                                            sec => sec === seccion
+                                                                        ) && secciones.find(
+                                                                            sec => sec === seccion
+                                                                        ))
+                                                                            ? 'lightblue'
+                                                                            : 'transparent'
+                                                                    }}
+                                                                >
+                                                                    <TableCell sx={{
+                                                                        border: '1px solid black',
+                                                                        py: 0.25,
+                                                                        px: 0.5
+                                                                    }}>
+                                                                        {asig.Codigo}
+                                                                    </TableCell>
+
+                                                                    <TableCell sx={{
+                                                                        border: '1px solid black',
+                                                                        py: 0.25,
+                                                                        px: 0.5
+                                                                    }}>
+                                                                        {asig.Nombre}
+                                                                    </TableCell>
+
+                                                                    <TableCell sx={{
+                                                                        border: '1px solid black',
+                                                                        py: 0.25,
+                                                                        px: 0.5
+                                                                    }}>
+                                                                        {seccion.num_Seccion}
+                                                                    </TableCell>
+
+                                                                    <TableCell sx={{
+                                                                        border: '1px solid black',
+                                                                        py: 0.25,
+                                                                        px: 0.5
+                                                                    }}>
+                                                                        {seccion.profesor.Mail}
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            ))
+                                                        )}
+                                                    </TableBody>
+                                                </Table>
+                                            </Box>
+                                        )}
+                                    </Box>
+
+                                </Box>
+                                
+                                
+                            )}
+
+                            {/*Buscando ° */}
+                            {stateBusqueda && (
+                                <Box
+                                sx={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    zIndex: 10,
+                                }}
+                                >
+                                    <CircularProgress
+                                        size={100}
+                                        thickness={5}
+                                        sx={{
+                                            color: "#003c58",
+                                        }}
+                                    />
+
+                                    <Typography
+                                        sx={{
+                                            marginTop: 2,
+                                            color: "black",
+                                            fontWeight:'bold',
+                                        }}
+                                    >
+                                        Buscando...
+                                    </Typography>
+                                </Box>
+                            )}
+                        </Box>
+                    </Box>
+
+                    {/*Button Carta */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        justifyContent: 'center',
+                        alignItems:'center'
+                    }}
+                    >
+                        {stateCarta && (
+                            <Box
+                            sx={{
+                                display:'flex',
+                                flexDirection:'column',
+                                gap:2,
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}
+                            >
+                                {/*Nombre Archivo */}
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    gap:2,
+                                    justifyContent:'center'
+                                }}
+                                >
+                                    <Typography
+                                    sx={{
+                                        display:'flex',
+                                        alignItems:'center'
+                                    }}
+                                    >
+                                        {archivo?.name}
+                                    </Typography>
+                                    <Button
+                                    sx={{
+                                        color:'red'
+                                    }}
+                                    onClick={() => {
+                                        setArchivo(null);
+                                        setStateCarta(false);
+                                    }}
+                                    >
+                                        X
+                                    </Button>
+                                </Box>
+
+                                {/*Cambiar Carta */}
+                                <Button     
+                                sx={{
+                                    backgroundColor:'#003c58',
+                                    width:'300px'
+                                }}       
+                                variant="contained"
+                                component="label"
+                                >
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        gap:5
+                                    }}
+                                    >
+                                        Cambiar Carta
+                                        <ChangeCircleIcon sx={{color:'white' }}/>
+                                    </Box>
+                                    <input
+                                        type="file"
+                                        accept=".pdf,.doc,.docx"
+                                        hidden
+                                        onChange={(event) => {
+                                            const archivoSeleccionado = event.target.files?.[0];
+
+                                            if (archivoSeleccionado) {
+                                                setArchivo(archivoSeleccionado);
+                                            }
+                                        }}
+                                    />
+                                </Button>
+                            </Box>
+                            
+                        )}
+                        
+                        {!stateCarta && (
+                            <Button  
+                            sx={{
+                                backgroundColor:'#003c58',
+                                width:'300px'
+                            }}
+                            
+                            variant="contained"
+                            component="label"
+                            >
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    gap:5
+                                }}
+                                >
+                                    <Typography>
+                                        Cargar Carta
+                                    </Typography>
+                                    <CloudUploadIcon sx={{color:'white'}} />
+                                </Box>
+                                
+
+
+                                <input
+                                    type="file"
+                                    accept=".pdf,.doc,.docx"
+                                    hidden
+                                    onChange={(event) => {
+                                        const archivoSeleccionado = event.target.files?.[0];
+
+                                        if (archivoSeleccionado) {
+                                            setArchivo(archivoSeleccionado)
+                                            setStateCarta(true);
+                                        }else{
+                                            setStateCarta(false);
+                                        }
+                                    }}
+                                />
+                            </Button>
+                        )}
+
+                    </Box>   
+                    
+                </Stack>
+                
+                
             </Box>
+                
             
         </Box>
             
