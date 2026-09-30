@@ -18,6 +18,9 @@ import Logo_Publica from "@/Imagenes/Logo escuela blanco.png"
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+
 import axios from "axios";
 import __url from "@/lib/const";
 import { Asignatura } from "@/types/asignatura";
@@ -1422,7 +1425,10 @@ function Inscribir_Page({close}: PropRamo){
                                 variant="contained"
                                 component="label"
                                 >
-                                    Cambiar Carta
+                                    <Box>
+                                        Cambiar Carta
+                                        <ChangeCircleIcon sx={{ ml:'auto', color:'white' }}/>
+                                    </Box>
                                     <input
                                         type="file"
                                         accept=".pdf,.doc,.docx"
@@ -1450,7 +1456,19 @@ function Inscribir_Page({close}: PropRamo){
                             variant="contained"
                             component="label"
                             >
-                                Cargar Carta
+                                <Box
+                                sx={{
+                                    display:'flex'
+                                }}
+                                >
+                                    <Typography>
+                                        Cargar Carta
+                                    </Typography>
+                                    <CloudUploadIcon sx={{ml:'auto', color:'white'}} />
+                                </Box>
+                                
+
+
                                 <input
                                     type="file"
                                     accept=".pdf,.doc,.docx"
