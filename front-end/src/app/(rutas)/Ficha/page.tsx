@@ -1291,7 +1291,7 @@ function Inscribir_Page({close}: PropRamo){
                                                                         backgroundColor: secciones.find(
                                                                             sec => 
                                                                             sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura.Codigo === seccion.asignatura.Codigo
+                                                                            sec.asignatura.Codigo === asig.Codigo
                                                                         )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
@@ -2089,7 +2089,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                                         backgroundColor: secciones.find(
                                                                             sec => 
                                                                             sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura.Codigo === seccion.asignatura.Codigo
+                                                                            sec.asignatura.Codigo === asig.Codigo
                                                                         )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
