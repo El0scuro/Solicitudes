@@ -1175,7 +1175,11 @@ function Inscribir_Page({close}: PropRamo){
 
                      {/*Respuesta servidor */}
                     {stateRespuesta && (
-                        <Box>
+                        <Box
+                        sx={{
+                            position:'relative'
+                        }}
+                        >
                             <Box>
                                 {stateError && (
                                     <Box
@@ -1301,11 +1305,13 @@ function Inscribir_Page({close}: PropRamo){
                             {stateBusqueda && (
                                 <Box
                                 sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    position:'absolute'
+                                    position: 'absolute',
+                                    inset: 0,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    zIndex: 10,
                                 }}
                                 >
                                     <CircularProgress
