@@ -792,7 +792,6 @@ function Inscribir_Page({close}: PropRamo){
 
         } catch (error) {
         setStateExito(false);
-        setStateRespuesta(false);
         setStateError(true);
 
         if (parametroBusqueda === "Codigo") {
@@ -808,6 +807,8 @@ function Inscribir_Page({close}: PropRamo){
             `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
             );
         }
+        
+        setStateBusqueda(false);
         }
     };
 
