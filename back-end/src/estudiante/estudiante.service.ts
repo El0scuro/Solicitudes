@@ -402,8 +402,7 @@ export class EstudianteService {
 
       //metadatados del estudiante
       const metadatosEstudiante = estudiante.metadatosCifrados;
-
-      console.log(estudiante.Mail, "//", mail_Transporte_Descifrado);
+      
       //comparo los mails
       if( mail_Transporte_Descifrado === estudiante.Mail){
 
@@ -581,9 +580,6 @@ export class EstudianteService {
             estudianteCifrado.Iv_Primer_Nombre = datosEncriptados[indiceCifrado].ivValor;
             estudianteCifrado.Tag_Primer_Nombre = datosEncriptados[indiceCifrado].authTag;
             indiceCifrado++;
-
-
-           
 
             // Segundo Nombre (Opcional)
             if (estudiante_Descifrado.Segundo_Nombre !== '') {

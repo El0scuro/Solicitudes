@@ -3,7 +3,7 @@
 import { Box, Button, Table, TableBody, 
     TableCell, TableHead, TableRow, 
     TextField, Typography, Checkbox,
-    FormControlLabel
+    FormControlLabel, CircularProgress
 } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -729,6 +729,8 @@ function Inscribir_Page({close}: PropRamo){
     const [mensajeError, setMensajeError] = useState<string>();
 
 
+    const [stateBusqueda, setStateBusqueda] = useState(false);
+
     const [semestreMarcado, setSemestreMarcado] = useState(false);
 
     const [codigoMarcado, setCodigoMarcado] = useState(true);
@@ -758,7 +760,10 @@ function Inscribir_Page({close}: PropRamo){
         let response;
 
        try {
+
+        setStateBusqueda(true);
         switch (parametroBusqueda) {
+            
             case "Codigo":
             response = await axios.get(
                 `${__url}/asignatura/buscar-codigo/${valorBusqueda}`
@@ -777,6 +782,8 @@ function Inscribir_Page({close}: PropRamo){
             );
             break;
         }
+
+        setStateBusqueda(false);
 
         setStateRespuesta(true);
         setRespuestaServidor(response.data);
@@ -841,82 +848,7 @@ function Inscribir_Page({close}: PropRamo){
                         gap:2,
                     }}
                     >
-                        {/*Buscador */}
-                        <Box
-                        sx={{
-                            display:'flex',
-                            flexDirection:'column',
-                            ml:'20px',
-                            mt:'20px'
-                        }}
-                        >
-                            {/*Buscador */}
-                            <TextField
-                            slotProps={{
-                                input: {
-                                endAdornment: (
-                                    <Button
 
-                                    onClick={() => buscar()}
-
-                                    disabled={
-                                        !valorBusqueda ||
-                                        (
-                                        !codigoMarcado &&
-                                        !nombreMarcado &&
-                                        !semestreMarcado
-                                        )
-                                    }
-
-                                    sx={{
-                                        borderRadius:'50px',
-                                        backgroundColor:'#006391',
-                                        color:'white'
-                                    }}
-                                    >
-                                        <SearchIcon/>
-                                    </Button>
-                                ),
-                                },
-                            }}
-                            sx={{
-                                width:'400px'
-                            }}
-
-                            value={valorBusqueda}
-
-                            onChange={(e) => setValorBusqueda(e.target.value)}
-
-                            placeholder={
-                                nombreMarcado ? "Nombre Asignatura"
-                                : codigoMarcado ? "APU 111"
-                                : semestreMarcado ? "primero, segundo, etc"
-                                : "Seleccione un filtro de Busqueda"
-                            }
-                            />
-
-                            <Button
-                            variant="text"
-                            disableRipple
-                            onClick={() => 
-                                window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
-                            }
-                            sx={{
-                                fontWeight:'bold',
-                                fontSize:'10px',
-                                '&:hover': {
-                                backgroundColor: 'transparent',
-                                },
-                                '&:active': {
-                                backgroundColor: 'transparent',
-                                }
-                            }}
-                            >
-                                Malla Curricular Oficial
-                            </Button>
-
-                        </Box>
-                        
                         {/*CheckBox's */}
                         <Box
                         component="fieldset"
@@ -1003,6 +935,82 @@ function Inscribir_Page({close}: PropRamo){
                                 />
                             </Box>
                         </Box>
+
+                        {/*Buscador */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            ml:'20px',
+                            mt:'20px'
+                        }}
+                        >
+                            {/*Buscador */}
+                            <TextField
+                            slotProps={{
+                                input: {
+                                endAdornment: (
+                                    <Button
+
+                                    onClick={() => buscar()}
+
+                                    disabled={
+                                        !valorBusqueda ||
+                                        (
+                                        !codigoMarcado &&
+                                        !nombreMarcado &&
+                                        !semestreMarcado
+                                        )
+                                    }
+
+                                    sx={{
+                                        borderRadius:'50px',
+                                        backgroundColor:'#006391',
+                                        color:'white'
+                                    }}
+                                    >
+                                        <SearchIcon/>
+                                    </Button>
+                                ),
+                                },
+                            }}
+                            sx={{
+                                width:'400px'
+                            }}
+
+                            value={valorBusqueda}
+
+                            onChange={(e) => setValorBusqueda(e.target.value)}
+
+                            placeholder={
+                                nombreMarcado ? "Nombre Asignatura"
+                                : codigoMarcado ? "APU 111"
+                                : semestreMarcado ? "primero, segundo, etc"
+                                : "Seleccione un filtro de Busqueda"
+                            }
+                            />
+
+                            <Button
+                            variant="text"
+                            disableRipple
+                            onClick={() => 
+                                window.open("https://publica.uv.cl/escuela/pregrado/malla-curricular")
+                            }
+                            sx={{
+                                fontWeight:'bold',
+                                fontSize:'10px',
+                                '&:hover': {
+                                backgroundColor: 'transparent',
+                                },
+                                '&:active': {
+                                backgroundColor: 'transparent',
+                                }
+                            }}
+                            >
+                                Malla Curricular Oficial
+                            </Button>
+
+                        </Box>
                         
                     </Box>
 
@@ -1024,6 +1032,7 @@ function Inscribir_Page({close}: PropRamo){
                     >
                         X
                     </Button>
+
                 </Box>
 
                 <Box
@@ -1285,6 +1294,35 @@ function Inscribir_Page({close}: PropRamo){
                                                 )}
                                             </TableBody>
                                         </Table>
+                                    </Box>
+                                )}
+                            </Box>
+                            <Box>
+                                {stateBusqueda && (
+                                    <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                    >
+                                        <CircularProgress
+                                            size={50}
+                                            thickness={5}
+                                            sx={{
+                                                color: "#003c58",
+                                            }}
+                                        />
+
+                                        <Typography
+                                            sx={{
+                                                marginTop: 2,
+                                                color: "black",
+                                            }}
+                                        >
+                                            Buscando...
+                                        </Typography>
                                     </Box>
                                 )}
                             </Box>
