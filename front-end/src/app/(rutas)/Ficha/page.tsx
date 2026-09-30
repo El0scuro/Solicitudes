@@ -1401,7 +1401,12 @@ function Inscribir_Page({close}: PropRamo){
                                     justifyContent:'center'
                                 }}
                                 >
-                                    <Typography>
+                                    <Typography
+                                    sx={{
+                                        display:'flex',
+                                        alignItems:'center'
+                                    }}
+                                    >
                                         {archivo?.name}
                                     </Typography>
                                     <Button
