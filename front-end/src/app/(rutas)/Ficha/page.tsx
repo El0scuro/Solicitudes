@@ -1289,7 +1289,9 @@ function Inscribir_Page({close}: PropRamo){
                                                                     sx={{
                                                                         cursor: 'pointer',
                                                                         backgroundColor: secciones.find(
-                                                                            sec => sec.num_Seccion === seccion.num_Seccion
+                                                                            sec => 
+                                                                            sec.num_Seccion === seccion.num_Seccion && 
+                                                                            sec.asignatura.Codigo === seccion.asignatura.Codigo
                                                                         )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
@@ -2084,11 +2086,11 @@ function Desinscribir_Page({close}: PropRamo){
                                                                     }}
                                                                     sx={{
                                                                         cursor: 'pointer',
-                                                                        backgroundColor: (secciones.find(
-                                                                            sec => sec === seccion
-                                                                        ) && secciones.find(
-                                                                            sec => sec.num_Seccion === seccion.num_Seccion
-                                                                        ))
+                                                                        backgroundColor: secciones.find(
+                                                                            sec => 
+                                                                            sec.num_Seccion === seccion.num_Seccion && 
+                                                                            sec.asignatura.Codigo === seccion.asignatura.Codigo
+                                                                        )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
                                                                     }}
