@@ -1049,12 +1049,14 @@ function Inscribir_Page({close}: PropRamo){
                 </Box>
 
                 <Stack
-                spacing={2}
+                spacing={5}
                 divider={
                     <Divider
                         sx={{
                             width: '800px',
-                            alignSelf: 'center'
+                            alignSelf: 'center',
+                            borderBottomWidth: 3,
+                            borderColor:'#003c58'
                         }}
                     />
                 }
@@ -1370,26 +1372,37 @@ function Inscribir_Page({close}: PropRamo){
                     </Box>
 
                     {/*Button Carta */}
-                    <Box>
+                    <Box
+                    sx={{
+                        display:'flex',
+                        justifyContent: 'center',
+                        alignItems:'center'
+                    }}
+                    >
                         {stateCarta && (
                             <Box
                             sx={{
                                 display:'flex',
                                 flexDirection:'column',
-                                gap:2
+                                gap:2,
+                                alignItems:'center'
                             }}
                             >
                                 {/*Nombre Archivo */}
                                 <Box
                                 sx={{
                                     display:'flex',
-                                    gap:2
+                                    gap:2,
+                                    justifyContent:'center'
                                 }}
                                 >
                                     <Typography>
                                         {archivo?.name}
                                     </Typography>
                                     <Button
+                                    sx={{
+                                        color:'red'
+                                    }}
                                     onClick={() => {
                                         setArchivo(null);
                                         setStateCarta(false);
@@ -1400,7 +1413,11 @@ function Inscribir_Page({close}: PropRamo){
                                 </Box>
 
                                 {/*Cambiar Carta */}
-                                <Button            
+                                <Button     
+                                sx={{
+                                    backgroundColor:'#003c58',
+                                    width:'300px'
+                                }}       
                                 variant="contained"
                                 component="label"
                                 >
@@ -1423,7 +1440,12 @@ function Inscribir_Page({close}: PropRamo){
                         )}
                         
                         {!stateCarta && (
-                            <Button            
+                            <Button  
+                            sx={{
+                                backgroundColor:'#003c58',
+                                width:'300px'
+                            }}
+                            
                             variant="contained"
                             component="label"
                             >
