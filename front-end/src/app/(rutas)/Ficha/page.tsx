@@ -757,8 +757,7 @@ function Inscribir_Page({close}: PropRamo){
 
 
     const buscar = async() => {
-        setStateBusqueda(true);
-        
+
         let response;
 
        try {
@@ -954,7 +953,10 @@ function Inscribir_Page({close}: PropRamo){
                                 endAdornment: (
                                     <Button
 
-                                    onClick={() => buscar()}
+                                    onClick={() => {
+                                        setStateBusqueda(true);
+                                        buscar();
+                                    }}
 
                                     disabled={
                                         !valorBusqueda ||
