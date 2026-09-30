@@ -1288,11 +1288,9 @@ function Inscribir_Page({close}: PropRamo){
                                                                     }}
                                                                     sx={{
                                                                         cursor: 'pointer',
-                                                                        backgroundColor: (secciones.find(
-                                                                            sec => sec === seccion
-                                                                        ) && secciones.find(
-                                                                            sec => sec === seccion
-                                                                        ))
+                                                                        backgroundColor: secciones.find(
+                                                                            sec => sec.num_Seccion === seccion.num_Seccion
+                                                                        )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
                                                                     }}
@@ -2089,7 +2087,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                                         backgroundColor: (secciones.find(
                                                                             sec => sec === seccion
                                                                         ) && secciones.find(
-                                                                            sec => sec === seccion
+                                                                            sec => sec.num_Seccion === seccion.num_Seccion
                                                                         ))
                                                                             ? 'lightblue'
                                                                             : 'transparent'
