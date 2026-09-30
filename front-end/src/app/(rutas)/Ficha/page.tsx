@@ -1389,7 +1389,8 @@ function Inscribir_Page({close}: PropRamo){
                                 display:'flex',
                                 flexDirection:'column',
                                 gap:2,
-                                alignItems:'center'
+                                alignItems:'center',
+                                justifyContent:'center'
                             }}
                             >
                                 {/*Nombre Archivo */}
@@ -1425,9 +1426,14 @@ function Inscribir_Page({close}: PropRamo){
                                 variant="contained"
                                 component="label"
                                 >
-                                    <Box>
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        gap:5
+                                    }}
+                                    >
                                         Cambiar Carta
-                                        <ChangeCircleIcon sx={{ ml:'auto', color:'white' }}/>
+                                        <ChangeCircleIcon sx={{color:'white' }}/>
                                     </Box>
                                     <input
                                         type="file"
@@ -1458,13 +1464,14 @@ function Inscribir_Page({close}: PropRamo){
                             >
                                 <Box
                                 sx={{
-                                    display:'flex'
+                                    display:'flex',
+                                    gap:5
                                 }}
                                 >
                                     <Typography>
                                         Cargar Carta
                                     </Typography>
-                                    <CloudUploadIcon sx={{ml:'auto', color:'white'}} />
+                                    <CloudUploadIcon sx={{color:'white'}} />
                                 </Box>
                                 
 
