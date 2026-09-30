@@ -757,11 +757,13 @@ function Inscribir_Page({close}: PropRamo){
 
 
     const buscar = async() => {
+        setStateBusqueda(true);
+        
         let response;
 
        try {
 
-        setStateBusqueda(true);
+        
         switch (parametroBusqueda) {
             
             case "Codigo":
