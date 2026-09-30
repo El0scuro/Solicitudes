@@ -1305,7 +1305,7 @@ function Inscribir_Page({close}: PropRamo){
                                     flexDirection: "column",
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    position:'relative',
+                                    position:'absolute'
                                 }}
                                 >
                                     <CircularProgress
