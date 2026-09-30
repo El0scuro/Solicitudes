@@ -96,39 +96,47 @@ export class HibridoService {
     }
     
     async getCurrent() {
-        const llave = await this.key_frontRepository.findOne({
-            where: {
-                Tipo: "public",
-                Estado: "current"
-            },
-            select: {
-                Version: true
-            }
-        }); 
 
-        if(!llave){
-            throw new NotFoundException('llave no encontrada');
+    const llave = await this.key_frontRepository.findOne({
+	where: {
+            Tipo: "public",
+            Estado: "current"
+        },
+        select: {
+            Version: true
         }
+    });
 
-        let version: string;
-
-        if(llave.Version < 10){
-            version = 'key-00' + String(llave.Version); 
-        }else if(llave.Version < 100){
-            version = 'key-0' + String(llave.Version); 
-        }else{
-            version = 'key-' + String(llave.Version); 
-        }
-
-        const response = await axios.get(
-            `http://192.168.0.193:3001/api/keys/${version}`
-        );
-
-        return {
-            llave: response.data.llave,
-            version: version
-        };
+    if (!llave) {
+        console.log("C: NO EXISTE LLAVE");
+        throw new NotFoundException('llave no encontrada');
     }
+    
+    let version: string;
+
+    if (llave.Version < 10) {
+
+        version = 'key-00' + String(llave.Version);
+
+    } else if (llave.Version < 100) {
+
+        version = 'key-0' + String(llave.Version);
+
+    } else {
+
+        version = 'key-' + String(llave.Version);
+    }
+
+    const response = await axios.get(
+        `http://10.62.142.92:3001/api/keys/${version}`
+    );
+
+    return {
+        llave: response.data.llave,
+        version: version
+    };
+}
+     
 
     async cifrarEstudiante(estudiante: EstudianteDescifrado, clave: Buffer){
 

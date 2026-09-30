@@ -402,10 +402,10 @@ export class EstudianteService {
 
       //metadatados del estudiante
       const metadatosEstudiante = estudiante.metadatosCifrados;
-      
+
       //comparo los mails
       if( mail_Transporte_Descifrado === estudiante.Mail){
-
+	
         //descifro la contraseña de transporte
         const contrasenaDescifrada =
             await this.hibridoServiceBack.descifrarDatoTransporte(
@@ -420,8 +420,8 @@ export class EstudianteService {
             estudiante.Contrasena
         );
 
-        if(contrasenaCorrecta){
-
+        if(contrasenaCorrecta){	
+	
             //mensaje para el front
             const menssage = "Loggin exitoso";
 
@@ -562,6 +562,7 @@ export class EstudianteService {
             );
 
             const llave_Publica = await this.hibridoServiceFront.getCurrent();
+           
 
             //cifro la llave temporal
             const llaveCifrada: Buffer = publicEncrypt(
@@ -580,6 +581,9 @@ export class EstudianteService {
             estudianteCifrado.Iv_Primer_Nombre = datosEncriptados[indiceCifrado].ivValor;
             estudianteCifrado.Tag_Primer_Nombre = datosEncriptados[indiceCifrado].authTag;
             indiceCifrado++;
+
+
+           
 
             // Segundo Nombre (Opcional)
             if (estudiante_Descifrado.Segundo_Nombre !== '') {
@@ -652,7 +656,6 @@ export class EstudianteService {
         continue;
       }
     }
-    console.log("no existente")
     const menssage = 'Estudiante no existente';
     return menssage;
   }
