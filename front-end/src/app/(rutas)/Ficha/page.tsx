@@ -1319,14 +1319,14 @@ function Inscribir_Page({close}: PropRamo){
                                         sx={{
                                             marginTop: 2,
                                             color: "black",
-                                            fontSize:'bold',
+                                            fontWeight:'bold',
                                         }}
                                     >
                                         Buscando...
                                     </Typography>
                                 </Box>
                             )}
-                            
+
                         </Box>
                         
                         

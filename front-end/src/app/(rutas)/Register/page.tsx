@@ -473,15 +473,15 @@ export default function RegisterPage(){
                         size={100}
                         thickness={5}
                         sx={{
-                            color: "#003c58",
+                            color: "white",
                         }}
                     />
 
                     <Typography
                         sx={{
                             marginTop: 2,
-                            color: "black",
-                            fontSize:'bold',
+                            color: "white",
+                            fontWeight:'bold',
                         }}
                     >
                         Cargando registro 
@@ -490,7 +490,7 @@ export default function RegisterPage(){
                     </Typography>
                 </Box>
             </Backdrop>
-            
+
             <Box
             sx={{
                 width:'100%',

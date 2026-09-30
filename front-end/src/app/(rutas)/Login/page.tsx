@@ -102,35 +102,35 @@ export default function Login() {
                 zIndex: (theme) => theme.zIndex.drawer + 1,
             }}
             >
-                <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-                >
-                    <CircularProgress
-                        size={100}
-                        thickness={5}
-                        sx={{
-                            color: "#003c58",
-                        }}
-                    />
+            <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+            >
+                <CircularProgress
+                    size={100}
+                    thickness={5}
+                    sx={{
+                        color: "white",
+                    }}
+                />
 
-                    <Typography
-                        sx={{
-                            marginTop: 2,
-                            color: "black",
-                            fontSize:'bold',
-                        }}
-                    >
-                        Cargando registro 
-                        <br/>
-                        al sistema...
-                    </Typography>
-                </Box>
-            </Backdrop>
+                <Typography
+                    sx={{
+                        marginTop: 2,
+                        color: "white",
+                        fontWeight:'bold',
+                    }}
+                >
+                    Cargando registro 
+                    <br/>
+                    al sistema...
+                </Typography>
+            </Box>
+        </Backdrop>
 
         {/* Contenedor Principal (Cuerpo) */}
         <Box
