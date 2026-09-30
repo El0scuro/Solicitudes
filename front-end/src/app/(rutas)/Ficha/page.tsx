@@ -1042,8 +1042,7 @@ function Inscribir_Page({close}: PropRamo){
                 <Box
                 sx={{
                     display:'flex',
-                    gap: 10,
-                    position:'relative'
+                    gap: 10
                 }}
                 >
 
@@ -1178,168 +1177,175 @@ function Inscribir_Page({close}: PropRamo){
                         </Table>
                     </Box>
 
-                     {/*Respuesta servidor */}
-                    {stateRespuesta && (
-                        <Box>
+                    <Box
+                    sx={{
+                        position:'relative'
+                    }}
+                    >
+                        {/*Respuesta servidor */}
+                        {stateRespuesta && (
                             <Box>
-                                {stateError && (
-                                    <Box
-                                    sx={{
-                                        display:'flex',
-                                        justifyContent:'center',
-                                        alignItems:'center'
-                                    }}
-                                    >
-                                        <Typography>
-                                            {mensajeError}
-                                        </Typography>
-                                    </Box>
-                                )}
-                            </Box>
-                            <Box>
-                                {stateExito && (
-                                    <Box
+                                <Box>
+                                    {stateError && (
+                                        <Box
                                         sx={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center'
+                                            display:'flex',
+                                            justifyContent:'center',
+                                            alignItems:'center'
                                         }}
-                                    >
-                                        <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '65px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Código
-                                                    </TableCell>
+                                        >
+                                            <Typography>
+                                                {mensajeError}
+                                            </Typography>
+                                        </Box>
+                                    )}
+                                </Box>
+                                <Box>
+                                    {stateExito && (
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '65px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Código
+                                                        </TableCell>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '150px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Asignatura
-                                                    </TableCell>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '150px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Asignatura
+                                                        </TableCell>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '120px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Seccion
-                                                    </TableCell>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Seccion
+                                                        </TableCell>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '150px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Correo Profesor
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableHead>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '150px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Correo Profesor
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableHead>
 
-                                            <TableBody>
-                                                {respuestaServidor?.map(asig =>
-                                                    asig.secciones.map(seccion => (
-                                                        <TableRow
-                                                            key={seccion.num_Seccion}
-                                                            onClick={() => {
-                                                                seleccionarSeccion(asig, seccion);
-                                                            }}
-                                                            sx={{
-                                                                cursor: 'pointer',
-                                                                backgroundColor: secciones.find(
-                                                                    sec => sec === seccion
-                                                                )
-                                                                    ? 'lightblue'
-                                                                    : 'transparent'
-                                                            }}
-                                                        >
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {asig.Codigo}
-                                                            </TableCell>
+                                                <TableBody>
+                                                    {respuestaServidor?.map(asig =>
+                                                        asig.secciones.map(seccion => (
+                                                            <TableRow
+                                                                key={seccion.num_Seccion}
+                                                                onClick={() => {
+                                                                    seleccionarSeccion(asig, seccion);
+                                                                }}
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: secciones.find(
+                                                                        sec => sec === seccion
+                                                                    )
+                                                                        ? 'lightblue'
+                                                                        : 'transparent'
+                                                                }}
+                                                            >
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {asig.Codigo}
+                                                                </TableCell>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {asig.Nombre}
-                                                            </TableCell>
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {asig.Nombre}
+                                                                </TableCell>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {seccion.num_Seccion}
-                                                            </TableCell>
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {seccion.num_Seccion}
+                                                                </TableCell>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {seccion.profesor.Mail}
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    ))
-                                                )}
-                                            </TableBody>
-                                        </Table>
-                                    </Box>
-                                )}
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {seccion.profesor.Mail}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))
+                                                    )}
+                                                </TableBody>
+                                            </Table>
+                                        </Box>
+                                    )}
+                                </Box>
+
                             </Box>
+                            
+                            
+                        )}
 
-                        </Box>
-                        
-                        
-                    )}
-
-                    {/*Buscando */}
-                    {stateBusqueda && (
-                        <Box
-                        sx={{
-                            position: 'absolute',
-                            inset: 0,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            zIndex: 10,
-                        }}
-                        >
-                            <CircularProgress
-                                size={100}
-                                thickness={5}
-                                sx={{
-                                    color: "#003c58",
-                                }}
-                            />
-
-                            <Typography
-                                sx={{
-                                    marginTop: 2,
-                                    color: "black",
-                                    fontWeight:'bold',
-                                }}
+                        {/*Buscando */}
+                        {stateBusqueda && (
+                            <Box
+                            sx={{
+                                position: 'absolute',
+                                inset: 0,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                zIndex: 10,
+                                top:'300px'
+                            }}
                             >
-                                Buscando...
-                            </Typography>
-                        </Box>
-                    )}
+                                <CircularProgress
+                                    size={100}
+                                    thickness={5}
+                                    sx={{
+                                        color: "#003c58",
+                                    }}
+                                />
+
+                                <Typography
+                                    sx={{
+                                        marginTop: 2,
+                                        color: "black",
+                                        fontWeight:'bold',
+                                    }}
+                                >
+                                    Buscando...
+                                </Typography>
+                            </Box>
+                        )}
+                    </Box>
                 </Box>
                 
             </Box>
