@@ -1,6 +1,10 @@
 'use client';
 
-import {Box, Typography, TextField, Button, AppBar, Toolbar, InputAdornment, IconButton} from "@mui/material";
+import {Box, Typography, TextField, 
+        Button, AppBar, Toolbar, 
+        InputAdornment, IconButton, 
+        Backdrop, CircularProgress
+    } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
@@ -98,6 +102,8 @@ interface Datos {
 export default function RegisterPage(){
 
     const router = useRouter();
+
+    const [loading, setLoading] = useState(false);
 
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
     
@@ -246,6 +252,8 @@ export default function RegisterPage(){
         }
         else{
             
+            setLoading(true);
+
             //traigo la llave publica desde el back
             const publicKey: LLave_Publica = (await axios.get(`${__url}/hibrido_back/get-key`)).data;
 
@@ -387,11 +395,9 @@ export default function RegisterPage(){
                     datos
                 );
 
-                console.log(response.data);
-
                 router.push('/Login');
             }catch(error){
-                console.log(error);
+                setLoading(false);
             }
             
 
@@ -449,6 +455,42 @@ export default function RegisterPage(){
                 </Toolbar>
             </AppBar>
 
+            <Backdrop
+            open={loading}
+            sx={{
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            >
+                <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                >
+                    <CircularProgress
+                        size={100}
+                        thickness={5}
+                        sx={{
+                            color: "#003c58",
+                        }}
+                    />
+
+                    <Typography
+                        sx={{
+                            marginTop: 2,
+                            color: "black",
+                            fontSize:'bold',
+                        }}
+                    >
+                        Cargando registro 
+                        <br/>
+                        al sistema...
+                    </Typography>
+                </Box>
+            </Backdrop>
+            
             <Box
             sx={{
                 width:'100%',

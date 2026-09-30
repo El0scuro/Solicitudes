@@ -1,6 +1,10 @@
 'use client';
 
-import { AppBar, Box, Toolbar, Drawer, List, ListItem, ListItemButton, ListItemText, IconButton, Typography, BottomNavigation, BottomNavigationAction, Card } from "@mui/material";
+import { AppBar, Box, Toolbar, Drawer, 
+        List, ListItem, ListItemButton, 
+        ListItemText, IconButton, Typography, 
+        BottomNavigation, BottomNavigationAction, 
+        Card } from "@mui/material";
 import { useState } from "react";
 
 import MenuIcon from '@mui/icons-material/Menu';

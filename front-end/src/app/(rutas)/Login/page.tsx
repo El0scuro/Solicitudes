@@ -1,6 +1,10 @@
 'use client'
 
-import { AppBar, Box, Button, TextField, Toolbar, Typography, InputAdornment, IconButton } from "@mui/material";
+import { AppBar, Box, Button, 
+        TextField, Toolbar, Typography, 
+        InputAdornment, IconButton, 
+        CircularProgress, Backdrop 
+        } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -59,6 +63,8 @@ export default function Login() {
     
     const [perfil, setPerfil] = useState<string>();
 
+    const [stateBusqueda, setStateBusqueda] = useState(false);
+
     return (
     <Box
         sx={{
@@ -89,6 +95,42 @@ export default function Login() {
             />
         </Toolbar>
         </AppBar>
+
+        <Backdrop
+            open={stateBusqueda}
+            sx={{
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            >
+                <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                >
+                    <CircularProgress
+                        size={100}
+                        thickness={5}
+                        sx={{
+                            color: "#003c58",
+                        }}
+                    />
+
+                    <Typography
+                        sx={{
+                            marginTop: 2,
+                            color: "black",
+                            fontSize:'bold',
+                        }}
+                    >
+                        Cargando registro 
+                        <br/>
+                        al sistema...
+                    </Typography>
+                </Box>
+            </Backdrop>
 
         {/* Contenedor Principal (Cuerpo) */}
         <Box
@@ -208,7 +250,7 @@ export default function Login() {
                 backgroundColor: 'white',
             }}
             >
-            <PerfilLogin key={perfil} perfil={perfil} />
+            <PerfilLogin key={perfil} perfil={perfil} cargando={() => setStateBusqueda(true)} />
             </Box>
         )}
         </Box>
@@ -218,6 +260,7 @@ export default function Login() {
 
 type pageProps = {
     perfil: string | undefined;
+    cargando: () => void;
 }
 
 
@@ -252,7 +295,7 @@ interface LLave_Publica {
     version: string;
 }
 
-function PerfilLogin({perfil} : pageProps){
+function PerfilLogin({perfil, cargando} : pageProps){
 
     const router = useRouter();
 
@@ -466,6 +509,9 @@ function PerfilLogin({perfil} : pageProps){
 
             switch(response.data.menssage){
                 case "Loggin exitoso":
+
+                    cargando();
+
                     router.push(
                         `/Ficha?estudiante=${encodeURIComponent(
                             JSON.stringify(response.data.estudianteCifrado)
