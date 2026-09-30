@@ -1042,7 +1042,8 @@ function Inscribir_Page({close}: PropRamo){
                 <Box
                 sx={{
                     display:'flex',
-                    gap: 10
+                    gap: 10,
+                    position:'relative'
                 }}
                 >
 
@@ -1179,11 +1180,7 @@ function Inscribir_Page({close}: PropRamo){
 
                      {/*Respuesta servidor */}
                     {stateRespuesta && (
-                        <Box
-                        sx={{
-                            position:'relative'
-                        }}
-                        >
+                        <Box>
                             <Box>
                                 {stateError && (
                                     <Box
