@@ -723,6 +723,7 @@ function Inscribir_Page({close}: PropRamo){
     const [valorBusqueda, setValorBusqueda] = useState<string>('');
 
 
+
     const [stateRespuesta, setStateRespuesta] = useState(false);
 
     const [stateError, setStateError] = useState(false);
@@ -751,12 +752,22 @@ function Inscribir_Page({close}: PropRamo){
 
     const [secciones, setSecciones] = useState<Seccion[]>([]);
 
+    const [seccionDuplicada, setSeccionDuplicada] = useState<Seccion>();
+
+    const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
+
+
     const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
         setSecciones((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
 
+
             if (yaSeleccionado) {
+                if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+                    setStateSeccionDuplicada(true);
+                    setSeccionDuplicada(seccion);
+                }
                 return seccionesActuales;
             }
 
@@ -1234,7 +1245,8 @@ function Inscribir_Page({close}: PropRamo){
                                                 sx={{
                                                     display: 'flex',
                                                     justifyContent: 'center',
-                                                    alignItems: 'center'
+                                                    alignItems: 'center',
+                                                    gap: 5
                                                 }}
                                             >
                                                 <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
@@ -1333,6 +1345,40 @@ function Inscribir_Page({close}: PropRamo){
                                                         )}
                                                     </TableBody>
                                                 </Table>
+
+                                                {stateSeccionDuplicada && (
+                                                    <Box
+                                                    sx={{
+                                                        borderRadius:'20px',
+                                                        border:'2px solid black',
+                                                        display:'flex',
+                                                        flexDirection:'column',
+                                                        width:''
+                                                    }}
+                                                    >
+                                                        <Box
+                                                        sx={{
+                                                            display:'flex'
+                                                        }}
+                                                        >
+                                                            <Button
+                                                            onClick={() => setStateSeccionDuplicada(false)}
+                                                            sx={{
+                                                                borderRadius:'50px',
+                                                                backgroundColor:'red',
+                                                                ml:'auto'
+                                                            }}
+                                                            >
+                                                                X
+                                                            </Button>
+                                                        </Box>
+                                                        <Typography>
+                                                            Ya seleccionaste una seccion
+                                                            <br/>
+                                                            de la asignatura {seccionDuplicada?.asignatura.Nombre}
+                                                        </Typography>
+                                                    </Box>
+                                                )}
                                             </Box>
                                         )}
                                     </Box>
@@ -1521,6 +1567,7 @@ function Desinscribir_Page({close}: PropRamo){
     const [valorBusqueda, setValorBusqueda] = useState<string>('');
 
 
+
     const [stateRespuesta, setStateRespuesta] = useState(false);
 
     const [stateError, setStateError] = useState(false);
@@ -1549,12 +1596,22 @@ function Desinscribir_Page({close}: PropRamo){
 
     const [secciones, setSecciones] = useState<Seccion[]>([]);
 
+    const [seccionDuplicada, setSeccionDuplicada] = useState<Seccion>();
+
+    const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
+
+
     const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
         setSecciones((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
 
+
             if (yaSeleccionado) {
+                if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+                    setStateSeccionDuplicada(true);
+                    setSeccionDuplicada(seccion);
+                }
                 return seccionesActuales;
             }
 
@@ -2032,7 +2089,8 @@ function Desinscribir_Page({close}: PropRamo){
                                                 sx={{
                                                     display: 'flex',
                                                     justifyContent: 'center',
-                                                    alignItems: 'center'
+                                                    alignItems: 'center',
+                                                    gap: 5
                                                 }}
                                             >
                                                 <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
@@ -2131,6 +2189,40 @@ function Desinscribir_Page({close}: PropRamo){
                                                         )}
                                                     </TableBody>
                                                 </Table>
+
+                                                {stateSeccionDuplicada && (
+                                                    <Box
+                                                    sx={{
+                                                        borderRadius:'20px',
+                                                        border:'2px solid black',
+                                                        display:'flex',
+                                                        flexDirection:'column',
+                                                        width:''
+                                                    }}
+                                                    >
+                                                        <Box
+                                                        sx={{
+                                                            display:'flex'
+                                                        }}
+                                                        >
+                                                            <Button
+                                                            onClick={() => setStateSeccionDuplicada(false)}
+                                                            sx={{
+                                                                borderRadius:'50px',
+                                                                backgroundColor:'red',
+                                                                ml:'auto'
+                                                            }}
+                                                            >
+                                                                X
+                                                            </Button>
+                                                        </Box>
+                                                        <Typography>
+                                                            Ya seleccionaste una seccion
+                                                            <br/>
+                                                            de la asignatura {seccionDuplicada?.asignatura.Nombre}
+                                                        </Typography>
+                                                    </Box>
+                                                )}
                                             </Box>
                                         )}
                                     </Box>
