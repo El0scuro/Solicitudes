@@ -1357,7 +1357,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:'100px',
+                                                        width:'250px',
                                                         padding:2
                                                     }}
                                                     >
@@ -1381,7 +1381,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         <Typography
                                                         sx={{
                                                             fontWeight:'bold',
-                                                            fontSize:'9'
+                                                            fontSize:'9px'
                                                         }}
                                                         >
                                                             Ya seleccionaste una seccion
@@ -2212,7 +2212,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:'100px',
+                                                        width:'250px',
                                                         padding:2
                                                     }}
                                                     >
@@ -2236,7 +2236,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                         <Typography
                                                         sx={{
                                                             fontWeight:'bold',
-                                                            fontSize:'9'
+                                                            fontSize:'9px'
                                                         }}
                                                         >
                                                             Ya seleccionaste una seccion
