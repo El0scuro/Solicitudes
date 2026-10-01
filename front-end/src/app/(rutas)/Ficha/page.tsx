@@ -781,15 +781,17 @@ function Inscribir_Page({close}: PropRamo){
         });
     };
 
+    const deseleccionarRamo = (seccion: Seccion) => {
+        setSecciones(secciones.filter(sec => sec !== seccion));
+        return secciones;
+    };
 
 
     const buscar = async() => {
 
-        let response;
+       let response;
 
        try {
-
-        
         switch (parametroBusqueda) {
             
             case "Codigo":
@@ -818,31 +820,28 @@ function Inscribir_Page({close}: PropRamo){
         setStateExito(true);
 
         } catch (error) {
-        setStateExito(false);
-        setStateError(true);
+            setStateExito(false);
+            setStateError(true);
 
-        if (parametroBusqueda === "Codigo") {
-            setMensajeError("El código ingresado no es válido.");
-        }
+            if (parametroBusqueda === "Codigo") {
+                setMensajeError("El código ingresado no es válido.");
+            }
 
-        if (parametroBusqueda === "Nombre") {
-            setMensajeError("El nombre ingresado no es válido.");
-        }
+            if (parametroBusqueda === "Nombre") {
+                setMensajeError("El nombre ingresado no es válido.");
+            }
 
-        if (parametroBusqueda === "Semestre") {
-            setMensajeError(
-            `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
-            );
-        }
-        
-        setStateBusqueda(false);
+            if (parametroBusqueda === "Semestre") {
+                setMensajeError(
+                `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
+                );
+            }
+            
+            setStateBusqueda(false);
         }
     };
 
-    const deseleccionarRamo = (seccion: Seccion) => {
-        setSecciones(secciones.filter(sec => sec !== seccion));
-        return secciones;
-    };
+    
 
     return(
         <Box
@@ -864,6 +863,16 @@ function Inscribir_Page({close}: PropRamo){
             padding: 1,
             }}
             >
+
+                <Typography
+                component="legend"
+                sx={{
+                    fontWeight:'bold',
+                    ml:'10px'
+                }}
+                >
+                    Inscribir Asignaturas
+                </Typography>
 
                 {/* Buscador - CheckBox's - Cerrar*/}
                 <Box
@@ -1721,6 +1730,16 @@ function Desinscribir_Page({close}: PropRamo){
             padding: 1,
             }}
             >
+
+                <Typography
+                component="legend"
+                sx={{
+                    fontWeight:'bold',
+                    ml:'10px'
+                }}
+                >
+                    Desinscribir Asignaturas
+                </Typography>
 
                 {/* Buscador - CheckBox's - Cerrar*/}
                 <Box
