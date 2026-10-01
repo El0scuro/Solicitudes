@@ -771,7 +771,7 @@ function Inscribir_Page({close}: PropRamo){
                 setStateSeccionDuplicada(true);
 
                 seccion.asignatura = asignatura;
-                
+
                 setSeccionDuplicada(seccion);
                 
                 return seccionesActuales;
@@ -1359,7 +1359,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:''
+                                                        width:'300px'
                                                     }}
                                                     >
                                                         <Box
@@ -1372,7 +1372,8 @@ function Inscribir_Page({close}: PropRamo){
                                                             sx={{
                                                                 borderRadius:'50px',
                                                                 backgroundColor:'red',
-                                                                ml:'auto'
+                                                                ml:'auto',
+                                                                color:'white'
                                                             }}
                                                             >
                                                                 X
@@ -2207,7 +2208,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:''
+                                                        width:'300px'
                                                     }}
                                                     >
                                                         <Box
@@ -2220,7 +2221,8 @@ function Desinscribir_Page({close}: PropRamo){
                                                             sx={{
                                                                 borderRadius:'50px',
                                                                 backgroundColor:'red',
-                                                                ml:'auto'
+                                                                ml:'auto',
+                                                                color:'white'
                                                             }}
                                                             >
                                                                 X
