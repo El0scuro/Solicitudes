@@ -1554,8 +1554,7 @@ function Desinscribir_Page({close}: PropRamo){
 
             const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
 
-
-            if (yaSeleccionado || secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)) {
+            if (yaSeleccionado) {
                 return seccionesActuales;
             }
 
