@@ -764,10 +764,13 @@ function Inscribir_Page({close}: PropRamo){
 
 
             if (yaSeleccionado) {
-                if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
-                    setStateSeccionDuplicada(true);
-                    setSeccionDuplicada(seccion);
-                }
+                return seccionesActuales;
+            }
+
+            if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+                setStateSeccionDuplicada(true);
+                setSeccionDuplicada(seccion);
+                
                 return seccionesActuales;
             }
 
@@ -1608,10 +1611,13 @@ function Desinscribir_Page({close}: PropRamo){
 
 
             if (yaSeleccionado) {
-                if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
-                    setStateSeccionDuplicada(true);
-                    setSeccionDuplicada(seccion);
-                }
+                return seccionesActuales;
+            }
+
+            if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+                setStateSeccionDuplicada(true);
+                setSeccionDuplicada(seccion);
+                
                 return seccionesActuales;
             }
 
