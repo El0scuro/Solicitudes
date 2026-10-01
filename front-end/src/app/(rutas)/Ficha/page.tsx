@@ -769,9 +769,7 @@ function Inscribir_Page({close}: PropRamo){
 
             if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
                 setStateSeccionDuplicada(true);
-
                 seccion.asignatura = asignatura;
-
                 setSeccionDuplicada(seccion);
                 
                 return seccionesActuales;
@@ -1359,7 +1357,8 @@ function Inscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:'300px'
+                                                        width:'100px',
+                                                        padding:2
                                                     }}
                                                     >
                                                         <Box
@@ -1379,7 +1378,12 @@ function Inscribir_Page({close}: PropRamo){
                                                                 X
                                                             </Button>
                                                         </Box>
-                                                        <Typography>
+                                                        <Typography
+                                                        sx={{
+                                                            fontWeight:'bold',
+                                                            fontSize:'9'
+                                                        }}
+                                                        >
                                                             Ya seleccionaste una seccion
                                                             <br/>
                                                             de la asignatura {seccionDuplicada?.asignatura.Nombre}
@@ -2208,7 +2212,8 @@ function Desinscribir_Page({close}: PropRamo){
                                                         border:'2px solid black',
                                                         display:'flex',
                                                         flexDirection:'column',
-                                                        width:'300px'
+                                                        width:'100px',
+                                                        padding:2
                                                     }}
                                                     >
                                                         <Box
@@ -2228,7 +2233,12 @@ function Desinscribir_Page({close}: PropRamo){
                                                                 X
                                                             </Button>
                                                         </Box>
-                                                        <Typography>
+                                                        <Typography
+                                                        sx={{
+                                                            fontWeight:'bold',
+                                                            fontSize:'9'
+                                                        }}
+                                                        >
                                                             Ya seleccionaste una seccion
                                                             <br/>
                                                             de la asignatura {seccionDuplicada?.asignatura.Nombre}
