@@ -769,6 +769,9 @@ function Inscribir_Page({close}: PropRamo){
 
             if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
                 setStateSeccionDuplicada(true);
+
+                seccion.asignatura = asignatura;
+                
                 setSeccionDuplicada(seccion);
                 
                 return seccionesActuales;
@@ -1616,6 +1619,7 @@ function Desinscribir_Page({close}: PropRamo){
 
             if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
                 setStateSeccionDuplicada(true);
+                seccion.asignatura = asignatura;
                 setSeccionDuplicada(seccion);
                 
                 return seccionesActuales;
