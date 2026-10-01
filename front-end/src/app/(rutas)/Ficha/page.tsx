@@ -1372,7 +1372,9 @@ function Inscribir_Page({close}: PropRamo){
                                                                 borderRadius:'50px',
                                                                 backgroundColor:'red',
                                                                 ml:'auto',
-                                                                color:'white'
+                                                                color:'white',
+                                                                width:'50px',
+                                                                height:'50px'
                                                             }}
                                                             >
                                                                 X
@@ -1381,7 +1383,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         <Typography
                                                         sx={{
                                                             fontWeight:'bold',
-                                                            fontSize:'9px'
+                                                            fontSize:'15px'
                                                         }}
                                                         >
                                                             Ya seleccionaste una seccion
@@ -2227,7 +2229,9 @@ function Desinscribir_Page({close}: PropRamo){
                                                                 borderRadius:'50px',
                                                                 backgroundColor:'red',
                                                                 ml:'auto',
-                                                                color:'white'
+                                                                color:'white',
+                                                                width:'50px',
+                                                                height:'50px'
                                                             }}
                                                             >
                                                                 X
@@ -2236,7 +2240,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                         <Typography
                                                         sx={{
                                                             fontWeight:'bold',
-                                                            fontSize:'9px'
+                                                            fontSize:'15px'
                                                         }}
                                                         >
                                                             Ya seleccionaste una seccion
