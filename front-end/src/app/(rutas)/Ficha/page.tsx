@@ -1735,8 +1735,7 @@ function Desinscribir_Page({close}: PropRamo){
                 component="legend"
                 sx={{
                     fontWeight:'bold',
-                    ml:'
-                    10px'
+                    ml:'10px'
                 }}
                 >
                     Desinscribir Asignaturas
