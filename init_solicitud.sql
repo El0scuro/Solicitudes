@@ -54,7 +54,8 @@ CREATE TABLE `asignatura` (
   `Codigo` varchar(100) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
   `Semestre` varchar(100) NOT NULL,
-  PRIMARY KEY (`Codigo`)
+  `Ano_Malla` varchar(100) NOT NULL,
+  PRIMARY KEY (`Codigo`, `Ano_Malla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -323,11 +324,12 @@ DROP TABLE IF EXISTS `seccion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `seccion` (
   `Codigo` varchar(100) NOT NULL,
+  `Ano_Malla` varchar(100) NOT NULL,
   `mail_Profesor` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `num_Seccion` int NOT NULL,
-  PRIMARY KEY (`Codigo`,`num_Seccion`),
+  PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   KEY `seccion_profesor_FK` (`mail_Profesor`),
-  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`) REFERENCES `asignatura` (`Codigo`),
+  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),
   CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`mail_Profesor`) REFERENCES `profesor` (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -372,34 +374,6 @@ CREATE TABLE `secretaria` (
 LOCK TABLES `secretaria` WRITE;
 /*!40000 ALTER TABLE `secretaria` DISABLE KEYS */;
 /*!40000 ALTER TABLE `secretaria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `secretaria_seccion`
---
-
-DROP TABLE IF EXISTS `secretaria_seccion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `secretaria_seccion` (
-  `Mail` varchar(100) NOT NULL,
-  `num_Seccion` int NOT NULL,
-  `Codigo` varchar(100) DEFAULT NULL,
-  KEY `secretaria_seccion_seccion_FK` (`num_Seccion`),
-  KEY `secretaria_seccion_secretaria_FK` (`Rut`),
-  KEY `FK_secretaria_seccion_1` (`Codigo`,`num_Seccion`),
-  CONSTRAINT `FK_secretaria_seccion_1` FOREIGN KEY (`Codigo`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `num_Seccion`),
-  CONSTRAINT `secretaria_seccion_secretaria_FK` FOREIGN KEY (`Mail`) REFERENCES `secretaria` (`Mail`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `secretaria_seccion`
---
-
-LOCK TABLES `secretaria_seccion` WRITE;
-/*!40000 ALTER TABLE `secretaria_seccion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `secretaria_seccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

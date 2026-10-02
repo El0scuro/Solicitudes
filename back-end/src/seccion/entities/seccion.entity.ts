@@ -6,14 +6,17 @@ import type { Solicitud } from "../../solicitud/entities/solicitud.entity.js";
 
 @Entity("seccion", { schema: "solicitud" })
 export class Seccion {
-    @PrimaryGeneratedColumn({ type: "int", name: "num_Seccion" })
+    @Column({ type: "int", name: "num_Seccion" })
     num_Seccion: number;
 
     @Column("varchar", { name: "Codigo", length: 100 })
     Codigo: string;
 
     @ManyToOne(() => Asignatura, (asignatura) => asignatura.secciones)
-    @JoinColumn([{ name: "Codigo", referencedColumnName: "Codigo" }])
+    @JoinColumn([
+        { name: "Codigo", referencedColumnName: "Codigo" },
+        { name: "Ano_Malla", referencedColumnName: "Ano_Malla"}
+    ])
     asignatura: Asignatura;
 
     @ManyToOne(() => Profesor, (profesor) => profesor.secciones)

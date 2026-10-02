@@ -125,9 +125,7 @@ export default function Login() {
                         fontWeight:'bold',
                     }}
                 >
-                    Cargando registro 
-                    <br/>
-                    al sistema...
+                    Cargando Sesión...
                 </Typography>
             </Box>
         </Backdrop>
@@ -511,12 +509,18 @@ function PerfilLogin({perfil, cargando} : pageProps){
                 case "Loggin exitoso":
 
                     cargando();
-
-                    router.push(
-                        `/Ficha?estudiante=${encodeURIComponent(
-                            JSON.stringify(response.data.estudianteCifrado)
-                        )}`
-                    );
+                    if(perfil === "estudiante"){
+                        router.push(
+                            `/Menu_Estudiante?estudiante=${encodeURIComponent(
+                                JSON.stringify(response.data.estudianteCifrado)
+                            )}`
+                        );
+                    }else if(perfil === "secretaria"){
+                        router.push(
+                            `/Secretaria`
+                        )
+                    }
+                    
                     break;
                 case "Contraseña incorrecta":
                     alert("[ERROR], contraseña incorrecta");

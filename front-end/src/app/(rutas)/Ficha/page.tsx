@@ -4,7 +4,11 @@ import { Box, Button, Table, TableBody,
     TableCell, TableHead, TableRow, 
     TextField, Typography, Checkbox,
     FormControlLabel, CircularProgress,
-    Stack, Divider
+    Stack, Divider,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem
 } from "@mui/material";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -282,7 +286,7 @@ function Solicitud_Ficha_Content(){
                         border: '2px solid black',
                         borderRadius: '8px',
                         padding: 3,
-                        width:'30%',
+                        width:'35%',
                         height:'auto',
                         alignItems:'flex-start'
                     }}
@@ -680,6 +684,12 @@ function Solicitud_Ficha_Content(){
 
                     )}
                      */}
+
+                    {verSeccion && (
+                        <Cambio_Seccion
+                        close={() => setVerSeccion(false)}
+                        />
+                    )}
                 </Box>
 
 
@@ -713,6 +723,10 @@ interface PropRamo {
 }
 
 interface PropJustificacion {
+    close: () => void;
+}
+
+interface PropCambio {
     close: () => void;
 }
 
@@ -786,12 +800,13 @@ function Inscribir_Page({close}: PropRamo){
         return secciones;
     };
 
-
     const buscar = async() => {
 
-       let response;
+        let response;
 
        try {
+
+        
         switch (parametroBusqueda) {
             
             case "Codigo":
@@ -820,35 +835,33 @@ function Inscribir_Page({close}: PropRamo){
         setStateExito(true);
 
         } catch (error) {
-            setStateExito(false);
-            setStateError(true);
+        setStateExito(false);
+        setStateError(true);
 
-            if (parametroBusqueda === "Codigo") {
-                setMensajeError("El código ingresado no es válido.");
-            }
+        if (parametroBusqueda === "Codigo") {
+            setMensajeError("El código ingresado no es válido.");
+        }
 
-            if (parametroBusqueda === "Nombre") {
-                setMensajeError("El nombre ingresado no es válido.");
-            }
+        if (parametroBusqueda === "Nombre") {
+            setMensajeError("El nombre ingresado no es válido.");
+        }
 
-            if (parametroBusqueda === "Semestre") {
-                setMensajeError(
-                `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
-                );
-            }
-            
-            setStateBusqueda(false);
+        if (parametroBusqueda === "Semestre") {
+            setMensajeError(
+            `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
+            );
+        }
+        
+        setStateBusqueda(false);
         }
     };
-
-    
 
     return(
         <Box
         sx={{
-            ml:'2%',
             alignItems: 'flex-start',
-            width:'1480px'
+            width:'1500px',
+            ml:'0.5%'
         }}
         >
             <Box
@@ -1076,6 +1089,7 @@ function Inscribir_Page({close}: PropRamo){
 
                 </Box>
 
+                {/*Seleccionados - Repuesta / Carta */}
                 <Stack
                 spacing={5}
                 divider={
@@ -1528,45 +1542,62 @@ function Inscribir_Page({close}: PropRamo){
                         )}
                         
                         {!stateCarta && (
-                            <Button  
+                            <Box
                             sx={{
-                                backgroundColor:'#003c58',
-                                width:'300px'
+                                display:'flex',
+                                flexDirection:'column',
+                                alignItems:'center'
                             }}
-                            
-                            variant="contained"
-                            component="label"
                             >
-                                <Box
+                                <Button  
                                 sx={{
-                                    display:'flex',
-                                    gap:5
+                                    backgroundColor:'#003c58',
+                                    width:'300px'
+                                }}
+                                
+                                variant="contained"
+                                component="label"
+                                >
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        gap:5
+                                    }}
+                                    >
+                                        <Typography>
+                                            Cargar Carta
+                                        </Typography>
+                                        <CloudUploadIcon sx={{color:'white'}} />
+                                    </Box>
+                                    
+
+
+                                    <input
+                                        type="file"
+                                        accept=".pdf,.doc,.docx"
+                                        hidden
+                                        onChange={(event) => {
+                                            const archivoSeleccionado = event.target.files?.[0];
+
+                                            if (archivoSeleccionado) {
+                                                setArchivo(archivoSeleccionado)
+                                                setStateCarta(true);
+                                            }else{
+                                                setStateCarta(false);
+                                            }
+                                        }}
+                                    />
+                                </Button>
+
+                                <Typography
+                                sx={{
+                                    display:'flex'
                                 }}
                                 >
-                                    <Typography>
-                                        Cargar Carta
-                                    </Typography>
-                                    <CloudUploadIcon sx={{color:'white'}} />
-                                </Box>
-                                
-
-
-                                <input
-                                    type="file"
-                                    accept=".pdf,.doc,.docx"
-                                    hidden
-                                    onChange={(event) => {
-                                        const archivoSeleccionado = event.target.files?.[0];
-
-                                        if (archivoSeleccionado) {
-                                            setArchivo(archivoSeleccionado)
-                                            setStateCarta(true);
-                                        }else{
-                                            setStateCarta(false);
-                                        }
-                                    }}
-                                />
-                            </Button>
+                                    (Formatos permitidos: doc, docx, pdf)
+                                </Typography>
+                            </Box>
+                            
                         )}
 
                     </Box>   
@@ -1647,6 +1678,10 @@ function Desinscribir_Page({close}: PropRamo){
         });
     };
 
+    const deseleccionarRamo = (seccion: Seccion) => {
+        setSecciones(secciones.filter(sec => sec !== seccion));
+        return secciones;
+    };
 
 
     const buscar = async() => {
@@ -1705,17 +1740,13 @@ function Desinscribir_Page({close}: PropRamo){
         }
     };
 
-    const deseleccionarRamo = (seccion: Seccion) => {
-        setSecciones(secciones.filter(sec => sec !== seccion));
-        return secciones;
-    };
 
     return(
         <Box
         sx={{
-            ml:'2%',
             alignItems: 'flex-start',
-            width:'1480px'
+            width:'1500px',
+            ml:'0.5%'
         }}
         >
             <Box
@@ -2395,45 +2426,58 @@ function Desinscribir_Page({close}: PropRamo){
                         )}
                         
                         {!stateCarta && (
-                            <Button  
+                            <Box
                             sx={{
-                                backgroundColor:'#003c58',
-                                width:'300px'
+                                display:'flex',
+                                flexDirection:'column',
+                                alignItems:'center'
                             }}
-                            
-                            variant="contained"
-                            component="label"
                             >
-                                <Box
+                                <Button  
                                 sx={{
-                                    display:'flex',
-                                    gap:5
+                                    backgroundColor:'#003c58',
+                                    width:'300px'
                                 }}
-                                >
-                                    <Typography>
-                                        Cargar Carta
-                                    </Typography>
-                                    <CloudUploadIcon sx={{color:'white'}} />
-                                </Box>
                                 
-
-
-                                <input
-                                    type="file"
-                                    accept=".pdf,.doc,.docx"
-                                    hidden
-                                    onChange={(event) => {
-                                        const archivoSeleccionado = event.target.files?.[0];
-
-                                        if (archivoSeleccionado) {
-                                            setArchivo(archivoSeleccionado)
-                                            setStateCarta(true);
-                                        }else{
-                                            setStateCarta(false);
-                                        }
+                                variant="contained"
+                                component="label"
+                                >
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        gap:5
                                     }}
-                                />
-                            </Button>
+                                    >
+                                        <Typography>
+                                            Cargar Carta
+                                        </Typography>
+                                        <CloudUploadIcon sx={{color:'white'}} />
+                                    </Box>
+                                    
+
+
+                                    <input
+                                        type="file"
+                                        accept=".pdf,.doc,.docx"
+                                        hidden
+                                        onChange={(event) => {
+                                            const archivoSeleccionado = event.target.files?.[0];
+
+                                            if (archivoSeleccionado) {
+                                                setArchivo(archivoSeleccionado)
+                                                setStateCarta(true);
+                                            }else{
+                                                setStateCarta(false);
+                                            }
+                                        }}
+                                    />
+                                </Button>
+
+                                <Typography>
+                                    (Formatos permitidos: doc, docx, pdf)
+                                </Typography>
+                            </Box>
+                            
                         )}
 
                     </Box>   
@@ -2535,6 +2579,475 @@ function Justificar_Clase_Page({close} : PropJustificacion){
                     </TableBody>
                 </Table>
                 
+            </Box>
+        </Box>
+    );
+}
+
+function Cambio_Seccion({close} : PropCambio){
+
+    const [asignaturas, setAsignaturas] = useState<Asignatura[]>();
+
+    const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState<Asignatura | null>();
+
+    
+    const [stateSecciones, setStateSecciones] = useState(true);
+
+    const [stateCambio, setStateCambio] = useState(true);
+
+    const [seccionActual, setSeccionActual] = useState<Seccion>();
+
+    const [seccionCambio, setSeccionCambio] = useState<Seccion>()
+
+    const [seccionesSolicitud, setSeccionesSolicitud] = useState<Seccion[][]>();
+
+
+    const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
+
+
+    const agregarCambio = () => {
+
+        setSeccionesSolicitud((seccionesCargadas) => {
+
+            if(!seccionesSolicitud){
+                return;
+            }
+            const cargadas = seccionesSolicitud?.some(
+                secs => secs.some(sec => (
+                    sec.num_Seccion === seccionActual?.num_Seccion || 
+                    sec.num_Seccion === seccionCambio?.num_Seccion ))
+            )
+
+            if(cargadas){
+                return 
+            }
+
+            if(seccionesSolicitud?.some(
+                secs => secs.some(
+                    sec => sec.asignatura.Codigo === asignaturaSeleccionada?.Codigo
+                )
+            )){
+                setStateSeccionDuplicada(true);
+                if(!seccionActual || !seccionCambio || !asignaturaSeleccionada ){
+                    return;
+                }
+                seccionActual.asignatura = asignaturaSeleccionada;
+                seccionCambio.asignatura = asignaturaSeleccionada;
+            }
+
+            if(!seccionActual || !seccionCambio || !asignaturaSeleccionada ){
+                return;
+            }
+            seccionActual.asignatura = asignaturaSeleccionada;
+            seccionCambio.asignatura = asignaturaSeleccionada;
+
+            return [...seccionesSolicitud, [seccionActual, seccionCambio]]
+        })
+    }
+
+    return(
+        <Box
+        sx={{
+            alignItems: 'flex-start',
+            width:'1500px',
+            ml:'0.5%',
+        }}
+        >
+            <Box
+            component="fieldset"
+            sx={{
+            display:'flex',
+            flexDirection:'column',
+            height:'auto',
+            gap: 5,
+            border: '2px solid black',
+            borderRadius: '8px',
+            padding: 2,
+            }}
+            >
+
+                <Typography
+                component="legend"
+                sx={{
+                    fontWeight:'bold',
+                    ml:'10px'
+                }}
+                >
+                    Cambio de Sección
+                </Typography>
+
+                {/* Cerrar */}
+                <Button
+
+                onClick={() => close()}
+                sx={{
+                    ml:'auto',
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems: 'center',
+                    backgroundColor:'red',
+                    color:'white',
+                    width:'30px',
+                    height:'30px',
+                    borderRadius:'50px'
+                    }}
+                >
+                    X
+                </Button>
+                
+                {/*Asignaturas - Secciones - Cambio*/}
+                <Box
+                sx={{
+                    display:'flex',
+                    justifyContent:'flex-start',
+                    gap:40,
+                    alignItems:'center'
+                }}
+                >
+                    {/*Asignaturas */}
+                    <FormControl
+                    sx={{
+                        minWidth:'250px'
+                    }}
+                    >
+                        <InputLabel id="demo-simple-select-label">Seleccione una asignatura</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={asignaturas}
+                        label="Asignaturas"
+                        onChange={(e) => {
+                            if(e.target.value === "Seleccione"){
+                                setAsignaturaSeleccionada(null);
+                                setStateSecciones(false);
+                                setStateCambio(false);
+                            }
+                            setAsignaturaSeleccionada(
+                                asignaturas?.find(asig => asig.Codigo === e.target.value)
+                            );
+                            setStateSecciones(true);
+                            setStateCambio(true);
+                        }}
+                        >
+                            <MenuItem
+                            value={"Seleccione"}
+                            >
+                            </MenuItem>
+                            {asignaturas?.map(asig => (
+                                <MenuItem 
+                                value={asig.Codigo}
+                                >
+                                    {asig.Nombre}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    {/*Secciones - Cambio - Solicitar-Duplicado */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap:10
+                    }}
+                    >
+                        {/*Secciones - Cambio */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            gap:4
+                        }}
+                        >
+                            {stateSecciones && (
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    flexDirection:'column',
+                                    justifyContent:'center',
+                                }}
+                                >
+                                    
+                                    <Typography
+                                    align="left"
+                                    sx={{
+                                        fontWeight:'bold'
+                                    }}
+                                    >
+                                        Indique que sección tiene 
+                                        <br/>
+                                        inscrita actualmente
+                                    </Typography>
+
+                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                        <TableHead>
+                                            <TableRow>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Seccion
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Nombre Profesor
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+
+                                        <TableBody>
+                                            {asignaturaSeleccionada?.secciones?.map(sec => (
+                                                    <TableRow
+                                                        key={sec.num_Seccion}
+                                                        onClick={() => {
+                                                            setSeccionActual(sec)
+                                                        }}
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            backgroundColor: seccionActual
+                                                                ? 'lightblue'
+                                                                : 'transparent'
+                                                        }}
+                                                    >
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {sec.num_Seccion}
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
+                                                        </TableCell>
+                                                    </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Box>
+                            )}
+
+
+                            {stateCambio && (
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    flexDirection:'column',
+                                    justifyContent:'center',
+                                }}
+                                >
+
+                                    <Typography
+                                    align="left"
+                                    sx={{
+                                        fontWeight:'bold'
+                                    }}
+                                    >
+                                        Indique a que sección 
+                                        <br/>
+                                        quiere cambiarse
+                                    </Typography>
+
+                                    <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                        <TableHead>
+                                            <TableRow>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Seccion
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    width: '120px',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    Nombre Profesor
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+
+                                        <TableBody>
+                                            {asignaturaSeleccionada?.secciones?.map(sec => (
+                                                    <TableRow
+                                                        key={sec.num_Seccion}
+                                                        onClick={() => {
+                                                            setSeccionCambio(sec)
+                                                        }}
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                            backgroundColor: seccionCambio
+                                                                ? 'lightgreen'
+                                                                : 'transparent'
+                                                        }}
+                                                    >
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {sec.num_Seccion}
+                                                        </TableCell>
+
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
+                                                        </TableCell>
+                                                    </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Box>
+                            )}
+                        </Box>
+                        <Box>
+                            <Button
+                            onClick={() => agregarCambio()}
+                            variant="contained"
+                            >
+                                Cargar 
+                                <br/>
+                                cambio
+                            </Button>
+                        </Box>
+                        {stateSeccionDuplicada && (
+                            <Box
+                            sx={{
+                                borderRadius:'20px',
+                                border:'2px solid black',
+                                display:'flex',
+                                flexDirection:'column',
+                                width:'250px',
+                                padding:2
+                            }}
+                            >
+                                <Box
+                                sx={{
+                                    display:'flex'
+                                }}
+                                >
+                                    <Button
+                                    onClick={() => setStateSeccionDuplicada(false)}
+                                    sx={{
+                                        borderRadius:'50px',
+                                        backgroundColor:'red',
+                                        ml:'auto',
+                                        color:'white',
+                                        width:'50px',
+                                        height:'50px'
+                                    }}
+                                    >
+                                        X
+                                    </Button>
+                                </Box>
+                                <Typography
+                                sx={{
+                                    fontWeight:'bold',
+                                    fontSize:'15px'
+                                }}
+                                >
+                                    No puedes solicitar más de un 
+                                    <br/>
+                                    cambio de sección de una misma asignatura
+                                </Typography>
+                            </Box>
+                        )}
+                    </Box>
+                    
+                </Box>
+
+                {/*Solicitudes_Cambio */}
+                <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                    <TableHead>
+                        <TableRow>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '130px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Seccion Actual
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Nombre Profesor
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '130px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Seccion Solicitada
+                            </TableCell>
+
+                            <TableCell sx={{
+                                border: '1px solid black',
+                                width: '120px',
+                                py: 0.25,
+                                px: 0.5
+                            }}>
+                                Nombre Profesor
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody>
+                        {asignaturaSeleccionada?.secciones.map(sec => (
+                                <TableRow
+                                    key={sec.num_Seccion}
+                                    
+                                    sx={{
+                                        cursor: 'pointer'
+                                    }}
+                                >
+
+                                    <TableCell sx={{
+                                        border: '1px solid black',
+                                        py: 0.25,
+                                        px: 0.5
+                                    }}>
+                                        {sec.num_Seccion}
+                                    </TableCell>
+
+                                    <TableCell sx={{
+                                        border: '1px solid black',
+                                        py: 0.25,
+                                        px: 0.5
+                                    }}>
+                                        {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
+                                    </TableCell>
+                                </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </Box>
         </Box>
     );

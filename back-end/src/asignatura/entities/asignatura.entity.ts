@@ -12,6 +12,9 @@ export class Asignatura {
     @Column("varchar", { name: "Semestre", length: 100 })
     Semestre: string;
 
+    @Column("varchar", { name: "Ano_Malla", length: 100 })
+    Ano_Malla: string;
+
     @OneToMany(() => Seccion, (seccion) => seccion.asignatura)
     secciones: Seccion[];
 }
