@@ -131,6 +131,7 @@ export default function Menu_Estudiante(){
                     width:'300px',
                     height:'350px',
                     backgroundColor:'transparent',
+                    border:'2px solid #C08081'
                 }}
                 >
                     <ListAltIcon
@@ -160,6 +161,7 @@ export default function Menu_Estudiante(){
                     width:'300px',
                     height:'350px',
                     backgroundColor:'transparent',
+                    border:'2px solid #C08081'
                 }}
                 >
                     <ManageAccountsIcon 
@@ -191,6 +193,7 @@ export default function Menu_Estudiante(){
                     width:'300px',
                     height:'350px',
                     backgroundColor:'transparent',
+                    border:'2px solid #C08081'
                     
                 }}
                 >
