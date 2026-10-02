@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { Asignatura } from "../../asignatura/entities/asignatura.entity.js";
 import { Profesor } from "../../profesor/entities/profesor.entity.js";
 import type { SecretariaSeccion } from "../../secretaria_seccion/entities/secretaria_seccion.entity.js";
@@ -6,16 +6,16 @@ import type { Solicitud } from "../../solicitud/entities/solicitud.entity.js";
 
 @Entity("seccion", { schema: "solicitud" })
 export class Seccion {
-    @Column({ type: "int", name: "num_Seccion" })
+    @PrimaryColumn({ type: "int", name: "num_Seccion" })
     num_Seccion: number;
 
-    @Column("varchar", { name: "Codigo", length: 100 })
+    @PrimaryColumn("varchar", { name: "Codigo", length: 100 })
     Codigo: string;
+
 
     @ManyToOne(() => Asignatura, (asignatura) => asignatura.secciones)
     @JoinColumn([
-        { name: "Codigo", referencedColumnName: "Codigo" },
-        { name: "Ano_Malla", referencedColumnName: "Ano_Malla"}
+        { name: "Codigo", referencedColumnName: "Codigo" }
     ])
     asignatura: Asignatura;
 
