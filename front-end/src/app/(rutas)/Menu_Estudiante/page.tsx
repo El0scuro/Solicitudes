@@ -30,7 +30,7 @@ export default function Menu_Estudiante(){
             display:'flex',
             flexDirection:'column',
             height:'100vh',
-            backgroundColor:'#E0D1B8',
+            backgroundColor:'#EFE8DB',
         }}
         >
             <AppBar
