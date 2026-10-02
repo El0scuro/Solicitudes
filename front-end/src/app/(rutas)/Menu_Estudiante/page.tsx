@@ -130,21 +130,22 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'#556B2F'
+                    backgroundColor:'#556B2F',
+                    borderRadius:'20px'
                 }}
                 >
                     <ListAltIcon
                     sx={{
                         width: '60%',
                         height:'60%',
-                        color: "#72090F"
+                        color: "#4C221A"
                     }}
                     />
                     
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'#E0D1B8'
+                        color:'#003c58'
                     }}
                     >
                         Realizar una solicitud
@@ -159,21 +160,22 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'#556B2F'
+                    backgroundColor:'#556B2F',
+                    borderRadius:'20px'
                 }}
                 >
                     <ManageAccountsIcon 
                     sx={{
                         width: '60%',
                         height:'60%',
-                        color: "#72090F"
+                        color: "#4C221A"
                     }}
                     />
                     
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'#E0D1B8'
+                        color:'#003c58'
                     }}
                     >
                         Actualizar mis 
@@ -190,7 +192,8 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'#556B2F'
+                    backgroundColor:'#556B2F',
+                    borderRadius:'20px'
                     
                 }}
                 >
@@ -198,14 +201,14 @@ export default function Menu_Estudiante(){
                     sx={{
                         width: '60%',
                         height:'60%',
-                        color: "#72090F"
+                        color: "#4C221A"
                     }}
                     />
                     
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'#E0D1B8'
+                        color:'#003c58'
                     }}
                     >
                         Revisar estado de 
