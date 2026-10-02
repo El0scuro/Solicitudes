@@ -9,11 +9,11 @@ import { useState } from "react";
 
 
 import Logo_Publica from "@/Imagenes/Logo escuela blanco.png";
-import Formulario from "@/Imagenes/Formulario.png";
+
 
 import RuleIcon from '@mui/icons-material/Rule';
-
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 
 export default function Menu_Estudiante(){
@@ -133,13 +133,11 @@ export default function Menu_Estudiante(){
                     backgroundColor:'transparent',
                 }}
                 >
-                    <Box
-                    component='img'
-                    src={Formulario.src}  
-                    alt="Icono-Formulario" 
+                    <ListAltIcon
                     sx={{
                         width: '60%',
                         height:'60%',
+                        color: "#4C221A"
                     }}
                     />
                     
