@@ -30,7 +30,7 @@ export default function Menu_Estudiante(){
             display:'flex',
             flexDirection:'column',
             height:'100vh',
-            backgroundColor:'#9D9167',
+            backgroundColor:'#E8D1A7',
         }}
         >
             <AppBar
@@ -168,6 +168,7 @@ export default function Menu_Estudiante(){
                     sx={{
                         width: '60%',
                         height:'60%',
+                        color: "#4C221A"
                     }}
                     />
                     
@@ -198,6 +199,7 @@ export default function Menu_Estudiante(){
                     sx={{
                         width: '60%',
                         height:'60%',
+                        color: "#4C221A"
                     }}
                     />
                     
