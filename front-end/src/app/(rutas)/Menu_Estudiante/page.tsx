@@ -30,7 +30,7 @@ export default function Menu_Estudiante(){
             display:'flex',
             flexDirection:'column',
             height:'100vh',
-            backgroundColor:'#E8D1A7',
+            backgroundColor:'#F6F0E6',
         }}
         >
             <AppBar
@@ -130,7 +130,7 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'transparent',
+                    backgroundColor:'#E8D1A7',
                     border:'2px solid #C08081'
                 }}
                 >
@@ -160,7 +160,7 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'transparent',
+                    backgroundColor:'#E8D1A7',
                     border:'2px solid #C08081'
                 }}
                 >
@@ -192,7 +192,7 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'transparent',
+                    backgroundColor:'#E8D1A7',
                     border:'2px solid #C08081'
                     
                 }}
