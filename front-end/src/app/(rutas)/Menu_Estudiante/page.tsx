@@ -130,7 +130,7 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'white',
+                    backgroundColor:'transparent',
                 }}
                 >
                     <Box
@@ -146,7 +146,7 @@ export default function Menu_Estudiante(){
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'black'
+                        color:'#003c58'
                     }}
                     >
                         Realizar una solicitud
@@ -161,7 +161,7 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'white',
+                    backgroundColor:'transparent',
                 }}
                 >
                     <ManageAccountsIcon 
@@ -175,7 +175,7 @@ export default function Menu_Estudiante(){
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'black'
+                        color:'#003c58'
                     }}
                     >
                         Actualizar mis 
@@ -192,7 +192,8 @@ export default function Menu_Estudiante(){
                     justifyContent:'flex-end',
                     width:'300px',
                     height:'350px',
-                    backgroundColor:'white',
+                    backgroundColor:'transparent',
+                    
                 }}
                 >
                     <RuleIcon
@@ -206,7 +207,7 @@ export default function Menu_Estudiante(){
                     <Typography
                     sx={{
                         fontWeight:'bold',
-                        color:'black'
+                        color:'#003c58'
                     }}
                     >
                         Revisar estado de 
