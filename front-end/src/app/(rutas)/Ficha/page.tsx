@@ -2634,6 +2634,7 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
                 mostrarMismas();
+                return;
             }
             
             seccionActual.asignatura = asignaturaSeleccionada;
@@ -3004,7 +3005,6 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 key={sec.num_Seccion}
                                                                 onClick={() => {
                                                                     setSeccionActual(sec);
-                                                                    console.log(sec.num_Seccion, seccionActual?.num_Seccion);
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
