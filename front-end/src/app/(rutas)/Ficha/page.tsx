@@ -2988,6 +2988,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 key={sec.num_Seccion}
                                                                 onClick={() => {
                                                                     setSeccionActual(sec);
+                                                                    console.log(sec.num_Seccion, seccionActual?.num_Seccion);
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
