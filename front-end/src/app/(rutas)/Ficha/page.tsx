@@ -3090,7 +3090,9 @@ function Cambio_Seccion({close} : PropCambio){
                                         display:'flex',
                                         flexDirection:'column',
                                         alignItems:'center',
-                                        justifyContent:'center'
+                                        justifyContent:'center',
+                                        width:'auto',
+                                        gap:4
                                     }}
                                     >
                                         {stateSeccionDuplicada && (
@@ -3099,7 +3101,9 @@ function Cambio_Seccion({close} : PropCambio){
                                                 borderRadius:'20px',
                                                 border:'2px solid black',
                                                 width:'300px',
-                                                height:'200px'
+                                                height:'100px',
+                                                display:'flex',
+                                                justifyContent:'center'
                                             }}
                                             >
                                                 <Typography
@@ -3122,7 +3126,9 @@ function Cambio_Seccion({close} : PropCambio){
                                                 borderRadius:'20px',
                                                 border:'2px solid black',
                                                 width:'300px',
-                                                height:'200px'
+                                                height:'100px',
+                                                display:'flex',
+                                                justifyContent:'center'
                                             }}
                                             >
                                                 <Typography
