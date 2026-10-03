@@ -29,6 +29,7 @@ import axios from "axios";
 import __url from "@/lib/const";
 import { Asignatura } from "@/types/asignatura";
 import { Seccion } from "@/types/seccion";
+import { lightBlue, lightGreen } from "@mui/material/colors";
 
 //interfaz para el estudiante cifrado para transporte
 interface EstudianteCifrado {
@@ -2592,6 +2593,8 @@ function Cambio_Seccion({close} : PropCambio){
         secciones: []
     });
 
+    const [asignaturasSeleccionadas, setAsignaturasSeleccionadas] = useState<Asignatura[]>([]);
+
     
     const [stateSecciones, setStateSecciones] = useState(false);
 
@@ -2628,7 +2631,7 @@ function Cambio_Seccion({close} : PropCambio){
             }
             seccionActual.asignatura = asignaturaSeleccionada;
             seccionCambio.asignatura = asignaturaSeleccionada;
-
+            setAsignaturasSeleccionadas(prev => [...prev, asignaturaSeleccionada]);
             //reviso si el arreglo está vacío
             if(!seccionesCargadas){
                 return [[seccionActual, seccionCambio]];
@@ -2984,10 +2987,13 @@ function Cambio_Seccion({close} : PropCambio){
                                                             <TableRow
                                                                 key={sec.num_Seccion}
                                                                 onClick={() => {
-                                                                    setSeccionActual(sec)
+                                                                    setSeccionActual(sec);
                                                                 }}
                                                                 sx={{
-                                                                    cursor: 'pointer'
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
+                                                                    (asignaturasSeleccionadas?.some(asig => asig.Codigo === asignaturaSeleccionada.Codigo))
+                                                                    ? lightBlue : 'transparent'
                                                                 }}
                                                             >
 
@@ -3064,7 +3070,10 @@ function Cambio_Seccion({close} : PropCambio){
                                                                     setSeccionCambio(sec)
                                                                 }}
                                                                 sx={{
-                                                                    cursor: 'pointer'
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
+                                                                    (asignaturasSeleccionadas?.some(asig => asig.Codigo === asignaturaSeleccionada.Codigo))
+                                                                    ? lightGreen : 'transparent'
                                                                 }}
                                                             >
 
@@ -3143,7 +3152,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                     fontSize:'15px'
                                                 }}
                                                 >
-                                                    Debe indicar su solicitud actual 
+                                                    Debe indicar su seccion actual 
                                                     <br/>
                                                     y a cual desea cambiarse
                                                 </Typography>
