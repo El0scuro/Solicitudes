@@ -12,7 +12,7 @@ export class AsignaturaController {
     return this.asignaturaService.create(createAsignaturaDto);
   }
 
-  @Get()
+  @Get('buscar-todas')
   findAll() {
     return this.asignaturaService.findAll();
   }

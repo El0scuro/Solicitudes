@@ -18,8 +18,14 @@ export class AsignaturaService {
     return 'This action adds a new asignatura';
   }
 
-  findAll() {
-    return `This action returns all asignatura`;
+  async findAll() {
+    return await this.asignaturaRepository.find({
+      relations:{
+        secciones:{
+          profesor: true
+        }
+      }
+    }) 
   }
 
   async findOneCodigo(Codigo: string) {

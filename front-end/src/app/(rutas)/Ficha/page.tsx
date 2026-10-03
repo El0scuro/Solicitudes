@@ -781,7 +781,7 @@ function Inscribir_Page({close}: PropRamo){
                 return seccionesActuales;
             }
 
-            if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+            if(secciones.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
                 setStateSeccionDuplicada(true);
                 seccion.asignatura = asignatura;
                 setSeccionDuplicada(seccion);
@@ -1196,7 +1196,7 @@ function Inscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura.Codigo}
+                                                {seccion.asignatura?.Codigo}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -1204,7 +1204,7 @@ function Inscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura.Nombre}
+                                                {seccion.asignatura?.Nombre}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -1220,7 +1220,7 @@ function Inscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.profesor.Mail}
+                                                {seccion.profesor?.Mail}
                                             </TableCell>
 
                                             <TableCell align='center' sx={{
@@ -1319,7 +1319,7 @@ function Inscribir_Page({close}: PropRamo){
 
                                                     <TableBody>
                                                         {respuestaServidor?.map(asig =>
-                                                            asig.secciones.map(seccion => (
+                                                            asig.secciones?.map(seccion => (
                                                                 <TableRow
                                                                     key={seccion.num_Seccion}
                                                                     onClick={() => {
@@ -1330,7 +1330,7 @@ function Inscribir_Page({close}: PropRamo){
                                                                         backgroundColor: secciones.find(
                                                                             sec => 
                                                                             sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura.Codigo === asig.Codigo
+                                                                            sec.asignatura?.Codigo === asig.Codigo
                                                                         )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
@@ -1365,7 +1365,7 @@ function Inscribir_Page({close}: PropRamo){
                                                                         py: 0.25,
                                                                         px: 0.5
                                                                     }}>
-                                                                        {seccion.profesor.Mail}
+                                                                        {seccion.profesor?.Mail}
                                                                     </TableCell>
                                                                 </TableRow>
                                                             ))
@@ -1411,7 +1411,7 @@ function Inscribir_Page({close}: PropRamo){
                                                         >
                                                             Ya seleccionaste una seccion
                                                             <br/>
-                                                            de la asignatura {seccionDuplicada?.asignatura.Nombre}
+                                                            de la asignatura {seccionDuplicada?.asignatura?.Nombre}
                                                         </Typography>
                                                     </Box>
                                                 )}
@@ -1664,7 +1664,7 @@ function Desinscribir_Page({close}: PropRamo){
                 return seccionesActuales;
             }
 
-            if(secciones.some(sec => sec.asignatura.Nombre === asignatura.Nombre)){
+            if(secciones.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
                 setStateSeccionDuplicada(true);
                 seccion.asignatura = asignatura;
                 setSeccionDuplicada(seccion);
@@ -2080,7 +2080,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura.Codigo}
+                                                {seccion.asignatura?.Codigo}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -2088,7 +2088,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura.Nombre}
+                                                {seccion.asignatura?.Nombre}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -2104,7 +2104,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.profesor.Mail}
+                                                {seccion.profesor?.Mail}
                                             </TableCell>
 
                                             <TableCell align='center' sx={{
@@ -2203,7 +2203,7 @@ function Desinscribir_Page({close}: PropRamo){
 
                                                     <TableBody>
                                                         {respuestaServidor?.map(asig =>
-                                                            asig.secciones.map(seccion => (
+                                                            asig.secciones?.map(seccion => (
                                                                 <TableRow
                                                                     key={seccion.num_Seccion}
                                                                     onClick={() => {
@@ -2214,7 +2214,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                                         backgroundColor: secciones.find(
                                                                             sec => 
                                                                             sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura.Codigo === asig.Codigo
+                                                                            sec.asignatura?.Codigo === asig.Codigo
                                                                         )
                                                                             ? 'lightblue'
                                                                             : 'transparent'
@@ -2249,7 +2249,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                                         py: 0.25,
                                                                         px: 0.5
                                                                     }}>
-                                                                        {seccion.profesor.Mail}
+                                                                        {seccion.profesor?.Mail}
                                                                     </TableCell>
                                                                 </TableRow>
                                                             ))
@@ -2295,7 +2295,7 @@ function Desinscribir_Page({close}: PropRamo){
                                                         >
                                                             Ya seleccionaste una seccion
                                                             <br/>
-                                                            de la asignatura {seccionDuplicada?.asignatura.Nombre}
+                                                            de la asignatura {seccionDuplicada?.asignatura?.Nombre}
                                                         </Typography>
                                                     </Box>
                                                 )}
@@ -2588,16 +2588,29 @@ function Cambio_Seccion({close} : PropCambio){
 
     const [asignaturas, setAsignaturas] = useState<Asignatura[]>();
 
-    const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState<Asignatura | null>();
+    const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState<Asignatura>({
+        Codigo: '',
+        Nombre: '',
+        Ano_Malla: '',
+        secciones: null
+    });
 
     
-    const [stateSecciones, setStateSecciones] = useState(true);
+    const [stateSecciones, setStateSecciones] = useState(false);
 
-    const [stateCambio, setStateCambio] = useState(true);
+    const [stateCambio, setStateCambio] = useState(false);
 
-    const [seccionActual, setSeccionActual] = useState<Seccion>();
+    const [seccionActual, setSeccionActual] = useState<Seccion>({
+        num_Seccion: null,
+        asignatura: null,
+        profesor: null
+    });
 
-    const [seccionCambio, setSeccionCambio] = useState<Seccion>()
+    const [seccionCambio, setSeccionCambio] = useState<Seccion>({
+        num_Seccion: null,
+        asignatura: null,
+        profesor: null
+    });
 
     const [seccionesSolicitud, setSeccionesSolicitud] = useState<Seccion[][]>();
 
@@ -2605,43 +2618,39 @@ function Cambio_Seccion({close} : PropCambio){
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
 
+    useEffect(() => {
+        const datos = async() => {
+            const response = await axios.get(`${__url}/asignatura/buscar-todas`);
+            setAsignaturas(response.data);
+        }
+        datos();
+    }, []);
+
+
     const agregarCambio = () => {
 
         setSeccionesSolicitud((seccionesCargadas) => {
 
-            if(!seccionesSolicitud){
-                return;
-            }
-            const cargadas = seccionesSolicitud?.some(
-                secs => secs.some(sec => (
-                    sec.num_Seccion === seccionActual?.num_Seccion || 
-                    sec.num_Seccion === seccionCambio?.num_Seccion ))
-            )
-
-            if(cargadas){
-                return 
-            }
-
-            if(seccionesSolicitud?.some(
-                secs => secs.some(
-                    sec => sec.asignatura.Codigo === asignaturaSeleccionada?.Codigo
-                )
-            )){
-                setStateSeccionDuplicada(true);
-                if(!seccionActual || !seccionCambio || !asignaturaSeleccionada ){
-                    return;
-                }
-                seccionActual.asignatura = asignaturaSeleccionada;
-                seccionCambio.asignatura = asignaturaSeleccionada;
-            }
-
-            if(!seccionActual || !seccionCambio || !asignaturaSeleccionada ){
-                return;
-            }
             seccionActual.asignatura = asignaturaSeleccionada;
             seccionCambio.asignatura = asignaturaSeleccionada;
 
-            return [...seccionesSolicitud, [seccionActual, seccionCambio]]
+            //reviso si el arreglo está vacío
+            if(!seccionesCargadas){
+                return [[seccionActual, seccionCambio]];
+            }
+
+            //reviso si hay más de una sección asociada a la misma asignatura
+            const duplicadas = seccionesSolicitud?.some(
+                secs => secs.some(sec => (
+                    sec.num_Seccion === seccionActual?.num_Seccion))
+            )
+
+            if(duplicadas){
+                setStateSeccionDuplicada(true);
+                return;
+            }
+
+            return [...seccionesCargadas, [seccionActual, seccionCambio]]
         })
     }
 
@@ -2704,44 +2713,160 @@ function Cambio_Seccion({close} : PropCambio){
                     alignItems:'center'
                 }}
                 >
-                    {/*Asignaturas */}
-                    <FormControl
+                    {/*Asignaturas - Solicitudes_Cambio*/}
+                    <Box
                     sx={{
-                        minWidth:'250px'
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'flex-start',
+                        gap:5
                     }}
                     >
-                        <InputLabel id="demo-simple-select-label">Seleccione una asignatura</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={asignaturas}
-                        label="Asignaturas"
-                        onChange={(e) => {
-                            if(e.target.value === "Seleccione"){
-                                setAsignaturaSeleccionada(null);
-                                setStateSecciones(false);
-                                setStateCambio(false);
-                            }
-                            setAsignaturaSeleccionada(
-                                asignaturas?.find(asig => asig.Codigo === e.target.value)
-                            );
-                            setStateSecciones(true);
-                            setStateCambio(true);
+                        <FormControl
+                        sx={{
+                            minWidth:'250px'
                         }}
                         >
-                            <MenuItem
-                            value={"Seleccione"}
+                            <InputLabel id="demo-simple-select-label">Seleccione una asignatura</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={asignaturas}
+                            label="Asignaturas"
+                            onChange={(e) => {
+                                if(e.target.value === "Seleccione"){
+                                    setAsignaturaSeleccionada({
+                                        Codigo:'',
+                                        Nombre: '',
+                                        Ano_Malla: '',
+                                        secciones: null
+                                    });
+                                    setStateSecciones(false);
+                                    setStateCambio(false);
+                                }
+                                if(!asignaturas){
+                                    return;
+                                }
+
+                                const seleccionado = asignaturas.find(asig => asig.Codigo === e.target.value);
+                                if(!seleccionado){
+                                    return;
+                                }
+
+                                setAsignaturaSeleccionada(seleccionado);
+                                setStateSecciones(true);
+                                setStateCambio(true);
+                            }}
                             >
-                            </MenuItem>
-                            {asignaturas?.map(asig => (
-                                <MenuItem 
-                                value={asig.Codigo}
-                                >
-                                    {asig.Nombre}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                                <MenuItem
+                                value={"Seleccione"}
+                                ></MenuItem>
+
+                                {asignaturas?.map(asig => (
+                                    <MenuItem 
+                                    value={asig.Codigo}
+                                    >
+                                        {asig.Nombre}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+                        {/*Solicitudes_Cambio */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            gap:2,
+                            width:'auto',
+                            height:'auto'
+                        }}
+                        >
+
+                            <Typography
+                            sx={{
+                                fontWeight:'bold',
+                                display:'flex',
+                                justifyContent:'flex-start'
+                            }}
+                            >
+                                Cambios Solicitados
+                            </Typography>
+
+                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                <TableHead>
+                                    <TableRow>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '130px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Seccion Actual
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '120px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Nombre Profesor
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '130px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Seccion Solicitada
+                                        </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '120px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Nombre Profesor
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+
+                                <TableBody>
+                                    {asignaturaSeleccionada?.secciones?.map(sec => (
+                                            <TableRow
+                                                key={sec.num_Seccion}
+                                                
+                                                sx={{
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    {sec.num_Seccion}
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
+                                                </TableCell>
+                                            </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+                    </Box>
+                        
 
                     {/*Secciones - Cambio - Solicitar-Duplicado */}
                     <Box
@@ -2750,7 +2875,7 @@ function Cambio_Seccion({close} : PropCambio){
                         gap:10
                     }}
                     >
-                        {/*Secciones - Cambio */}
+                        {/*Secciones */}
                         <Box
                         sx={{
                             display:'flex',
@@ -2829,7 +2954,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                             py: 0.25,
                                                             px: 0.5
                                                         }}>
-                                                            {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
+                                                            {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
                                                         </TableCell>
                                                     </TableRow>
                                             ))}
@@ -2911,7 +3036,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                             py: 0.25,
                                                             px: 0.5
                                                         }}>
-                                                            {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
+                                                            {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
                                                         </TableCell>
                                                     </TableRow>
                                             ))}
@@ -2920,6 +3045,8 @@ function Cambio_Seccion({close} : PropCambio){
                                 </Box>
                             )}
                         </Box>
+
+                        {/*Cambio */}
                         <Box>
                             <Button
                             onClick={() => agregarCambio()}
@@ -2976,78 +3103,8 @@ function Cambio_Seccion({close} : PropCambio){
                     
                 </Box>
 
-                {/*Solicitudes_Cambio */}
-                <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                    <TableHead>
-                        <TableRow>
-
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '130px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Seccion Actual
-                            </TableCell>
-
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Nombre Profesor
-                            </TableCell>
-
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '130px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Seccion Solicitada
-                            </TableCell>
-
-                            <TableCell sx={{
-                                border: '1px solid black',
-                                width: '120px',
-                                py: 0.25,
-                                px: 0.5
-                            }}>
-                                Nombre Profesor
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-
-                    <TableBody>
-                        {asignaturaSeleccionada?.secciones.map(sec => (
-                                <TableRow
-                                    key={sec.num_Seccion}
-                                    
-                                    sx={{
-                                        cursor: 'pointer'
-                                    }}
-                                >
-
-                                    <TableCell sx={{
-                                        border: '1px solid black',
-                                        py: 0.25,
-                                        px: 0.5
-                                    }}>
-                                        {sec.num_Seccion}
-                                    </TableCell>
-
-                                    <TableCell sx={{
-                                        border: '1px solid black',
-                                        py: 0.25,
-                                        px: 0.5
-                                    }}>
-                                        {sec.profesor.Primer_Nombre} {sec.profesor.Segundo_Nombre} {sec.profesor.Primer_Apellido} {sec.profesor.Segundo_Apellido}
-                                    </TableCell>
-                                </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                
+                    
             </Box>
         </Box>
     );
