@@ -2878,7 +2878,7 @@ function Cambio_Seccion({close} : PropCambio){
                                 <TableBody>
                                     {seccionesSolicitud?.map(secs => 
                                         <TableRow
-                                            key={asignaturaSeleccionada.Codigo}
+                                            key={secs[0].asignatura?.Codigo}
                                             sx={{
                                                 cursor: 'pointer'
                                             }}
@@ -2889,7 +2889,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {asignaturaSeleccionada.Nombre}
+                                                {secs[0].asignatura?.Nombre}
                                             </TableCell>
 
                                             <TableCell sx={{
