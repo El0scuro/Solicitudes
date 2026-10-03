@@ -797,7 +797,6 @@ function Inscribir_Page({close}: PropRamo){
 
     const deseleccionarRamo = (seccion: Seccion) => {
         setSecciones(secciones.filter(sec => sec !== seccion));
-        return secciones;
     };
 
     const buscar = async() => {
@@ -1604,7 +1603,6 @@ function Inscribir_Page({close}: PropRamo){
                     
                 </Stack>
                 
-                
             </Box>
                 
             
@@ -1680,7 +1678,6 @@ function Desinscribir_Page({close}: PropRamo){
 
     const deseleccionarRamo = (seccion: Seccion) => {
         setSecciones(secciones.filter(sec => sec !== seccion));
-        return secciones;
     };
 
 
@@ -2609,6 +2606,7 @@ function Cambio_Seccion({close} : PropCambio){
 
     const [stateIncompleto, setStateIncompleto] = useState(false);
 
+    //inicializo asignaturas
     useEffect(() => {
         const datos = async() => {
             const response = await axios.get(`${__url}/asignatura/buscar-todas`);
@@ -2625,7 +2623,7 @@ function Cambio_Seccion({close} : PropCambio){
         setSeccionesSolicitud((seccionesCargadas) => {
 
             if(!seccionActual || !seccionCambio){
-                setStateIncompleto(true);
+                mostrarIncompleto();
                 return;
             }
             seccionActual.asignatura = asignaturaSeleccionada;
@@ -2643,13 +2641,22 @@ function Cambio_Seccion({close} : PropCambio){
             )
 
             if(duplicadas){
-                setStateSeccionDuplicada(true);
+                mostrarDuplicado();
                 return;
             }
 
             return [...seccionesCargadas, [seccionActual, seccionCambio]]
-        })
+        });
     }
+
+    const deseleccionarRamos = (secciones: Seccion[]) => {
+        setSeccionesSolicitud(seccionesSolicitud?.filter(secs =>
+            secs.find(sec =>
+                secciones.find(secc => secc.num_Seccion === sec.num_Seccion)
+            )
+        ));
+    }
+
 
     const mostrarDuplicado = () => {
         setStateSeccionDuplicada(true);
@@ -2658,6 +2665,16 @@ function Cambio_Seccion({close} : PropCambio){
             setStateSeccionDuplicada(false);
         }, 7000);
     }
+
+    const mostrarIncompleto = () => {
+        setStateIncompleto(true);
+
+        setTimeout(() => {
+            setStateIncompleto(false);
+        }, 7000);
+    }
+
+
     return(
         <Box
         sx={{
@@ -2834,13 +2851,22 @@ function Cambio_Seccion({close} : PropCambio){
                                         }}>
                                             Nombre Profesor
                                         </TableCell>
+
+                                        <TableCell sx={{
+                                            border: '1px solid black',
+                                            width: '120px',
+                                            py: 0.25,
+                                            px: 0.5
+                                        }}>
+                                            Acción
+                                        </TableCell>
                                     </TableRow>
                                 </TableHead>
 
                                 <TableBody>
-                                    {asignaturaSeleccionada?.secciones?.map(sec => (
-                                            <TableRow
-                                                key={sec.num_Seccion}
+                                    {seccionesSolicitud?.map(secs => 
+                                        <TableRow
+                                                key={secs[0].num_Seccion}
                                                 
                                                 sx={{
                                                     cursor: 'pointer'
@@ -2852,7 +2878,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                     py: 0.25,
                                                     px: 0.5
                                                 }}>
-                                                    {sec.num_Seccion}
+                                                    {secs[0].num_Seccion}
                                                 </TableCell>
 
                                                 <TableCell sx={{
@@ -2860,10 +2886,39 @@ function Cambio_Seccion({close} : PropCambio){
                                                     py: 0.25,
                                                     px: 0.5
                                                 }}>
-                                                    {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
+                                                    {secs[0].profesor?.Primer_Nombre} {secs[0].profesor?.Segundo_Nombre} {secs[0].profesor?.Primer_Apellido} {secs[0].profesor?.Segundo_Apellido}
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    {secs[1].num_Seccion}
+                                                </TableCell>
+
+                                                <TableCell sx={{
+                                                    border: '1px solid black',
+                                                    py: 0.25,
+                                                    px: 0.5
+                                                }}>
+                                                    {secs[1].profesor?.Primer_Nombre} {secs[1].profesor?.Segundo_Nombre} {secs[1].profesor?.Primer_Apellido} {secs[1].profesor?.Segundo_Apellido}
+                                                </TableCell>
+
+                                                <TableCell align='center' sx={{
+                                                    border: '1px solid black',
+                                                    py: 0.25,
+                                                    px: 0.5,
+                                                }}>
+                                                    <Button
+                                                    onClick={() => deseleccionarRamos(secs)}
+                                                    variant="outlined"
+                                                    >
+                                                        <DeleteIcon/>
+                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
-                                    ))}
+                                    )}
                                 </TableBody>
                             </Table>
                         </Box>
@@ -2874,6 +2929,7 @@ function Cambio_Seccion({close} : PropCambio){
                     <Box
                     sx={{
                         display:'flex',
+                        flexDirection:'row',
                         gap:10
                     }}
                     >
