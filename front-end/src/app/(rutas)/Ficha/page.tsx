@@ -2609,6 +2609,8 @@ function Cambio_Seccion({close} : PropCambio){
 
     const [stateIncompleto, setStateIncompleto] = useState(false);
 
+    const [stateMismaSeccion, setStateMismaSeccion] = useState(false);
+
     //inicializo asignaturas
     useEffect(() => {
         const datos = async() => {
@@ -2629,9 +2631,16 @@ function Cambio_Seccion({close} : PropCambio){
                 mostrarIncompleto();
                 return;
             }
+
+            if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
+                setStateMismaSeccion(true);
+            }
+            
             seccionActual.asignatura = asignaturaSeleccionada;
             seccionCambio.asignatura = asignaturaSeleccionada;
+
             setAsignaturasSeleccionadas(prev => [...prev, asignaturaSeleccionada]);
+
             //reviso si el arreglo está vacío
             if(!seccionesCargadas){
                 return [[seccionActual, seccionCambio]];
@@ -2992,9 +3001,19 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
-                                                                    backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
-                                                                    (asignaturasSeleccionadas?.some(asig => asig.Codigo === asignaturaSeleccionada.Codigo))
-                                                                    ? lightBlue : 'transparent'
+                                                                    backgroundColor:
+                                                                    (
+                                                                        sec.num_Seccion === seccionActual?.num_Seccion ||
+                                                                        asignaturasSeleccionadas?.some(
+                                                                            asig =>
+                                                                                asig.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                                asig.secciones?.some(
+                                                                                    seccion => seccion.num_Seccion === sec.num_Seccion
+                                                                                )
+                                                                        )
+                                                                    )
+                                                                        ? lightBlue
+                                                                        : 'transparent'
                                                                 }}
                                                             >
 
@@ -3072,9 +3091,19 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
-                                                                    backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
-                                                                    (asignaturasSeleccionadas?.some(asig => asig.Codigo === asignaturaSeleccionada.Codigo))
-                                                                    ? lightGreen : 'transparent'
+                                                                    backgroundColor:
+                                                                    (
+                                                                    sec.num_Seccion === seccionCambio?.num_Seccion ||
+                                                                    asignaturasSeleccionadas?.some(
+                                                                        asig =>
+                                                                            asig.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                            asig.secciones?.some(
+                                                                                seccion => seccion.num_Seccion === sec.num_Seccion
+                                                                            )
+                                                                    )
+                                                                )
+                                                                    ? lightBlue
+                                                                    : 'transparent'
                                                                 }}
                                                             >
 
@@ -3130,7 +3159,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                 >
                                                     No puedes solicitar más de un 
                                                     <br/>
-                                                    cambio de sección de una misma asignatura
+                                                    cambio de sección de una misma asignatura.
                                                 </Typography>
                                                 
                                             </Box>
@@ -3155,7 +3184,32 @@ function Cambio_Seccion({close} : PropCambio){
                                                 >
                                                     Debe indicar su seccion actual 
                                                     <br/>
-                                                    y a cual desea cambiarse
+                                                    y a cual desea cambiarse.
+                                                </Typography>
+                                                
+                                            </Box>
+                                        )}
+
+                                        {stateMismaSeccion && (
+                                            <Box
+                                            sx={{
+                                                borderRadius:'20px',
+                                                border:'2px solid black',
+                                                width:'300px',
+                                                height:'100px',
+                                                display:'flex',
+                                                justifyContent:'center'
+                                            }}
+                                            >
+                                                <Typography
+                                                sx={{
+                                                    fontWeight:'bold',
+                                                    fontSize:'15px'
+                                                }}
+                                                >
+                                                    La seccion solicitada debe ser
+                                                    <br/>
+                                                    distinta a la inscrita actualmente.
                                                 </Typography>
                                                 
                                             </Box>
