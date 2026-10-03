@@ -2624,6 +2624,8 @@ function Cambio_Seccion({close} : PropCambio){
             setAsignaturas(response.data);
         }
         datos();
+
+        console.log(asignaturas)
     }, []);
 
 
