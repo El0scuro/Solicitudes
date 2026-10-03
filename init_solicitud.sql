@@ -329,7 +329,7 @@ CREATE TABLE `seccion` (
   `num_Seccion` int NOT NULL,
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   KEY `seccion_profesor_FK` (`mail_Profesor`),
-  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`, `num_Seccion`, `Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `num_Seccion`, `Ano_Malla`),
+  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),
   CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`mail_Profesor`) REFERENCES `profesor` (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -340,7 +340,7 @@ CREATE TABLE `seccion` (
 
 LOCK TABLES `seccion` WRITE;
 /*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
-INSERT INTO `seccion` VALUES ('APU 111', '2014', 'correo1@gmail.com',1),('APU 112', '2014','correo1@gmail.com',2),('APU 113', '2014''correo2@gmail.com',1),('APU 114', '2014','correo2@gmail.com',1),('APU 111', '2014','correo3@gmail.com',2),('APU 113', '2014','correo3@gmail.com',2),('APU 112', '2014','correo4@gmail.com',1),('APU 114', '2014','correo4@gmail.com',2);
+INSERT INTO `seccion` VALUES ('APU 111', '2014', 'correo1@gmail.com',1),('APU 112', '2014','correo1@gmail.com',2),('APU 113', '2014', 'correo2@gmail.com',1),('APU 114', '2014','correo2@gmail.com',1),('APU 111', '2014','correo3@gmail.com',2),('APU 113', '2014','correo3@gmail.com',2),('APU 112', '2014','correo4@gmail.com',1),('APU 114', '2014','correo4@gmail.com',2);
 /*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,7 +388,7 @@ CREATE TABLE `solicitud` (
   `ID_Ficha` int NOT NULL,
   `num_Seccion` int NOT NULL,
   `Codigo` varchar(100) NOT NULL,
-  'Ano_Malla' varchar(100) NOT NULL,
+  `Ano_Malla` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   KEY `solicitud_ficha_FK` (`ID_Ficha`),
   KEY `solicitud_seccion_FK` (`num_Seccion`),
