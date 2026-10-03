@@ -2592,7 +2592,7 @@ function Cambio_Seccion({close} : PropCambio){
         Codigo: '',
         Nombre: '',
         Ano_Malla: '',
-        secciones: null
+        secciones: []
     });
 
     
@@ -2741,7 +2741,7 @@ function Cambio_Seccion({close} : PropCambio){
                                         Codigo:'',
                                         Nombre: '',
                                         Ano_Malla: '',
-                                        secciones: null
+                                        secciones: []
                                     });
                                     setStateSecciones(false);
                                     setStateCambio(false);
