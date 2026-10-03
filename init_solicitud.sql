@@ -65,7 +65,7 @@ CREATE TABLE `asignatura` (
 
 LOCK TABLES `asignatura` WRITE;
 /*!40000 ALTER TABLE `asignatura` DISABLE KEYS */;
-INSERT INTO `asignatura` VALUES ('APU 111','TEORIA DE LA ADMINISTRACION','PRIMERO'),('APU 112','FUNDAMENTOS DE LA CIENCIA POLITICA','PRIMERO'),('APU 113','NOCIONES GENERALES DE DERECHO','PRIMERO'),('APU 114','RAZONAMIENTO LOGICO MATEMATICO','PRIMERO');
+INSERT INTO `asignatura` VALUES ('APU 111','TEORIA DE LA ADMINISTRACION', '2014','PRIMERO'),('APU 112','FUNDAMENTOS DE LA CIENCIA POLITICA','PRIMERO', '2014'),('APU 113','NOCIONES GENERALES DE DERECHO','PRIMERO', '2014'),('APU 114','RAZONAMIENTO LOGICO MATEMATICO','PRIMERO', '2014');
 /*!40000 ALTER TABLE `asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +340,7 @@ CREATE TABLE `seccion` (
 
 LOCK TABLES `seccion` WRITE;
 /*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
-INSERT INTO `seccion` VALUES ('APU 111','correo1@gmail.com',1),('APU 112','correo1@gmail.com',2),('APU 113','correo2@gmail.com',1),('APU 114','correo2@gmail.com',1),('APU 111','correo3@gmail.com',2),('APU 113','correo3@gmail.com',2),('APU 112','correo4@gmail.com',1),('APU 114','correo4@gmail.com',2);
+INSERT INTO `seccion` VALUES ('APU 111', '2014', 'correo1@gmail.com',1),('APU 112', '2014','correo1@gmail.com',2),('APU 113', '2014''correo2@gmail.com',1),('APU 114', '2014','correo2@gmail.com',1),('APU 111', '2014','correo3@gmail.com',2),('APU 113', '2014','correo3@gmail.com',2),('APU 112', '2014','correo4@gmail.com',1),('APU 114', '2014','correo4@gmail.com',2);
 /*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,11 +388,12 @@ CREATE TABLE `solicitud` (
   `ID_Ficha` int NOT NULL,
   `num_Seccion` int NOT NULL,
   `Codigo` varchar(100) NOT NULL,
+  'Ano_Malla' varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   KEY `solicitud_ficha_FK` (`ID_Ficha`),
   KEY `solicitud_seccion_FK` (`num_Seccion`),
-  KEY `FK_solicitud_seccion_` (`Codigo`,`num_Seccion`),
-  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `num_Seccion`),
+  KEY `FK_solicitud_seccion_` (`Codigo`,`num_Seccion`, `Ano_Malla`),
+  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `num_Seccion`, `Ano_Malla`) REFERENCES `seccion` (`Codigo`, `num_Seccion`, `Ano_Malla`),
   CONSTRAINT `solicitud_ficha_FK` FOREIGN KEY (`ID_Ficha`) REFERENCES `ficha` (`ID_Ficha`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
