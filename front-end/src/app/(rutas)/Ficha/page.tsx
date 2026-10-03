@@ -2821,7 +2821,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Seccion Actual
+                                            Asignatura
                                         </TableCell>
 
                                         <TableCell sx={{
@@ -2830,7 +2830,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Nombre Profesor
+                                            Seccion Actual
                                         </TableCell>
 
                                         <TableCell sx={{
@@ -2848,15 +2848,6 @@ function Cambio_Seccion({close} : PropCambio){
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Nombre Profesor
-                                        </TableCell>
-
-                                        <TableCell sx={{
-                                            border: '1px solid black',
-                                            width: '120px',
-                                            py: 0.25,
-                                            px: 0.5
-                                        }}>
                                             Acción
                                         </TableCell>
                                     </TableRow>
@@ -2865,58 +2856,49 @@ function Cambio_Seccion({close} : PropCambio){
                                 <TableBody>
                                     {seccionesSolicitud?.map(secs => 
                                         <TableRow
-                                                key={secs[0].num_Seccion}
-                                                
-                                                sx={{
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
+                                            key={asignaturaSeleccionada.Codigo}
+                                            sx={{
+                                                cursor: 'pointer'
+                                            }}
+                                        >
 
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    {secs[0].num_Seccion}
-                                                </TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {asignaturaSeleccionada.Nombre}
+                                            </TableCell>
 
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    {secs[0].profesor?.Primer_Nombre} {secs[0].profesor?.Segundo_Nombre} {secs[0].profesor?.Primer_Apellido} {secs[0].profesor?.Segundo_Apellido}
-                                                </TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {secs[0].num_Seccion} 
+                                            </TableCell>
 
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    {secs[1].num_Seccion}
-                                                </TableCell>
+                                            <TableCell sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5
+                                            }}>
+                                                {secs[1].num_Seccion} 
+                                            </TableCell>
 
-                                                <TableCell sx={{
-                                                    border: '1px solid black',
-                                                    py: 0.25,
-                                                    px: 0.5
-                                                }}>
-                                                    {secs[1].profesor?.Primer_Nombre} {secs[1].profesor?.Segundo_Nombre} {secs[1].profesor?.Primer_Apellido} {secs[1].profesor?.Segundo_Apellido}
-                                                </TableCell>
-
-                                                <TableCell align='center' sx={{
-                                                    border: '1px solid black',
-                                                    py: 0.25,
-                                                    px: 0.5,
-                                                }}>
-                                                    <Button
-                                                    onClick={() => deseleccionarRamos(secs)}
-                                                    variant="outlined"
-                                                    >
-                                                        <DeleteIcon/>
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
+                                            <TableCell align='center' sx={{
+                                                border: '1px solid black',
+                                                py: 0.25,
+                                                px: 0.5,
+                                            }}>
+                                                <Button
+                                                onClick={() => deseleccionarRamos(secs)}
+                                                variant="outlined"
+                                                >
+                                                    <DeleteIcon/>
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
                                     )}
                                 </TableBody>
                             </Table>
@@ -2998,11 +2980,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 setSeccionActual(sec)
                                                             }}
                                                             sx={{
-                                                                cursor: 'pointer',
-                                                                backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
-                                                                (seccionesSolicitud?.some(secs => secs[0].num_Seccion === sec.num_Seccion))
-                                                                    ? 'lightblue'
-                                                                    : 'transparent'
+                                                                cursor: 'pointer'
                                                             }}
                                                         >
 
@@ -3027,7 +3005,7 @@ function Cambio_Seccion({close} : PropCambio){
                                         </Table>
                                     </Box>
 
-                                    {/*Cambio */}
+                                    {/*Secciones_Cambio */}
                                     <Box
                                     sx={{
                                         display:'flex',
@@ -3079,11 +3057,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 setSeccionCambio(sec)
                                                             }}
                                                             sx={{
-                                                                cursor: 'pointer',
-                                                                backgroundColor: (sec.num_Seccion === seccionCambio?.num_Seccion) ||
-                                                                (seccionesSolicitud?.some(secs => secs[1].num_Seccion === sec.num_Seccion))
-                                                                    ? 'lightgreen'
-                                                                    : 'transparent'
+                                                                cursor: 'pointer'
                                                             }}
                                                         >
 
@@ -3115,7 +3089,8 @@ function Cambio_Seccion({close} : PropCambio){
                                     sx={{
                                         display:'flex',
                                         flexDirection:'column',
-                                        alignItems:'center'
+                                        alignItems:'center',
+                                        justifyContent:'center'
                                     }}
                                     >
                                         {stateSeccionDuplicada && (
@@ -3123,7 +3098,8 @@ function Cambio_Seccion({close} : PropCambio){
                                             sx={{
                                                 borderRadius:'20px',
                                                 border:'2px solid black',
-                                                width:'250px',
+                                                width:'300px',
+                                                height:'200px'
                                             }}
                                             >
                                                 <Typography
@@ -3145,7 +3121,8 @@ function Cambio_Seccion({close} : PropCambio){
                                             sx={{
                                                 borderRadius:'20px',
                                                 border:'2px solid black',
-                                                width:'250px',
+                                                width:'300px',
+                                                height:'200px'
                                             }}
                                             >
                                                 <Typography
@@ -3174,9 +3151,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             onClick={() => agregarCambio()}
                                             variant="contained"
                                             >
-                                                Cargar 
-                                                <br/>
-                                                cambio
+                                                Cargar Cambio
                                             </Button>
                                         </Box>
                                         
