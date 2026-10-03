@@ -2925,166 +2925,172 @@ function Cambio_Seccion({close} : PropCambio){
                                 <Box
                                 sx={{
                                     display:'flex',
-                                    gap:4
+                                    gap:10
                                 }}
                                 >
-                                    {/*Secciones */}
+                                    {/*Secciones y Secciones_Cambio */}
                                     <Box
                                     sx={{
                                         display:'flex',
-                                        flexDirection:'column',
-                                        justifyContent:'center',
+                                        gap:4
                                     }}
                                     >
-                                        
-                                        <Typography
-                                        align="left"
+                                        {/*Secciones */}
+                                        <Box
                                         sx={{
-                                            fontWeight:'bold'
+                                            display:'flex',
+                                            flexDirection:'column',
+                                            justifyContent:'center',
                                         }}
                                         >
-                                            Indique que sección tiene 
-                                            <br/>
-                                            inscrita actualmente
-                                        </Typography>
+                                            
+                                            <Typography
+                                            align="left"
+                                            sx={{
+                                                fontWeight:'bold'
+                                            }}
+                                            >
+                                                Indique que sección tiene 
+                                                <br/>
+                                                inscrita actualmente
+                                            </Typography>
 
-                                        <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                            <TableHead>
-                                                <TableRow>
+                                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                <TableHead>
+                                                    <TableRow>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '120px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Seccion
-                                                    </TableCell>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Seccion
+                                                        </TableCell>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '120px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Nombre Profesor
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableHead>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Nombre Profesor
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableHead>
 
-                                            <TableBody>
-                                                {asignaturaSeleccionada?.secciones?.map(sec => (
-                                                        <TableRow
-                                                            key={sec.num_Seccion}
-                                                            onClick={() => {
-                                                                setSeccionActual(sec)
-                                                            }}
-                                                            sx={{
-                                                                cursor: 'pointer'
-                                                            }}
-                                                        >
+                                                <TableBody>
+                                                    {asignaturaSeleccionada?.secciones?.map(sec => (
+                                                            <TableRow
+                                                                key={sec.num_Seccion}
+                                                                onClick={() => {
+                                                                    setSeccionActual(sec)
+                                                                }}
+                                                                sx={{
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {sec.num_Seccion}
-                                                            </TableCell>
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {sec.num_Seccion}
+                                                                </TableCell>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
-                                                            </TableCell>
-                                                        </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
-                                    </Box>
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </Box>
 
-                                    {/*Secciones_Cambio */}
-                                    <Box
-                                    sx={{
-                                        display:'flex',
-                                        flexDirection:'column',
-                                        justifyContent:'center',
-                                    }}
-                                    >
-
-                                        <Typography
-                                        align="left"
+                                        {/*Secciones_Cambio */}
+                                        <Box
                                         sx={{
-                                            fontWeight:'bold'
+                                            display:'flex',
+                                            flexDirection:'column',
+                                            justifyContent:'center',
                                         }}
                                         >
-                                            Indique a que sección 
-                                            <br/>
-                                            quiere cambiarse
-                                        </Typography>
 
-                                        <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
-                                            <TableHead>
-                                                <TableRow>
+                                            <Typography
+                                            align="left"
+                                            sx={{
+                                                fontWeight:'bold'
+                                            }}
+                                            >
+                                                Indique a que sección 
+                                                <br/>
+                                                quiere cambiarse
+                                            </Typography>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '120px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Seccion
-                                                    </TableCell>
+                                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                <TableHead>
+                                                    <TableRow>
 
-                                                    <TableCell sx={{
-                                                        border: '1px solid black',
-                                                        width: '120px',
-                                                        py: 0.25,
-                                                        px: 0.5
-                                                    }}>
-                                                        Nombre Profesor
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableHead>
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Seccion
+                                                        </TableCell>
 
-                                            <TableBody>
-                                                {asignaturaSeleccionada?.secciones?.map(sec => (
-                                                        <TableRow
-                                                            key={sec.num_Seccion}
-                                                            onClick={() => {
-                                                                setSeccionCambio(sec)
-                                                            }}
-                                                            sx={{
-                                                                cursor: 'pointer'
-                                                            }}
-                                                        >
+                                                        <TableCell sx={{
+                                                            border: '1px solid black',
+                                                            width: '120px',
+                                                            py: 0.25,
+                                                            px: 0.5
+                                                        }}>
+                                                            Nombre Profesor
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableHead>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {sec.num_Seccion}
-                                                            </TableCell>
+                                                <TableBody>
+                                                    {asignaturaSeleccionada?.secciones?.map(sec => (
+                                                            <TableRow
+                                                                key={sec.num_Seccion}
+                                                                onClick={() => {
+                                                                    setSeccionCambio(sec)
+                                                                }}
+                                                                sx={{
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
-                                                            </TableCell>
-                                                        </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {sec.num_Seccion}
+                                                                </TableCell>
+
+                                                                <TableCell sx={{
+                                                                    border: '1px solid black',
+                                                                    py: 0.25,
+                                                                    px: 0.5
+                                                                }}>
+                                                                    {sec.profesor?.Primer_Nombre} {sec.profesor?.Segundo_Nombre} {sec.profesor?.Primer_Apellido} {sec.profesor?.Segundo_Apellido}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </Box>
                                     </Box>
-
                                     
                                     {/*Agregar Cambio y mensajes de advertencia*/}
-
                                     <Box
                                     sx={{
                                         display:'flex',
