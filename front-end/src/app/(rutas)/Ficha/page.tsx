@@ -2793,6 +2793,10 @@ function Cambio_Seccion({close} : PropCambio){
                                     return;
                                 }
                                 setAsignaturaSeleccionada(seleccionado);
+
+                                setSeccionActual(undefined);
+                                setSeccionCambio(undefined);
+
                                 setStateSecciones(true);
                             }}
                             >
@@ -3009,15 +3013,11 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 sx={{
                                                                     cursor: 'pointer',
                                                                     backgroundColor:
-                                                                    (
-                                                                        sec.num_Seccion === seccionActual?.num_Seccion ||
-                                                                        asignaturasSeleccionadas?.some(
-                                                                            asig =>
-                                                                                asig.Codigo === asignaturaSeleccionada.Codigo &&
-                                                                                asig.secciones?.some(
-                                                                                    seccion => seccion.num_Seccion === sec.num_Seccion
-                                                                                )
-                                                                        )
+                                                                    sec.num_Seccion === seccionActual?.num_Seccion ||
+                                                                    seccionesSolicitud?.some(
+                                                                        secs =>
+                                                                            secs[0].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                            secs[0].num_Seccion === sec.num_Seccion
                                                                     )
                                                                         ? 'lightblue'
                                                                         : 'transparent'
@@ -3099,18 +3099,14 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 sx={{
                                                                     cursor: 'pointer',
                                                                     backgroundColor:
-                                                                    (
-                                                                    sec.num_Seccion === seccionCambio?.num_Seccion ||
-                                                                    asignaturasSeleccionadas?.some(
-                                                                        asig =>
-                                                                            asig.Codigo === asignaturaSeleccionada.Codigo &&
-                                                                            asig.secciones?.some(
-                                                                                seccion => seccion.num_Seccion === sec.num_Seccion
-                                                                            )
+                                                                    sec.num_Seccion === seccionActual?.num_Seccion ||
+                                                                    seccionesSolicitud?.some(
+                                                                        secs =>
+                                                                            secs[1].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                            secs[1].num_Seccion === sec.num_Seccion
                                                                     )
-                                                                )
-                                                                    ? 'lightblue'
-                                                                    : 'transparent'
+                                                                        ? 'lightblue'
+                                                                        : 'transparent'
                                                                 }}
                                                             >
 
