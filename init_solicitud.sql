@@ -65,7 +65,7 @@ CREATE TABLE `asignatura` (
 
 LOCK TABLES `asignatura` WRITE;
 /*!40000 ALTER TABLE `asignatura` DISABLE KEYS */;
-INSERT INTO `asignatura` VALUES ('APU 111','TEORIA DE LA ADMINISTRACION', '2014','PRIMERO'),('APU 112','FUNDAMENTOS DE LA CIENCIA POLITICA','PRIMERO', '2014'),('APU 113','NOCIONES GENERALES DE DERECHO','PRIMERO', '2014'),('APU 114','RAZONAMIENTO LOGICO MATEMATICO','PRIMERO', '2014');
+INSERT INTO `asignatura` VALUES ('APU 111','TEORIA DE LA ADMINISTRACION','PRIMERO', '2014'),('APU 112','FUNDAMENTOS DE LA CIENCIA POLITICA','PRIMERO', '2014'),('APU 113','NOCIONES GENERALES DE DERECHO','PRIMERO', '2014'),('APU 114','RAZONAMIENTO LOGICO MATEMATICO','PRIMERO', '2014');
 /*!40000 ALTER TABLE `asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +329,7 @@ CREATE TABLE `seccion` (
   `num_Seccion` int NOT NULL,
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   KEY `seccion_profesor_FK` (`mail_Profesor`),
-  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),
+  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`, `num_Seccion`, `Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `num_Seccion`, `Ano_Malla`),
   CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`mail_Profesor`) REFERENCES `profesor` (`Mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
