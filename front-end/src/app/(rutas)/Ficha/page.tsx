@@ -2625,7 +2625,7 @@ function Cambio_Seccion({close} : PropCambio){
         }
         datos();
 
-        console.log(asignaturas)
+        
     }, []);
 
 
@@ -2754,7 +2754,7 @@ function Cambio_Seccion({close} : PropCambio){
                                 if(!seleccionado){
                                     return;
                                 }
-
+                                console.log(asignaturas);
                                 setAsignaturaSeleccionada(seleccionado);
                                 setStateSecciones(true);
                                 setStateCambio(true);
