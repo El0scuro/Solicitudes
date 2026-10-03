@@ -2640,8 +2640,6 @@ function Cambio_Seccion({close} : PropCambio){
             seccionActual.asignatura = asignaturaSeleccionada;
             seccionCambio.asignatura = asignaturaSeleccionada;
 
-            setAsignaturasSeleccionadas(prev => [...prev, asignaturaSeleccionada]);
-
             //reviso si el arreglo está vacío
             if(!seccionesCargadas){
                 return [[seccionActual, seccionCambio]];
@@ -2666,9 +2664,7 @@ function Cambio_Seccion({close} : PropCambio){
 
     const deseleccionarRamos = (secciones: Seccion[]) => {
         setSeccionesSolicitud(seccionesSolicitud?.filter(secs =>
-            secs.find(sec =>
-                secciones.map(secc => secc.num_Seccion === sec.num_Seccion)
-            )
+            (secs[0].asignatura?.Codigo !== secciones[0].asignatura?.Codigo) 
         ));
     }
 
