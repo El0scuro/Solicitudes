@@ -2730,7 +2730,7 @@ function Cambio_Seccion({close} : PropCambio){
                 sx={{
                     display:'flex',
                     justifyContent:'flex-start',
-                    gap:10,
+                    gap:5,
                     alignItems:'center'
                 }}
                 >
@@ -2999,7 +2999,8 @@ function Cambio_Seccion({close} : PropCambio){
                                                             }}
                                                             sx={{
                                                                 cursor: 'pointer',
-                                                                backgroundColor: sec.num_Seccion === seccionActual?.num_Seccion
+                                                                backgroundColor: (sec.num_Seccion === seccionActual?.num_Seccion) ||
+                                                                (seccionesSolicitud?.some(secs => secs[0].num_Seccion === sec.num_Seccion))
                                                                     ? 'lightblue'
                                                                     : 'transparent'
                                                             }}
@@ -3079,7 +3080,8 @@ function Cambio_Seccion({close} : PropCambio){
                                                             }}
                                                             sx={{
                                                                 cursor: 'pointer',
-                                                                backgroundColor: sec.num_Seccion === seccionCambio?.num_Seccion
+                                                                backgroundColor: (sec.num_Seccion === seccionCambio?.num_Seccion) ||
+                                                                (seccionesSolicitud?.some(secs => secs[1].num_Seccion === sec.num_Seccion))
                                                                     ? 'lightgreen'
                                                                     : 'transparent'
                                                             }}
@@ -3106,76 +3108,83 @@ function Cambio_Seccion({close} : PropCambio){
                                         </Table>
                                     </Box>
 
-                                    {/*Agregar Cambio */}
-                                    <Box>
-                                        <Button
-                                        onClick={() => agregarCambio()}
-                                        variant="contained"
+                                    
+                                    {/*Agregar Cambio y mensajes de advertencia*/}
+
+                                    <Box
+                                    sx={{
+                                        display:'flex',
+                                        flexDirection:'column',
+                                        alignItems:'center'
+                                    }}
+                                    >
+                                        {stateSeccionDuplicada && (
+                                            <Box
+                                            sx={{
+                                                borderRadius:'20px',
+                                                border:'2px solid black',
+                                                width:'250px',
+                                            }}
+                                            >
+                                                <Typography
+                                                sx={{
+                                                    fontWeight:'bold',
+                                                    fontSize:'15px'
+                                                }}
+                                                >
+                                                    No puedes solicitar más de un 
+                                                    <br/>
+                                                    cambio de sección de una misma asignatura
+                                                </Typography>
+                                                
+                                            </Box>
+                                        )}
+
+                                        {stateIncompleto && (
+                                            <Box
+                                            sx={{
+                                                borderRadius:'20px',
+                                                border:'2px solid black',
+                                                width:'250px',
+                                            }}
+                                            >
+                                                <Typography
+                                                sx={{
+                                                    fontWeight:'bold',
+                                                    fontSize:'15px'
+                                                }}
+                                                >
+                                                    Debe indicar su solicitud actual 
+                                                    <br/>
+                                                    y a cual desea cambiarse
+                                                </Typography>
+                                                
+                                            </Box>
+                                        )}
+
+                                        {/*Agregar Cambio */}
+                                        <Box
+                                        sx={{
+                                            display:'flex',
+                                            alignItems:'flex-end',
+                                            justifyContent:'center'
+                                        }}
                                         >
-                                            Cargar 
-                                            <br/>
-                                            cambio
-                                        </Button>
+                                            <Button
+                                            onClick={() => agregarCambio()}
+                                            variant="contained"
+                                            >
+                                                Cargar 
+                                                <br/>
+                                                cambio
+                                            </Button>
+                                        </Box>
+                                        
                                     </Box>
                                 </Box>
                                 
                             )}
                         </Box>
-
-
-                        {/*Duplicado - Incompleto */}
-                        <Box
-                        sx={{
-                            display:'flex',
-                            justifyContent:'center'
-                        }}
-                        >
-                            {stateSeccionDuplicada && (
-                                <Box
-                                sx={{
-                                    borderRadius:'20px',
-                                    border:'2px solid black',
-                                    width:'250px',
-                                }}
-                                >
-                                    <Typography
-                                    sx={{
-                                        fontWeight:'bold',
-                                        fontSize:'15px'
-                                    }}
-                                    >
-                                        No puedes solicitar más de un 
-                                        <br/>
-                                        cambio de sección de una misma asignatura
-                                    </Typography>
-                                    
-                                </Box>
-                            )}
-
-                            {stateIncompleto && (
-                                <Box
-                                sx={{
-                                    borderRadius:'20px',
-                                    border:'2px solid black',
-                                    width:'250px',
-                                }}
-                                >
-                                    <Typography
-                                    sx={{
-                                        fontWeight:'bold',
-                                        fontSize:'15px'
-                                    }}
-                                    >
-                                        Debe indicar su solicitud actual 
-                                        <br/>
-                                        y a cual desea cambiarse
-                                    </Typography>
-                                    
-                                </Box>
-                            )}
-                        </Box>
-                            
-
 
                     </Box>
                     
