@@ -2652,7 +2652,7 @@ function Cambio_Seccion({close} : PropCambio){
     const deseleccionarRamos = (secciones: Seccion[]) => {
         setSeccionesSolicitud(seccionesSolicitud?.filter(secs =>
             secs.find(sec =>
-                secciones.find(secc => secc.num_Seccion === sec.num_Seccion)
+                secciones.map(secc => secc.num_Seccion === sec.num_Seccion)
             )
         ));
     }
@@ -2725,7 +2725,7 @@ function Cambio_Seccion({close} : PropCambio){
                     X
                 </Button>
                 
-                {/*Asignaturas - Solicitueds_Cambio - Secciones - Cambio*/}
+                {/*Asignaturas - Solicitudes_Cambio - Secciones - Cambio*/}
                 <Box
                 sx={{
                     display:'flex',
@@ -2772,7 +2772,6 @@ function Cambio_Seccion({close} : PropCambio){
                                 if(!seleccionado){
                                     return;
                                 }
-                                console.log(asignaturas);
                                 setAsignaturaSeleccionada(seleccionado);
                                 setStateSecciones(true);
                             }}
@@ -2941,7 +2940,12 @@ function Cambio_Seccion({close} : PropCambio){
                         }}
                         >
                             {stateSecciones && (
-                                <Box>
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    gap:4
+                                }}
+                                >
                                     {/*Secciones */}
                                     <Box
                                     sx={{
@@ -2995,9 +2999,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                             }}
                                                             sx={{
                                                                 cursor: 'pointer',
-                                                                backgroundColor: asignaturaSeleccionada.secciones.find(
-                                                                    sec => sec.num_Seccion === seccionActual?.num_Seccion
-                                                                )
+                                                                backgroundColor: sec.num_Seccion === seccionActual?.num_Seccion
                                                                     ? 'lightblue'
                                                                     : 'transparent'
                                                             }}
@@ -3077,9 +3079,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                             }}
                                                             sx={{
                                                                 cursor: 'pointer',
-                                                                backgroundColor: asignaturaSeleccionada.secciones.find(
-                                                                    sec => sec.num_Seccion === seccionCambio?.num_Seccion
-                                                                )
+                                                                backgroundColor: sec.num_Seccion === seccionCambio?.num_Seccion
                                                                     ? 'lightgreen'
                                                                     : 'transparent'
                                                             }}
