@@ -2704,12 +2704,12 @@ function Cambio_Seccion({close} : PropCambio){
                     X
                 </Button>
                 
-                {/*Asignaturas - Secciones - Cambio*/}
+                {/*Asignaturas - Solicitueds_Cambio - Secciones - Cambio*/}
                 <Box
                 sx={{
                     display:'flex',
                     justifyContent:'flex-start',
-                    gap:40,
+                    gap:10,
                     alignItems:'center'
                 }}
                 >
