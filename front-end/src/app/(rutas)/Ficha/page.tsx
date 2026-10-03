@@ -2650,7 +2650,9 @@ function Cambio_Seccion({close} : PropCambio){
             //reviso si hay más de una sección asociada a la misma asignatura
             const duplicadas = seccionesSolicitud?.some(
                 secs => secs.some(sec => (
-                    sec.num_Seccion === seccionActual?.num_Seccion))
+                    sec.num_Seccion === seccionActual?.num_Seccion &&
+                    sec.asignatura?.Codigo === asignaturaSeleccionada.Codigo    
+                ))
             )
 
             if(duplicadas){
