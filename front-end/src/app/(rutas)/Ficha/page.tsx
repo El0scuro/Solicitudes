@@ -2633,7 +2633,7 @@ function Cambio_Seccion({close} : PropCambio){
             }
 
             if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
-                setStateMismaSeccion(true);
+                mostrarMismas();
             }
             
             seccionActual.asignatura = asignaturaSeleccionada;
@@ -2686,6 +2686,13 @@ function Cambio_Seccion({close} : PropCambio){
         }, 7000);
     }
 
+    const mostrarMismas = () => {
+        setStateMismaSeccion(true);
+
+        setTimeout(() => {
+            setStateMismaSeccion(false);
+        }, 7000);
+    }
 
     return(
         <Box
@@ -3012,7 +3019,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                                 )
                                                                         )
                                                                     )
-                                                                        ? lightBlue
+                                                                        ? 'lightblue'
                                                                         : 'transparent'
                                                                 }}
                                                             >
@@ -3102,7 +3109,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                             )
                                                                     )
                                                                 )
-                                                                    ? lightBlue
+                                                                    ? 'lightblue'
                                                                     : 'transparent'
                                                                 }}
                                                             >
