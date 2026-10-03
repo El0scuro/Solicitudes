@@ -2593,8 +2593,6 @@ function Cambio_Seccion({close} : PropCambio){
         secciones: []
     });
 
-    const [asignaturasSeleccionadas, setAsignaturasSeleccionadas] = useState<Asignatura[]>([]);
-
     
     const [stateSecciones, setStateSecciones] = useState(false);
 
@@ -2629,12 +2627,12 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(!seccionActual || !seccionCambio){
                 mostrarIncompleto();
-                return;
+                return seccionesCargadas;
             }
 
             if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
                 mostrarMismas();
-                return;
+                return seccionesCargadas;
             }
             
             seccionActual.asignatura = asignaturaSeleccionada;
@@ -2655,7 +2653,7 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(duplicadas){
                 mostrarDuplicado();
-                return;
+                return seccionesCargadas;
             }
 
             return [...seccionesCargadas, [seccionActual, seccionCambio]]
