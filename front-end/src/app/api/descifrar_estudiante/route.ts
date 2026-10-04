@@ -142,6 +142,8 @@ export async function POST(request: Request) {
                 authTag,
                 llaveTemporal
             );
+
+            console.log(estudiante_Descifrado);
     }
 
     // Enviamos el estudiante ya descifrado al navegador

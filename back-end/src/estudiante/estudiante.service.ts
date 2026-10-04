@@ -571,6 +571,11 @@ export class EstudianteService {
                 )
             );
 
+            console.log(estudiante_Descifrado);
+            
+            console.log(datosEncriptados);
+            
+
             const llave_Publica = await this.hibridoServiceFront.getCurrent();
            
 
