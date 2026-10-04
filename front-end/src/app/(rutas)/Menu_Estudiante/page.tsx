@@ -164,7 +164,12 @@ function Menu_Estudiante_Content(){
                 }}
                 >
                     {/*Realizar */}
-                    <Box>
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap:5
+                    }}
+                    >
                         
                         {stateDescripcionRealizar && (
                             <Typography>
@@ -185,9 +190,7 @@ function Menu_Estudiante_Content(){
                         }}
                         onClick={() => {
                             setLoading(true);
-                            router.push(`/Ficha?estudiante=${encodeURIComponent(
-                                JSON.stringify(estudiante)
-                            )}`);
+                            router.push(`/Ficha?estudiante=${estudiante}`)
                         }}
                         sx={{
                             display:'flex',
@@ -262,7 +265,12 @@ function Menu_Estudiante_Content(){
                     </Box>
 
                     {/*Actualizar */}
-                    <Box>
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap:5
+                    }}
+                    >
                         {stateDescripcionActualizar && (
                             <Typography>
                                 texto descriptivo para 
@@ -356,7 +364,12 @@ function Menu_Estudiante_Content(){
                     </Box>
                         
                     {/*Revisar */}
-                    <Box>
+                    <Box
+                    sx={{
+                        display:'flex',
+                        gap:5
+                    }}
+                    >
                         {stateDescripcionEnviado && (
                             <Typography>
                                 texto descriptivo para 
@@ -449,8 +462,6 @@ function Menu_Estudiante_Content(){
                             </Box>
                         </Button>
                     </Box>
-                    
-
                     
                 </Box>
             </Box>
