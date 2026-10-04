@@ -29,7 +29,6 @@ import axios from "axios";
 import __url from "@/lib/const";
 import { Asignatura } from "@/types/asignatura";
 import { Seccion } from "@/types/seccion";
-import { lightBlue, lightGreen } from "@mui/material/colors";
 
 //interfaz para el estudiante cifrado para transporte
 interface EstudianteCifrado {

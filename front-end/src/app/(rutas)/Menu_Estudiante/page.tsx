@@ -4,7 +4,7 @@ import { AppBar, Backdrop, Box,
         Button, CircularProgress, 
         Toolbar, Typography 
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 
@@ -14,13 +14,19 @@ import Logo_Publica from "@/Imagenes/Logo escuela blanco.png";
 import RuleIcon from '@mui/icons-material/Rule';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import { Fascinate } from "next/font/google";
 
 
 export default function Menu_Estudiante(){
 
     const router = useRouter();
 
+
+    const searchParams = useSearchParams();
     
+    const estudiante = searchParams.get('estudiante');
+
+
     const [loading, setLoading] = useState(false);
 
 
@@ -29,6 +35,13 @@ export default function Menu_Estudiante(){
     const [stateMirarActualizar, setStateMirarActualizar] = useState(false);
 
     const [stateMirarEnviadas, setStateMirarEnviadas] = useState(false);
+
+
+    const [stateDescripcionRealizar, setStateDescripcionRealizar] = useState(false);
+    
+    const [stateDescripcionActualizar, setStateDescripcionActualizar] = useState(false);
+
+    const [stateDescripcionEnviado, setStateDescripcionEnviado] = useState(false);
 
     return(
         <Box
@@ -144,212 +157,289 @@ export default function Menu_Estudiante(){
                 }}
                 >
                     {/*Realizar */}
-                    <Button
-                    onMouseEnter={() => setStateMirarRealizar(true)}
-                    onMouseLeave={() => setStateMirarRealizar(false)}
-                    sx={{
-                        display:'flex',
-                        gap:0,
-                        height:'auto',
-                        width:'auto'
-                    }}>
-                        {/*Icono */}
-                        <Box
-                        sx={{
-                            borderRadius:'100%',
-                            height:'100px',
-                            width:'100px',
-                            border:'10px solid #24454A',
-                            display:'flex',
-                            justifyContent:'center',
-                            alignItems:'center',
-                            zIndex:1000,
-                            backgroundColor:'#F6F1E8'
+                    <Box>
+                        
+                        {stateDescripcionRealizar && (
+                            <Typography>
+                                texto descriptivo para 
+                                <br/>
+                                completar la ficha
+                            </Typography>
+                        )}
+
+                        <Button
+                        onMouseEnter={() => {
+                            setStateDescripcionRealizar(true);
+                            setStateMirarRealizar(true);
                         }}
-                        >
-                            <ListAltIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
-                        </Box>
-
-                        {/* Texto descriptivo */}
-                        <Box
+                        onMouseLeave={() => {
+                            setStateDescripcionRealizar(false);
+                            setStateMirarRealizar(false);
+                        }}
+                        onClick={() => {
+                            setLoading(true);
+                            router.push(`/Ficha?estudiante=${estudiante}`)
+                        }}
+                        sx={{
+                            display:'flex',
+                            gap:0,
+                            height:'auto',
+                            width:'auto',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                            },
+                            '&:active': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}>
+                            {/*Icono */}
+                            <Box
                             sx={{
-                                borderTopRightRadius: '20px',
-                                borderBottomRightRadius: '20px',
-                                width: stateMirarRealizar ? '400px' : '0px',
-                                height: '75px',
-                                borderTop: stateMirarRealizar ? '10px solid black' : '0px solid black',
-                                borderRight: stateMirarRealizar ? '10px solid black' : '0px solid black',
-                                borderBottom: stateMirarRealizar ? '10px solid black' : '0px solid black',
-                                opacity: stateMirarRealizar ? 1 : 0,
-
-                                overflow: 'hidden',
-
-                                display: 'flex',
-                                alignItems: 'center',
-
-                                transform: stateMirarRealizar
-                                ? 'translateX(-20px)'
-                                : 'translateX(-80px)',
-
-                                transition: 'opacity 0.3s ease, transform 0.4s ease',
-
-                                zIndex: 1001,
-
+                                borderRadius:'100%',
+                                height:'100px',
+                                width:'100px',
+                                border:'10px solid #24454A',
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center',
+                                zIndex:1000,
                                 backgroundColor:'#F6F1E8'
-
                             }}
-                        >
-                            <Typography
+                            >
+                                <ListAltIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
+                            </Box>
+
+                            {/* Texto descriptivo */}
+                            <Box
                                 sx={{
-                                    fontWeight: 'bold',
-                                    color: '#003c58',
-                                    whiteSpace: 'nowrap',
-                                    ml:'50px'
+                                    borderTopRightRadius: '20px',
+                                    borderBottomRightRadius: '20px',
+                                    width: stateMirarRealizar ? '400px' : '0px',
+                                    height: '75px',
+                                    borderTop: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
+                                    borderRight: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
+                                    borderBottom: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
+                                    opacity: stateMirarRealizar ? 1 : 0,
+
+                                    overflow: 'hidden',
+
+                                    display: 'flex',
+                                    alignItems: 'center',
+
+                                    transform: stateMirarRealizar
+                                    ? 'translateX(-20px)'
+                                    : 'translateX(-80px)',
+
+                                    transition: 'opacity 0.3s ease, transform 0.4s ease',
+
+                                    zIndex: 1001,
+
+                                    backgroundColor:'#F6F1E8'
+
                                 }}
                             >
-                                Realizar una solicitud
-                            </Typography>
-                        </Box>
-                    </Button>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        color: '#003c58',
+                                        whiteSpace: 'nowrap',
+                                        ml:'50px'
+                                    }}
+                                >
+                                    Completar ficha
+                                </Typography>
+                            </Box>
+                        </Button>
+                    </Box>
 
                     {/*Actualizar */}
-                    <Button
-                    onMouseEnter={() => setStateMirarActualizar(true)}
-                    onMouseLeave={() => setStateMirarActualizar(false)}
-                    sx={{
-                        display:'flex',
-                        gap:0,
-                        height:'auto',
-                        width:'auto'
-                    }}>
-                        {/*Icono */}
-                        <Box
-                        sx={{
-                            borderRadius:'100%',
-                            height:'100px',
-                            width:'100px',
-                            border:'10px solid black',
-                            display:'flex',
-                            justifyContent:'center',
-                            alignItems:'center',
-                            zIndex:1001,
-                            backgroundColor:'#F6F1E8'
+                    <Box>
+                        {stateDescripcionActualizar && (
+                            <Typography>
+                                texto descriptivo para 
+                                <br/>
+                                actualizar datos
+                            </Typography>
+                        )}
+
+                        <Button
+                        onMouseEnter={() => {
+                            setStateMirarActualizar(true);
+                            setStateDescripcionActualizar(true);
                         }}
-                        >
-                            <ManageAccountsIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
-                        </Box>
-
-                        {/* Texto descriptivo */}
-                        <Box
+                        onMouseLeave={() => {
+                            setStateDescripcionActualizar(false);
+                            setStateMirarActualizar(false);
+                        }}
+                        onClick={() => {
+                            setLoading(true);
+                            router.push(`/Ficha?estudiante=${estudiante}`)
+                        }}
+                        sx={{
+                            display:'flex',
+                            gap:0,
+                            height:'auto',
+                            width:'auto',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                            },'&:active': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}>
+                            {/*Icono */}
+                            <Box
                             sx={{
-                                borderTopRightRadius: '20px',
-                                borderBottomRightRadius: '20px',
-                                width: stateMirarActualizar ? '400px' : '0px',
-                                height: '75px',
-                                borderTop: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
-                                borderRight: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
-                                borderBottom: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
-                                opacity: stateMirarActualizar ? 1 : 0,
-
-                                overflow: 'hidden',
-
-                                display: 'flex',
-                                alignItems: 'center',
-
-                                transform: stateMirarActualizar
-                                ? 'translateX(-20px)'
-                                : 'translateX(-80px)',
-
-                                transition: 'opacity 0.3s ease, transform 0.4s ease',
-
-                                zIndex: 1001,
-
+                                borderRadius:'100%',
+                                height:'100px',
+                                width:'100px',
+                                border:'10px solid #24454A',
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center',
+                                zIndex:1001,
                                 backgroundColor:'#F6F1E8'
-
                             }}
-                        >
-                            <Typography
+                            >
+                                <ManageAccountsIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
+                            </Box>
+
+                            {/* Texto descriptivo */}
+                            <Box
                                 sx={{
-                                    fontWeight: 'bold',
-                                    color: '#003c58',
-                                    whiteSpace: 'nowrap',
-                                    ml:'50px'
+                                    borderTopRightRadius: '20px',
+                                    borderBottomRightRadius: '20px',
+                                    width: stateMirarActualizar ? '400px' : '0px',
+                                    height: '75px',
+                                    borderTop: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
+                                    borderRight: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
+                                    borderBottom: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
+                                    opacity: stateMirarActualizar ? 1 : 0,
+
+                                    overflow: 'hidden',
+
+                                    display: 'flex',
+                                    alignItems: 'center',
+
+                                    transform: stateMirarActualizar
+                                    ? 'translateX(-20px)'
+                                    : 'translateX(-80px)',
+
+                                    transition: 'opacity 0.3s ease, transform 0.4s ease',
+
+                                    zIndex: 1001,
+
+                                    backgroundColor:'#F6F1E8'
+
                                 }}
                             >
-                                Actualizar mis datos
-                            </Typography>
-                        </Box>
-                    </Button>
-
+                                <Typography
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        color: '#003c58',
+                                        whiteSpace: 'nowrap',
+                                        ml:'50px'
+                                    }}
+                                >
+                                    Actualizar mis datos
+                                </Typography>
+                            </Box>
+                        </Button>
+                    </Box>
+                        
                     {/*Revisar */}
-                    <Button
-                    onMouseEnter={() => setStateMirarEnviadas(true)}
-                    onMouseLeave={() => setStateMirarEnviadas(false)}
-                    sx={{
-                        display:'flex',
-                        gap:0,
-                        height:'auto',
-                        width:'auto'
-                    }}>
-                        {/*Icono */}
-                        <Box
-                        sx={{
-                            borderRadius:'100%',
-                            height:'100px',
-                            width:'100px',
-                            border:'10px solid #24454A',
-                            display:'flex',
-                            justifyContent:'center',
-                            alignItems:'center',
-                            zIndex:1001,
-                            backgroundColor:'#F6F1E8'
-                            
+                    <Box>
+                        {stateDescripcionEnviado && (
+                            <Typography>
+                                texto descriptivo para 
+                                <br/>
+                                actualizar datos
+                            </Typography>
+                        )}
+
+                        <Button
+                        onMouseEnter={() => {
+                            setStateDescripcionEnviado(true);
+                            setStateMirarEnviadas(true);
                         }}
-                        >
-                            <RuleIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
-                        </Box>
-
-                        {/* Texto descriptivo */}
-                        <Box
+                        onMouseLeave={() => {
+                            setStateDescripcionEnviado(true);
+                            setStateMirarEnviadas(false);
+                        }}
+                        onClick={() => {
+                            setLoading(true);
+                            router.push(`/Ficha?estudiante=${estudiante}`)
+                        }}
+                        sx={{
+                            display:'flex',
+                            gap:0,
+                            height:'auto',
+                            width:'auto',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                            },'&:active': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}>
+                            {/*Icono */}
+                            <Box
                             sx={{
-                                borderTopRightRadius: '20px',
-                                borderBottomRightRadius: '20px',
-                                width: stateMirarEnviadas ? '400px' : '0px',
-                                height: '75px',
-                                borderTop: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
-                                borderRight: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
-                                borderBottom: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
-                                opacity: stateMirarEnviadas ? 1 : 0,
-
-                                overflow: 'hidden',
-
-                                display: 'flex',
-                                alignItems: 'center',
-
-                                transform: stateMirarEnviadas
-                                ? 'translateX(-20px)'
-                                : 'translateX(-80px)',
-
-                                transition: 'opacity 0.3s ease, transform 0.4s ease',
-
-                                zIndex: 1001,
-
+                                borderRadius:'100%',
+                                height:'100px',
+                                width:'100px',
+                                border:'10px solid #24454A',
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center',
+                                zIndex:1001,
                                 backgroundColor:'#F6F1E8'
-
+                                
                             }}
-                        >
-                            <Typography
+                            >
+                                <RuleIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
+                            </Box>
+
+                            {/* Texto descriptivo */}
+                            <Box
                                 sx={{
-                                    fontWeight: 'bold',
-                                    color: '#003c58',
-                                    whiteSpace: 'nowrap',
-                                    ml:'50px'
+                                    borderTopRightRadius: '20px',
+                                    borderBottomRightRadius: '20px',
+                                    width: stateMirarEnviadas ? '400px' : '0px',
+                                    height: '75px',
+                                    borderTop: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
+                                    borderRight: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
+                                    borderBottom: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
+                                    opacity: stateMirarEnviadas ? 1 : 0,
+
+                                    overflow: 'hidden',
+
+                                    display: 'flex',
+                                    alignItems: 'center',
+
+                                    transform: stateMirarEnviadas
+                                    ? 'translateX(-20px)'
+                                    : 'translateX(-80px)',
+
+                                    transition: 'opacity 0.3s ease, transform 0.4s ease',
+
+                                    zIndex: 1001,
+
+                                    backgroundColor:'#F6F1E8'
+
                                 }}
                             >
-                                Revisar mis solicitudes
-                            </Typography>
-                        </Box>
-                    </Button>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        color: '#003c58',
+                                        whiteSpace: 'nowrap',
+                                        ml:'50px'
+                                    }}
+                                >
+                                    Revisar mis solicitudes
+                                </Typography>
+                            </Box>
+                        </Button>
+                    </Box>
                     
 
                     
