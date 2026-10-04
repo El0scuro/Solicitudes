@@ -176,7 +176,11 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'10%'
+                                right:'80%',
+                                fontWeight:'bold',
+                                backgroundColor:'#B08A57',
+                                border:'2px solid black',
+                                borderRadius:'20px'
                             }}
                             >
                                 texto descriptivo para 
@@ -274,11 +278,21 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:5
+                        gap:5,
+                        position:'relative'
                     }}
                     >
                         {stateDescripcionActualizar && (
-                            <Typography>
+                            <Typography
+                            sx={{
+                                position:'absolute',
+                                right:'80%',
+                                fontWeight:'bold',
+                                backgroundColor:'#B08A57',
+                                border:'2px solid black',
+                                borderRadius:'20px'
+                            }}
+                            >
                                 texto descriptivo para 
                                 <br/>
                                 actualizar datos
@@ -373,11 +387,21 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:5
+                        gap:5,
+                        position:'relative'
                     }}
                     >
                         {stateDescripcionEnviado && (
-                            <Typography>
+                            <Typography
+                            sx={{
+                                position:'absolute',
+                                right:'80%',
+                                fontWeight:'bold',
+                                backgroundColor:'#B08A57',
+                                border:'2px solid black',
+                                borderRadius:'20px'
+                            }}
+                            >
                                 texto descriptivo para 
                                 <br/>
                                 actualizar datos
