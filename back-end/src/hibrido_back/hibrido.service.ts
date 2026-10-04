@@ -15,12 +15,12 @@ interface DatoEncriptado {
 
 //interfaz para el estudiante descifrado en almacenamiento
 interface EstudianteDescifrado {
+    Mail: string;
     Primer_Nombre: string;
     Segundo_Nombre?: string;
     Primer_Apellido: string;
     Segundo_Apellido: string;
     Celular: string;
-    Mail: string;
     Rut: string;
     Digito_Verificador: string;
     Ano_Ingreso: string;

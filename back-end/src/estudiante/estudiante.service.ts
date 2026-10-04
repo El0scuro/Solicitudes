@@ -586,6 +586,11 @@ export class EstudianteService {
            
             let indiceCifrado = 0;
 
+            //Mail
+            estudianteCifrado.Mail = datosEncriptados[indiceCifrado].valor;
+            estudianteCifrado.Iv_Mail = datosEncriptados[indiceCifrado].ivValor;
+            estudianteCifrado.Tag_Mail = datosEncriptados[indiceCifrado].authTag;
+
             // Primer Nombre
             estudianteCifrado.Primer_Nombre = datosEncriptados[indiceCifrado].valor;
             estudianteCifrado.Iv_Primer_Nombre = datosEncriptados[indiceCifrado].ivValor;
