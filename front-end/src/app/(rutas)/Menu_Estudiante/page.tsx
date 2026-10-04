@@ -109,7 +109,8 @@ export default function Menu_Estudiante(){
             sx={{
                 display:'flex',
                 height:'100%',
-                width:'100%'
+                width:'100%',
+                
             }}
             >
                 {/*Titulo */}
@@ -118,7 +119,10 @@ export default function Menu_Estudiante(){
                 sx={{
                     display:'flex',
                     justifyContent:'flex-start',
-                    alignItems:'center'
+                    alignItems:'center',
+                    ml:'4%',
+                    fontWeight:'bold',
+                    color:'#F6F1E8'
                 }}
                 >
                     MENU PARA 
@@ -132,9 +136,10 @@ export default function Menu_Estudiante(){
                     display:'flex',
                     flexDirection:'column',
                     justifyContent:'center',
+                    alignItems:'flex-end',
                     height:'100%',
-                    gap: 10,
-                    mt:'12%'
+                    gap: 5,
+                    mr:'5%'
                 }}
                 >
                     {/*Realizar */}
@@ -228,17 +233,17 @@ export default function Menu_Estudiante(){
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                width: stateMirarRealizar ? '400px' : '0px',
+                                width: stateMirarActualizar ? '400px' : '0px',
                                 height: '75px',
-                                border: stateMirarRealizar ? '10px solid black' : '0px solid black',
-                                opacity: stateMirarRealizar ? 1 : 0,
+                                border: stateMirarActualizar ? '10px solid black' : '0px solid black',
+                                opacity: stateMirarActualizar? 1 : 0,
 
                                 overflow: 'hidden',
 
                                 display: 'flex',
                                 alignItems: 'center',
 
-                                transform: stateMirarRealizar
+                                transform: stateMirarActualizar
                                 ? 'translateX(-40px)'
                                 : 'translateX(-90px)',
 
@@ -289,17 +294,17 @@ export default function Menu_Estudiante(){
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                width: stateMirarRealizar ? '400px' : '0px',
-                                height: '150px',
-                                border: stateMirarRealizar ? '10px solid black' : '0px solid black',
-                                opacity: stateMirarRealizar ? 1 : 0,
+                                width: stateMirarEnviadas ? '400px' : '0px',
+                                height: '75px',
+                                border: stateMirarEnviadas ? '10px solid black' : '0px solid black',
+                                opacity: stateMirarEnviadas ? 1 : 0,
 
                                 overflow: 'hidden',
 
                                 display: 'flex',
                                 alignItems: 'center',
 
-                                transform: stateMirarRealizar
+                                transform: stateMirarEnviadas
                                 ? 'translateX(-40px)'
                                 : 'translateX(-90px)',
 
