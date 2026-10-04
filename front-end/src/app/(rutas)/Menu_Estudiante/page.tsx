@@ -151,8 +151,7 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto',
-                        backgroundColor:'#F6F1E8'
+                        width:'auto'
                     }}>
                         {/*Icono */}
                         <Box
@@ -164,7 +163,8 @@ export default function Menu_Estudiante(){
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
-                            zIndex:1000
+                            zIndex:1000,
+                            backgroundColor:'#F6F1E8'
                         }}
                         >
                             <ListAltIcon sx={{ width:'75px', height:'75px'}}/>
@@ -220,8 +220,7 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto',
-                        backgroundColor:'#F6F1E8'
+                        width:'auto'
                     }}>
                         {/*Icono */}
                         <Box
@@ -233,7 +232,8 @@ export default function Menu_Estudiante(){
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
-                            zIndex:1001
+                            zIndex:1001,
+                            backgroundColor:'#F6F1E8'
                         }}
                         >
                             <ManageAccountsIcon sx={{ width:'75px', height:'75px'}}/>
@@ -289,8 +289,7 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto',
-                        backgroundColor:'#F6F1E8'
+                        width:'auto'
                     }}>
                         {/*Icono */}
                         <Box
@@ -302,7 +301,9 @@ export default function Menu_Estudiante(){
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
-                            zIndex:1001
+                            zIndex:1001,
+                            backgroundColor:'#F6F1E8'
+                            
                         }}
                         >
                             <RuleIcon sx={{ width:'75px', height:'75px'}}/>
