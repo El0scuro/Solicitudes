@@ -135,14 +135,14 @@ function Menu_Estudiante_Content(){
             >
                 {/*Titulo */}
                 <Typography
-                variant="h3"
+                variant="h2"
                 sx={{
                     display:'flex',
                     justifyContent:'flex-start',
                     alignItems:'center',
                     ml:'10%',
                     fontWeight:'bold',
-                    color:'#F6F1E8',
+                    color:'#003c58',
                     WebkitTextStroke: '2px black'
                 }}
                 >
@@ -178,11 +178,14 @@ function Menu_Estudiante_Content(){
                                 position:'absolute',
                                 right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#24454A',
+                                backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
                                 borderRadius:'20px',
                                 width:'300px',
-                                height:'150px'
+                                height:'150px',
+                                color:'#003c58',
+                                justifyContent:'center',
+                                alignItems:'center'
                             }}
                             >
                                 texto descriptivo para 
@@ -290,11 +293,14 @@ function Menu_Estudiante_Content(){
                                 position:'absolute',
                                 right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#24454A',
+                                backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
                                 borderRadius:'20px',
                                 width:'300px',
-                                height:'150px'
+                                height:'150px',
+                                color:'#003c58',
+                                justifyContent:'center',
+                                alignItems:'center'
                             }}
                             >
                                 texto descriptivo para 
@@ -401,11 +407,14 @@ function Menu_Estudiante_Content(){
                                 position:'absolute',
                                 right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#24454A',
+                                backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
                                 borderRadius:'20px',
                                 width:'300px',
-                                height:'150px'
+                                height:'150px',
+                                color:'#003c58',
+                                justifyContent:'center',
+                                alignItems:'center'
                             }}
                             >
                                 texto descriptivo para 
