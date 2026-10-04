@@ -26,6 +26,10 @@ export default function Menu_Estudiante(){
 
     const [stateMirarRealizar, setStateMirarRealizar] = useState(false);
 
+    const [stateMirarActualizar, setStateMirarActualizar] = useState(false);
+
+    const [stateMirarEnviadas, setStateMirarEnviadas] = useState(false);
+
     return(
         <Box
         sx={{
@@ -147,8 +151,8 @@ export default function Menu_Estudiante(){
                         <Box
                         sx={{
                             borderRadius:'100%',
-                            height:'200px',
-                            width:'200px',
+                            height:'100px',
+                            width:'100px',
                             border:'10px solid black',
                             display:'flex',
                             justifyContent:'center',
@@ -156,15 +160,15 @@ export default function Menu_Estudiante(){
                             zIndex:1001
                         }}
                         >
-                            <ListAltIcon sx={{ width:'150px', height:'150px'}}/>
+                            <ListAltIcon sx={{ width:'75px', height:'75px'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                width: stateMirarRealizar ? '500px' : '0px',
-                                height: '150px',
+                                width: stateMirarRealizar ? '400px' : '0px',
+                                height: '75px',
                                 border: stateMirarRealizar ? '10px solid black' : '0px solid black',
                                 opacity: stateMirarRealizar ? 1 : 0,
 
@@ -174,8 +178,8 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarRealizar
-                                ? 'translateX(-30px)'
-                                : 'translateX(-80px)',
+                                ? 'translateX(-40px)'
+                                : 'translateX(-90px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
@@ -187,7 +191,6 @@ export default function Menu_Estudiante(){
                                     fontWeight: 'bold',
                                     color: '#003c58',
                                     whiteSpace: 'nowrap',
-                                    ml: '30px',
                                 }}
                             >
                                 Realizar una solicitud
@@ -197,8 +200,8 @@ export default function Menu_Estudiante(){
 
                     {/*Actualizar */}
                     <Button
-                    onMouseEnter={() => setStateMirarRealizar(true)}
-                    onMouseLeave={() => setStateMirarRealizar(false)}
+                    onMouseEnter={() => setStateMirarActualizar(true)}
+                    onMouseLeave={() => setStateMirarActualizar(false)}
                     sx={{
                         display:'flex',
                         gap:0,
@@ -209,8 +212,8 @@ export default function Menu_Estudiante(){
                         <Box
                         sx={{
                             borderRadius:'100%',
-                            height:'200px',
-                            width:'200px',
+                            height:'100px',
+                            width:'100px',
                             border:'10px solid black',
                             display:'flex',
                             justifyContent:'center',
@@ -218,15 +221,15 @@ export default function Menu_Estudiante(){
                             zIndex:1001
                         }}
                         >
-                            <ManageAccountsIcon sx={{ width:'150px', height:'150px'}}/>
+                            <ManageAccountsIcon sx={{ width:'75px', height:'75px'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                width: stateMirarRealizar ? '500px' : '0px',
-                                height: '150px',
+                                width: stateMirarRealizar ? '400px' : '0px',
+                                height: '75px',
                                 border: stateMirarRealizar ? '10px solid black' : '0px solid black',
                                 opacity: stateMirarRealizar ? 1 : 0,
 
@@ -236,8 +239,8 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarRealizar
-                                ? 'translateX(-30px)'
-                                : 'translateX(-80px)',
+                                ? 'translateX(-40px)'
+                                : 'translateX(-90px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
@@ -248,8 +251,7 @@ export default function Menu_Estudiante(){
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#003c58',
-                                    whiteSpace: 'nowrap',
-                                    ml: '30px',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 Actualizar mis datos
@@ -259,8 +261,8 @@ export default function Menu_Estudiante(){
 
                     {/*Revisar */}
                     <Button
-                    onMouseEnter={() => setStateMirarRealizar(true)}
-                    onMouseLeave={() => setStateMirarRealizar(false)}
+                    onMouseEnter={() => setStateMirarEnviadas(true)}
+                    onMouseLeave={() => setStateMirarEnviadas(false)}
                     sx={{
                         display:'flex',
                         gap:0,
@@ -271,8 +273,8 @@ export default function Menu_Estudiante(){
                         <Box
                         sx={{
                             borderRadius:'100%',
-                            height:'200px',
-                            width:'200px',
+                            height:'100px',
+                            width:'100px',
                             border:'10px solid black',
                             display:'flex',
                             justifyContent:'center',
@@ -280,14 +282,14 @@ export default function Menu_Estudiante(){
                             zIndex:1001
                         }}
                         >
-                            <RuleIcon sx={{ width:'150px', height:'150px'}}/>
+                            <RuleIcon sx={{ width:'75px', height:'75px'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                width: stateMirarRealizar ? '500px' : '0px',
+                                width: stateMirarRealizar ? '400px' : '0px',
                                 height: '150px',
                                 border: stateMirarRealizar ? '10px solid black' : '0px solid black',
                                 opacity: stateMirarRealizar ? 1 : 0,
@@ -298,8 +300,8 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarRealizar
-                                ? 'translateX(-30px)'
-                                : 'translateX(-80px)',
+                                ? 'translateX(-40px)'
+                                : 'translateX(-90px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
@@ -310,8 +312,7 @@ export default function Menu_Estudiante(){
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#003c58',
-                                    whiteSpace: 'nowrap',
-                                    ml: '30px',
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 Revisar mis solicitudes
