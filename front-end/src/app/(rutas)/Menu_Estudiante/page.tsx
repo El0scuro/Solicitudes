@@ -159,7 +159,7 @@ export default function Menu_Estudiante(){
                             borderRadius:'100%',
                             height:'100px',
                             width:'100px',
-                            border:'10px solid black',
+                            border:'10px solid #24454A',
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
@@ -167,7 +167,7 @@ export default function Menu_Estudiante(){
                             backgroundColor:'#F6F1E8'
                         }}
                         >
-                            <ListAltIcon sx={{ width:'75px', height:'75px'}}/>
+                            <ListAltIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
@@ -236,7 +236,7 @@ export default function Menu_Estudiante(){
                             backgroundColor:'#F6F1E8'
                         }}
                         >
-                            <ManageAccountsIcon sx={{ width:'75px', height:'75px'}}/>
+                            <ManageAccountsIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
@@ -246,9 +246,9 @@ export default function Menu_Estudiante(){
                                 borderBottomRightRadius: '20px',
                                 width: stateMirarActualizar ? '400px' : '0px',
                                 height: '75px',
-                                borderTop: stateMirarActualizar ? '10px solid black' : '0px solid black',
-                                borderRight: stateMirarActualizar ? '10px solid black' : '0px solid black',
-                                borderBottom: stateMirarActualizar ? '10px solid black' : '0px solid black',
+                                borderTop: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
+                                borderRight: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
+                                borderBottom: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
                                 opacity: stateMirarActualizar ? 1 : 0,
 
                                 overflow: 'hidden',
@@ -297,7 +297,7 @@ export default function Menu_Estudiante(){
                             borderRadius:'100%',
                             height:'100px',
                             width:'100px',
-                            border:'10px solid black',
+                            border:'10px solid #24454A',
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
@@ -306,7 +306,7 @@ export default function Menu_Estudiante(){
                             
                         }}
                         >
-                            <RuleIcon sx={{ width:'75px', height:'75px'}}/>
+                            <RuleIcon sx={{ width:'75px', height:'75px', color:'#5A2631'}}/>
                         </Box>
 
                         {/* Texto descriptivo */}
@@ -316,9 +316,9 @@ export default function Menu_Estudiante(){
                                 borderBottomRightRadius: '20px',
                                 width: stateMirarEnviadas ? '400px' : '0px',
                                 height: '75px',
-                                borderTop: stateMirarEnviadas ? '10px solid black' : '0px solid black',
-                                borderRight: stateMirarEnviadas ? '10px solid black' : '0px solid black',
-                                borderBottom: stateMirarEnviadas ? '10px solid black' : '0px solid black',
+                                borderTop: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
+                                borderRight: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
+                                borderBottom: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
                                 opacity: stateMirarEnviadas ? 1 : 0,
 
                                 overflow: 'hidden',
