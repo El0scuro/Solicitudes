@@ -5,7 +5,7 @@ import { AppBar, Backdrop, Box,
         Toolbar, Typography 
 } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 
 import Logo_Publica from "@/Imagenes/Logo escuela blanco.png";
@@ -14,10 +14,17 @@ import Logo_Publica from "@/Imagenes/Logo escuela blanco.png";
 import RuleIcon from '@mui/icons-material/Rule';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import { Fascinate } from "next/font/google";
 
 
 export default function Menu_Estudiante(){
+    return (
+        <Suspense fallback={<div>Cargando...</div>}>
+            <Menu_Estudiante_Content/>
+        </Suspense>
+    );
+}
+
+function Menu_Estudiante_Content(){
 
     const router = useRouter();
 
