@@ -162,7 +162,7 @@ export default function Menu_Estudiante(){
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
-                            zIndex:1001
+                            zIndex:1000
                         }}
                         >
                             <ListAltIcon sx={{ width:'75px', height:'75px'}}/>
@@ -174,7 +174,9 @@ export default function Menu_Estudiante(){
                                 borderRadius: '20px',
                                 width: stateMirarRealizar ? '400px' : '0px',
                                 height: '75px',
-                                border: stateMirarRealizar ? '10px solid black' : '0px solid black',
+                                borderTop: stateMirarRealizar ? '10px solid black' : '0px solid black',
+                                borderRight: stateMirarRealizar ? '10px solid black' : '0px solid black',
+                                borderBottom: stateMirarRealizar ? '10px solid black' : '0px solid black',
                                 opacity: stateMirarRealizar ? 1 : 0,
 
                                 overflow: 'hidden',
@@ -188,7 +190,7 @@ export default function Menu_Estudiante(){
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
-                                zIndex: 1000,
+                                zIndex: 1001,
                             }}
                         >
                             <Typography
