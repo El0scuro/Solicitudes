@@ -150,34 +150,46 @@ export default function Menu_Estudiante(){
                             display:'flex',
                             justifyContent:'center',
                             alignItems:'center',
-                            ml: stateMirarRealizar ? '30px' : '0px',
                             zIndex:1001
                         }}
                         >
                             <ListAltIcon sx={{ width:'150px', height:'150px'}}/>
                         </Box>
 
-                        {/*Texto desciptivo */}
-                        {stateMirarRealizar && (
-                            <Box
+                        {/* Texto descriptivo */}
+                        <Box
                             sx={{
-                                borderRadius:'20px',
-                                width:'500px',
-                                height:'80px',
-                                border:'10px solid black',
-                                zIndex:1000
+                                borderRadius: '20px',
+                                width: stateMirarRealizar ? '500px' : '0px',
+                                height: '80px',
+                                border: stateMirarRealizar ? '10px solid black' : '0px solid black',
+                                opacity: stateMirarRealizar ? 1 : 0,
+
+                                overflow: 'hidden',
+
+                                display: 'flex',
+                                alignItems: 'center',
+
+                                transform: stateMirarRealizar
+                                ? 'translateX(-30px)'
+                                : 'translateX(-80px)',
+
+                                transition: 'opacity 0.3s ease, transform 0.4s ease',
+
+                                zIndex: 1000,
                             }}
-                            >
-                                <Typography
+                        >
+                            <Typography
                                 sx={{
-                                    fontWeight:'bold',
-                                    color:'#003c58'
+                                    fontWeight: 'bold',
+                                    color: '#003c58',
+                                    whiteSpace: 'nowrap',
+                                    ml: '30px',
                                 }}
-                                >
-                                    Realizar una solicitud
-                                </Typography>
-                            </Box>
-                        )}
+                            >
+                                Realizar una solicitud
+                            </Typography>
+                        </Box>
                     </Button>
 
                     {/* Realizar solicitud*/}
