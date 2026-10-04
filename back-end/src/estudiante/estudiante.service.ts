@@ -435,12 +435,12 @@ export class EstudianteService {
 
             //interfaz para el estudiante descifrado en almacenamiento
             interface EstudianteDescifrado {
+                Mail: string;
                 Primer_Nombre: string;
                 Segundo_Nombre?: string;
                 Primer_Apellido: string;
                 Segundo_Apellido: string;
                 Celular: string;
-                Mail: string;
                 Rut: string;
                 Digito_Verificador: string;
                 Ano_Ingreso: string;
@@ -590,6 +590,7 @@ export class EstudianteService {
             estudianteCifrado.Mail = datosEncriptados[indiceCifrado].valor;
             estudianteCifrado.Iv_Mail = datosEncriptados[indiceCifrado].ivValor;
             estudianteCifrado.Tag_Mail = datosEncriptados[indiceCifrado].authTag;
+            indiceCifrado++;
 
             // Primer Nombre
             estudianteCifrado.Primer_Nombre = datosEncriptados[indiceCifrado].valor;

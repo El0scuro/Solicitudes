@@ -32,6 +32,11 @@ import { Seccion } from "@/types/seccion";
 
 //interfaz para el estudiante cifrado para transporte
 interface EstudianteCifrado {
+    // Mail
+    Mail: string;
+    Iv_Mail: string;
+    Tag_Mail: string;
+
     // Primer Nombre
     Primer_Nombre: string;
     Iv_Primer_Nombre: string;
@@ -56,11 +61,6 @@ interface EstudianteCifrado {
     Celular: string;
     Iv_Celular: string;
     Tag_Celular: string;
-
-    // Mail
-    Mail: string;
-    Iv_Mail: string;
-    Tag_Mail: string;
 
     // RUT
     Rut: string;
@@ -93,12 +93,12 @@ interface EstudianteCifrado {
 }
 
 interface EstudianteDescifrado {
+    Mail: string;
     Primer_Nombre: string;
     Segundo_Nombre?: string;
     Primer_Apellido: string;
     Segundo_Apellido: string;
     Celular: string;
-    Mail: string;
     Rut: string;
     Digito_Verificador: string;
     Ano_Ingreso: string;
@@ -123,12 +123,12 @@ function Solicitud_Ficha_Content(){
     const estudiante = searchParams.get('estudiante');
 
     const [estudianteDescifrado, setEstudianteDescifrado] = useState<EstudianteDescifrado>({
+        Mail: '',
         Primer_Nombre: '',
         Segundo_Nombre: '',
         Primer_Apellido: '',
         Segundo_Apellido: '',
         Celular: '',
-        Mail: '',
         Rut: '',
         Digito_Verificador: '',
         Ano_Ingreso: '',

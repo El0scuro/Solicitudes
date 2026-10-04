@@ -129,8 +129,6 @@ export async function POST(request: Request) {
         const valorCifrado =
             datosEstudiante[clave];
 
-        console.log("iv: ", iv, "authtag: ", authTag, "valorcifrado: ", valorCifrado)
-
         // Si falta alguno de los datos necesarios, saltamos el atributo
         if (!valorCifrado || !iv || !authTag) {
             console.log("iv: ", iv, "authtag: ", authTag, "valorcifrado: ", valorCifrado)
@@ -146,7 +144,6 @@ export async function POST(request: Request) {
             );
     }
 
-    console.log(estudiante_Descifrado);
     // Enviamos el estudiante ya descifrado al navegador
     return NextResponse.json(estudiante_Descifrado);
 }
