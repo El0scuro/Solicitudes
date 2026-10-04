@@ -134,6 +134,8 @@ export default function Menu_Estudiante(){
                 >
                     {/*Realizar */}
                     <Button
+                    onMouseEnter={() => setStateMirarRealizar(true)}
+                    onMouseLeave={() => setStateMirarRealizar(false)}
                     sx={{
                         display:'flex'
                     }}>
@@ -141,17 +143,15 @@ export default function Menu_Estudiante(){
                         <Box
                         sx={{
                             borderRadius:'100%',
-                            height:'300px',
-                            width:'300px',
-                            border:'4px solid black'
+                            height:'200px',
+                            width:'200px',
+                            border:'10px solid black',
+                            display:'flex',
+                            justifyContent:'center',
+                            alignItems:'center'
                         }}
                         >
-                            <ListAltIcon
-                            sx={{
-                                width: '60%',
-                                height:'60%',
-                            }}
-                            />
+                            <ListAltIcon/>
                         </Box>
 
                         {/*Texto desciptivo */}
