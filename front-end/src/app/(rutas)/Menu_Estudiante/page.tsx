@@ -136,7 +136,7 @@ export default function Menu_Estudiante(){
                     display:'flex',
                     flexDirection:'column',
                     justifyContent:'center',
-                    alignItems:'flex-end',
+                    alignItems:'flex-start',
                     height:'100%',
                     gap: 5,
                     mr:'5%'
