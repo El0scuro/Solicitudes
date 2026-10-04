@@ -24,6 +24,8 @@ export default function Menu_Estudiante(){
     const [loading, setLoading] = useState(false);
 
 
+    const [stateMirarRealizar, setStateMirarRealizar] = useState(false);
+
     return(
         <Box
         sx={{
@@ -59,20 +61,10 @@ export default function Menu_Estudiante(){
                         }}
                         />
                     </Button>
-
-                    <Typography
-                    variant="h3"
-                    sx={{
-                        display:'flex',
-                        justifyContent:'center',
-                        ml:'200px'
-                    }}
-                    >
-                        MENU PARA ESTUDIANTES
-                    </Typography>
                 </Toolbar>
             </AppBar>
 
+            {/*Cargando */}
             <Backdrop
             open={loading}
             sx={{
@@ -112,113 +104,171 @@ export default function Menu_Estudiante(){
             <Box
             sx={{
                 display:'flex',
-                justifyContent:'center',
                 height:'100%',
-                gap: 10,
-                mt:'12%'
+                width:'100%'
             }}
             >
-                <Button
-                onClick={() => {
-                    setLoading(true);
-                    router.push('/Ficha');
-                }}
+                {/*Titulo */}
+                <Typography
+                variant="h3"
                 sx={{
                     display:'flex',
-                    flexDirection:'column',
-                    alignItems:'center',
-                    justifyContent:'flex-end',
-                    width:'300px',
-                    height:'350px',
-                    backgroundColor:'#556B2F',
-                    borderRadius:'20px'
+                    justifyContent:'flex-start',
+                    alignItems:'center'
                 }}
                 >
-                    <ListAltIcon
-                    sx={{
-                        width: '60%',
-                        height:'60%',
-                        color: "#4C221A"
-                    }}
-                    />
-                    
-                    <Typography
-                    sx={{
-                        fontWeight:'bold',
-                        color:'#003c58'
-                    }}
-                    >
-                        Realizar una solicitud
-                    </Typography>
-                </Button>
+                    MENU PARA 
+                    <br/>
+                    ESTUDIANTES
+                </Typography>
 
-                <Button
+                {/*Realizar - Actualizar - Revisar */}
+                <Box
                 sx={{
                     display:'flex',
-                    flexDirection:'column',
-                    alignItems:'center',
-                    justifyContent:'flex-end',
-                    width:'300px',
-                    height:'350px',
-                    backgroundColor:'#556B2F',
-                    borderRadius:'20px'
+                    justifyContent:'center',
+                    height:'100%',
+                    gap: 10,
+                    mt:'12%'
                 }}
                 >
-                    <ManageAccountsIcon 
+                    {/*Realizar */}
+                    <Button
                     sx={{
-                        width: '60%',
-                        height:'60%',
-                        color: "#4C221A"
+                        display:'flex'
+                    }}>
+                        {/*Icono */}
+                        <Box
+                        sx={{
+                            borderRadius:'100%',
+                            height:'300px',
+                            width:'300px',
+                            border:'4px solid black'
+                        }}
+                        >
+                            <ListAltIcon
+                            sx={{
+                                width: '60%',
+                                height:'60%',
+                            }}
+                            />
+                        </Box>
+
+                        {/*Texto desciptivo */}
+                        {stateMirarRealizar && (
+                            <Box
+                            sx={{
+                                borderRadius:'50%',
+                                width:'500px',
+                                height:'80px',
+                                border:'4px solid black'
+                            }}
+                            >
+                                <Typography
+                                sx={{
+                                    fontWeight:'bold',
+                                    color:'#003c58'
+                                }}
+                                >
+                                    Realizar una solicitud
+                                </Typography>
+                            </Box>
+                        )}
+                    </Button>
+
+                    {/* Realizar solicitud*/}
+                    <Button
+                    onClick={() => {
+                        setLoading(true);
+                        router.push('/Ficha');
                     }}
-                    />
-                    
-                    <Typography
                     sx={{
-                        fontWeight:'bold',
-                        color:'#003c58'
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'center',
+                        justifyContent:'flex-end',
+                        width:'300px',
+                        height:'350px',
+                        backgroundColor:'#556B2F',
+                        borderRadius:'20px'
                     }}
                     >
-                        Actualizar mis 
-                        <br/>
-                        datos personales
-                    </Typography>
-                </Button>
+                        
+                        
+                        
+                    </Button>
 
-                <Button
-                sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                    alignItems:'center',
-                    justifyContent:'flex-end',
-                    width:'300px',
-                    height:'350px',
-                    backgroundColor:'#556B2F',
-                    borderRadius:'20px'
-                    
-                }}
-                >
-                    <RuleIcon
+                    {/*Actualizar datos perfil */}
+                    <Button
                     sx={{
-                        width: '60%',
-                        height:'60%',
-                        color: "#4C221A"
-                    }}
-                    />
-                    
-                    <Typography
-                    sx={{
-                        fontWeight:'bold',
-                        color:'#003c58'
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'center',
+                        justifyContent:'flex-end',
+                        width:'300px',
+                        height:'350px',
+                        backgroundColor:'#556B2F',
+                        borderRadius:'20px'
                     }}
                     >
-                        Revisar estado de 
-                        <br/>
-                        mis solicitudes
-                    </Typography>
-                </Button>
+                        <ManageAccountsIcon 
+                        sx={{
+                            width: '60%',
+                            height:'60%',
+                            color: "#4C221A"
+                        }}
+                        />
+                        
+                        <Typography
+                        sx={{
+                            fontWeight:'bold',
+                            color:'#003c58'
+                        }}
+                        >
+                            Actualizar mis 
+                            <br/>
+                            datos personales
+                        </Typography>
+                    </Button>
 
-                 
+                    {/*Revisar estado solicitudes */}
+                    <Button
+                    sx={{
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'center',
+                        justifyContent:'flex-end',
+                        width:'300px',
+                        height:'350px',
+                        backgroundColor:'#556B2F',
+                        borderRadius:'20px'
+                        
+                    }}
+                    >
+                        <RuleIcon
+                        sx={{
+                            width: '60%',
+                            height:'60%',
+                            color: "#4C221A"
+                        }}
+                        />
+                        
+                        <Typography
+                        sx={{
+                            fontWeight:'bold',
+                            color:'#003c58'
+                        }}
+                        >
+                            Revisar estado de 
+                            <br/>
+                            mis solicitudes
+                        </Typography>
+                    </Button>
+
+                    
+                </Box>
             </Box>
+            
         </Box>
     );
 }
