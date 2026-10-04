@@ -176,11 +176,13 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'100%',
+                                right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#B08A57',
+                                backgroundColor:'#24454A',
                                 border:'2px solid black',
-                                borderRadius:'20px'
+                                borderRadius:'20px',
+                                width:'100px',
+                                height:'50px'
                             }}
                             >
                                 texto descriptivo para 
@@ -200,7 +202,7 @@ function Menu_Estudiante_Content(){
                         }}
                         onClick={() => {
                             setLoading(true);
-                            router.push(`/Ficha?estudiante=${estudiante}`)
+                            router.push(`/Ficha?estudiante=${encodeURIComponent(estudiante ?? '')}`)
                         }}
                         sx={{
                             display:'flex',
@@ -286,11 +288,13 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'100%',
+                                right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#B08A57',
+                                backgroundColor:'#24454A',
                                 border:'2px solid black',
-                                borderRadius:'20px'
+                                borderRadius:'20px',
+                                width:'100px',
+                                height:'50px'
                             }}
                             >
                                 texto descriptivo para 
@@ -395,16 +399,18 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'100%',
+                                right:'130%',
                                 fontWeight:'bold',
-                                backgroundColor:'#B08A57',
+                                backgroundColor:'#24454A',
                                 border:'2px solid black',
-                                borderRadius:'20px'
+                                borderRadius:'20px',
+                                width:'100px',
+                                height:'50px'
                             }}
                             >
                                 texto descriptivo para 
                                 <br/>
-                                actualizar datos
+                                revisar solicitudes
                             </Typography>
                         )}
 
