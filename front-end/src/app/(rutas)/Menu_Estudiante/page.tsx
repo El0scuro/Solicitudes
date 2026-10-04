@@ -142,8 +142,7 @@ function Menu_Estudiante_Content(){
                     alignItems:'center',
                     ml:'10%',
                     fontWeight:'bold',
-                    color:'#003c58',
-                    WebkitTextStroke: '2px black'
+                    color:'#003c58'
                 }}
                 >
                     MENU PARA 
@@ -174,6 +173,7 @@ function Menu_Estudiante_Content(){
                         
                         {stateDescripcionRealizar && (
                             <Typography
+                            align="center"
                             sx={{
                                 position:'absolute',
                                 right:'130%',
@@ -183,9 +183,7 @@ function Menu_Estudiante_Content(){
                                 borderRadius:'20px',
                                 width:'300px',
                                 height:'150px',
-                                color:'#003c58',
-                                justifyContent:'center',
-                                alignItems:'center'
+                                color:'#003c58'
                             }}
                             >
                                 texto descriptivo para 
@@ -289,6 +287,7 @@ function Menu_Estudiante_Content(){
                     >
                         {stateDescripcionActualizar && (
                             <Typography
+                            align="center"
                             sx={{
                                 position:'absolute',
                                 right:'130%',
@@ -298,9 +297,7 @@ function Menu_Estudiante_Content(){
                                 borderRadius:'20px',
                                 width:'300px',
                                 height:'150px',
-                                color:'#003c58',
-                                justifyContent:'center',
-                                alignItems:'center'
+                                color:'#003c58'
                             }}
                             >
                                 texto descriptivo para 
@@ -403,6 +400,7 @@ function Menu_Estudiante_Content(){
                     >
                         {stateDescripcionEnviado && (
                             <Typography
+                            align="center"
                             sx={{
                                 position:'absolute',
                                 right:'130%',
@@ -412,9 +410,7 @@ function Menu_Estudiante_Content(){
                                 borderRadius:'20px',
                                 width:'300px',
                                 height:'150px',
-                                color:'#003c58',
-                                justifyContent:'center',
-                                alignItems:'center'
+                                color:'#003c58'
                             }}
                             >
                                 texto descriptivo para 
