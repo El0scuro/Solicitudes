@@ -185,7 +185,9 @@ function Menu_Estudiante_Content(){
                         }}
                         onClick={() => {
                             setLoading(true);
-                            router.push(`/Ficha?estudiante=${estudiante}`)
+                            router.push(`/Ficha?estudiante=${encodeURIComponent(
+                                JSON.stringify(estudiante)
+                            )}`);
                         }}
                         sx={{
                             display:'flex',
@@ -369,7 +371,7 @@ function Menu_Estudiante_Content(){
                             setStateMirarEnviadas(true);
                         }}
                         onMouseLeave={() => {
-                            setStateDescripcionEnviado(true);
+                            setStateDescripcionEnviado(false);
                             setStateMirarEnviadas(false);
                         }}
                         onClick={() => {
