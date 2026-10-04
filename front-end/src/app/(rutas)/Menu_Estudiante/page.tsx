@@ -110,7 +110,7 @@ export default function Menu_Estudiante(){
                 display:'flex',
                 height:'100%',
                 width:'100%',
-                gap:80
+                gap:72
             }}
             >
                 {/*Titulo */}
