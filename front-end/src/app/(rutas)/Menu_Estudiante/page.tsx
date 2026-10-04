@@ -176,7 +176,7 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'80%',
+                                right:'100%',
                                 fontWeight:'bold',
                                 backgroundColor:'#B08A57',
                                 border:'2px solid black',
@@ -286,7 +286,7 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'80%',
+                                right:'100%',
                                 fontWeight:'bold',
                                 backgroundColor:'#B08A57',
                                 border:'2px solid black',
@@ -395,7 +395,7 @@ function Menu_Estudiante_Content(){
                             <Typography
                             sx={{
                                 position:'absolute',
-                                right:'80%',
+                                right:'100%',
                                 fontWeight:'bold',
                                 backgroundColor:'#B08A57',
                                 border:'2px solid black',
