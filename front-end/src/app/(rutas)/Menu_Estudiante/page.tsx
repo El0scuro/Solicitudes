@@ -167,14 +167,18 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        justifyContent:'flex-start',
-                        gap:3,
+                        gap:5,
                         position:'relative'
                     }}
                     >
                         
                         {stateDescripcionRealizar && (
-                            <Typography>
+                            <Typography
+                            sx={{
+                                position:'absolute',
+                                right:'10%'
+                            }}
+                            >
                                 texto descriptivo para 
                                 <br/>
                                 completar la ficha
@@ -205,7 +209,6 @@ function Menu_Estudiante_Content(){
                             '&:active': {
                                 backgroundColor: 'transparent',
                             },
-                            position:'absolute'
                         }}>
                             {/*Icono */}
                             <Box
