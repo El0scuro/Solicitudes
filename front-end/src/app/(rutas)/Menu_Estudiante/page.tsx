@@ -169,6 +169,7 @@ function Menu_Estudiante_Content(){
                         display:'flex',
                         justifyContent:'flex-start',
                         gap:3,
+                        position:'relative'
                     }}
                     >
                         
@@ -203,7 +204,8 @@ function Menu_Estudiante_Content(){
                             },
                             '&:active': {
                                 backgroundColor: 'transparent',
-                            }
+                            },
+                            position:'absolute'
                         }}>
                             {/*Icono */}
                             <Box
@@ -269,8 +271,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        justifyContent:'flex-start',
-                        gap:3,
+                        gap:5
                     }}
                     >
                         {stateDescripcionActualizar && (
@@ -369,8 +370,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        justifyContent:'flex-start',
-                        gap:3,
+                        gap:5
                     }}
                     >
                         {stateDescripcionEnviado && (
