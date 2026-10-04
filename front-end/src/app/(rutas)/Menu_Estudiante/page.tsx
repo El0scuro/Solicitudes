@@ -110,7 +110,7 @@ export default function Menu_Estudiante(){
                 display:'flex',
                 height:'100%',
                 width:'100%',
-                gap:72
+                gap:66
             }}
             >
                 {/*Titulo */}
@@ -120,7 +120,7 @@ export default function Menu_Estudiante(){
                     display:'flex',
                     justifyContent:'flex-start',
                     alignItems:'center',
-                    ml:'20%',
+                    ml:'10%',
                     fontWeight:'bold',
                     color:'#F6F1E8',
                     WebkitTextStroke: '2px black'
@@ -193,6 +193,7 @@ export default function Menu_Estudiante(){
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
                                 zIndex: 1001,
+
                             }}
                         >
                             <Typography
@@ -200,6 +201,7 @@ export default function Menu_Estudiante(){
                                     fontWeight: 'bold',
                                     color: '#003c58',
                                     whiteSpace: 'nowrap',
+                                    ml:'50px'
                                 }}
                             >
                                 Realizar una solicitud
