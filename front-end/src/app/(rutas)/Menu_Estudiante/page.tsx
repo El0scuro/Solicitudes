@@ -194,6 +194,8 @@ export default function Menu_Estudiante(){
 
                                 zIndex: 1001,
 
+                                backgroundColor:'#F6F1E8'
+
                             }}
                         >
                             <Typography
@@ -238,11 +240,14 @@ export default function Menu_Estudiante(){
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
-                                borderRadius: '20px',
+                                borderTopRightRadius: '20px',
+                                borderBottomRightRadius: '20px',
                                 width: stateMirarActualizar ? '400px' : '0px',
                                 height: '75px',
-                                border: stateMirarActualizar ? '10px solid black' : '0px solid black',
-                                opacity: stateMirarActualizar? 1 : 0,
+                                borderTop: stateMirarActualizar ? '10px solid black' : '0px solid black',
+                                borderRight: stateMirarActualizar ? '10px solid black' : '0px solid black',
+                                borderBottom: stateMirarActualizar ? '10px solid black' : '0px solid black',
+                                opacity: stateMirarActualizar ? 1 : 0,
 
                                 overflow: 'hidden',
 
@@ -250,19 +255,23 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarActualizar
-                                ? 'translateX(-40px)'
-                                : 'translateX(-90px)',
+                                ? 'translateX(-20px)'
+                                : 'translateX(-80px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
-                                zIndex: 1000,
+                                zIndex: 1001,
+
+                                backgroundColor:'#F6F1E8'
+
                             }}
                         >
                             <Typography
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#003c58',
-                                    whiteSpace: 'nowrap'
+                                    whiteSpace: 'nowrap',
+                                    ml:'50px'
                                 }}
                             >
                                 Actualizar mis datos
@@ -299,10 +308,13 @@ export default function Menu_Estudiante(){
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
-                                borderRadius: '20px',
+                                borderTopRightRadius: '20px',
+                                borderBottomRightRadius: '20px',
                                 width: stateMirarEnviadas ? '400px' : '0px',
                                 height: '75px',
-                                border: stateMirarEnviadas ? '10px solid black' : '0px solid black',
+                                borderTop: stateMirarEnviadas ? '10px solid black' : '0px solid black',
+                                borderRight: stateMirarEnviadas ? '10px solid black' : '0px solid black',
+                                borderBottom: stateMirarEnviadas ? '10px solid black' : '0px solid black',
                                 opacity: stateMirarEnviadas ? 1 : 0,
 
                                 overflow: 'hidden',
@@ -311,19 +323,23 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarEnviadas
-                                ? 'translateX(-40px)'
-                                : 'translateX(-90px)',
+                                ? 'translateX(-20px)'
+                                : 'translateX(-80px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
-                                zIndex: 1000,
+                                zIndex: 1001,
+
+                                backgroundColor:'#F6F1E8'
+
                             }}
                         >
                             <Typography
                                 sx={{
                                     fontWeight: 'bold',
                                     color: '#003c58',
-                                    whiteSpace: 'nowrap'
+                                    whiteSpace: 'nowrap',
+                                    ml:'50px'
                                 }}
                             >
                                 Revisar mis solicitudes
