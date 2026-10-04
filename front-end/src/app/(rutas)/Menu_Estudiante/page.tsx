@@ -130,7 +130,7 @@ function Menu_Estudiante_Content(){
                 display:'flex',
                 height:'100%',
                 width:'100%',
-                gap:57
+                gap:55
             }}
             >
                 {/*Titulo */}
@@ -140,7 +140,7 @@ function Menu_Estudiante_Content(){
                     display:'flex',
                     justifyContent:'flex-start',
                     alignItems:'center',
-                    ml:'10%',
+                    ml:'7%',
                     fontWeight:'bold',
                     color:'#003c58'
                 }}
@@ -166,7 +166,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:3,
+                        gap:1,
                         position:'relative'
                     }}
                     >
@@ -281,7 +281,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:3,
+                        gap:1,
                         position:'relative'
                     }}
                     >
@@ -394,7 +394,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:3,
+                        gap:1,
                         position:'relative'
                     }}
                     >
