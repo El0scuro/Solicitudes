@@ -181,8 +181,8 @@ function Menu_Estudiante_Content(){
                                 backgroundColor:'#24454A',
                                 border:'2px solid black',
                                 borderRadius:'20px',
-                                width:'100px',
-                                height:'50px'
+                                width:'300px',
+                                height:'150px'
                             }}
                             >
                                 texto descriptivo para 
@@ -293,8 +293,8 @@ function Menu_Estudiante_Content(){
                                 backgroundColor:'#24454A',
                                 border:'2px solid black',
                                 borderRadius:'20px',
-                                width:'100px',
-                                height:'50px'
+                                width:'300px',
+                                height:'150px'
                             }}
                             >
                                 texto descriptivo para 
@@ -404,8 +404,8 @@ function Menu_Estudiante_Content(){
                                 backgroundColor:'#24454A',
                                 border:'2px solid black',
                                 borderRadius:'20px',
-                                width:'100px',
-                                height:'50px'
+                                width:'300px',
+                                height:'150px'
                             }}
                             >
                                 texto descriptivo para 

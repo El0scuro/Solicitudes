@@ -164,8 +164,7 @@ export class HibridoService {
         }
 
         const current = readFileSync(`/app/keys/back-end/${version}/public.pem`, 'utf8');
-	
-	console.log(current);	
+		
 
         return {
             llave: current,

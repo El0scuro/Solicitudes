@@ -12,8 +12,13 @@ import { MetadatosCifradoService } from '../metadatos_cifrado/metadatos_cifrado.
 import { HibridoService as HibridoServiceBack } from '../hibrido_back/hibrido.service.js';
 import { HibridoService as HibridoServicefront } from '../hibrido_front/hibrido.service.js';
 
-//interfaz para el estudiante cifrado para transporte
+//interfaz para el estudiante cifrado para transporte desde el back
 export interface EstudianteCifrado {
+    //Mail
+    Mail: string;
+    Iv_Mail: string;
+    Tag_Mail: string;
+
     // Primer Nombre
     Primer_Nombre: string;
     Iv_Primer_Nombre: string;
@@ -445,6 +450,11 @@ export class EstudianteService {
 
             // Inicializo el estudiante cifrado vacío
             let estudianteCifrado: EstudianteCifrado = {
+                //Mail
+                Mail: '',
+                Iv_Mail: '',
+                Tag_Mail: '',
+
                 // Primer Nombre
                 Primer_Nombre: '',
                 Iv_Primer_Nombre: '',
@@ -507,7 +517,7 @@ export class EstudianteService {
                 Primer_Apellido: "",
                 Segundo_Apellido: "",
                 Celular: "",
-                Mail: "",
+                Mail: estudiante.Mail,
                 Rut: "",
                 Digito_Verificador: "",
                 Ano_Ingreso: "", 
@@ -582,9 +592,6 @@ export class EstudianteService {
             estudianteCifrado.Tag_Primer_Nombre = datosEncriptados[indiceCifrado].authTag;
             indiceCifrado++;
 
-
-           
-
             // Segundo Nombre (Opcional)
             if (estudiante_Descifrado.Segundo_Nombre !== '') {
                 estudianteCifrado.Segundo_Nombre = datosEncriptados[indiceCifrado].valor;
@@ -611,7 +618,7 @@ export class EstudianteService {
             estudianteCifrado.Tag_Celular = datosEncriptados[indiceCifrado].authTag;
             indiceCifrado++;
 
-            // Mail
+            // Rut
             estudianteCifrado.Rut = datosEncriptados[indiceCifrado].valor;
             estudianteCifrado.Iv_Rut = datosEncriptados[indiceCifrado].ivValor;
             estudianteCifrado.Tag_Rut = datosEncriptados[indiceCifrado].authTag;
