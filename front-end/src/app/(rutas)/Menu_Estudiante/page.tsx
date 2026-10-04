@@ -110,7 +110,7 @@ export default function Menu_Estudiante(){
                 display:'flex',
                 height:'100%',
                 width:'100%',
-                gap:70
+                gap:80
             }}
             >
                 {/*Titulo */}
@@ -120,9 +120,10 @@ export default function Menu_Estudiante(){
                     display:'flex',
                     justifyContent:'flex-start',
                     alignItems:'center',
-                    ml:'4%',
+                    ml:'20%',
                     fontWeight:'bold',
-                    color:'#F6F1E8'
+                    color:'#F6F1E8',
+                    WebkitTextStroke: '2px black'
                 }}
                 >
                     MENU PARA 
@@ -171,7 +172,8 @@ export default function Menu_Estudiante(){
                         {/* Texto descriptivo */}
                         <Box
                             sx={{
-                                borderRadius: '20px',
+                                borderTopRightRadius: '20px',
+                                borderBottomRightRadius: '20px',
                                 width: stateMirarRealizar ? '400px' : '0px',
                                 height: '75px',
                                 borderTop: stateMirarRealizar ? '10px solid black' : '0px solid black',
