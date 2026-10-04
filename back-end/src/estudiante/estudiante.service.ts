@@ -512,12 +512,12 @@ export class EstudianteService {
 
             //inicializo el estudiante descifrado vacío
             let estudiante_Descifrado: EstudianteDescifrado = {
+                Mail: estudiante.Mail,
                 Primer_Nombre: "",
                 Segundo_Nombre: "",
                 Primer_Apellido: "",
                 Segundo_Apellido: "",
                 Celular: "",
-                Mail: estudiante.Mail,
                 Rut: "",
                 Digito_Verificador: "",
                 Ano_Ingreso: "", 
@@ -572,7 +572,7 @@ export class EstudianteService {
             );
 
             console.log(estudiante_Descifrado);
-            
+
             console.log(datosEncriptados);
             
 
