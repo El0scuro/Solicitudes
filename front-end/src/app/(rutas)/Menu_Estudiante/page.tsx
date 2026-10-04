@@ -151,7 +151,8 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto'
+                        width:'auto',
+                        backgroundColor:'#F6F1E8'
                     }}>
                         {/*Icono */}
                         <Box
@@ -219,7 +220,8 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto'
+                        width:'auto',
+                        backgroundColor:'#F6F1E8'
                     }}>
                         {/*Icono */}
                         <Box
@@ -287,7 +289,8 @@ export default function Menu_Estudiante(){
                         display:'flex',
                         gap:0,
                         height:'auto',
-                        width:'auto'
+                        width:'auto',
+                        backgroundColor:'#F6F1E8'
                     }}>
                         {/*Icono */}
                         <Box
