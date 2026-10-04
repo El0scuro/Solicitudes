@@ -130,7 +130,7 @@ function Menu_Estudiante_Content(){
                 display:'flex',
                 height:'100%',
                 width:'100%',
-                gap:60
+                gap:57
             }}
             >
                 {/*Titulo */}
@@ -166,7 +166,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:5,
+                        gap:3,
                         position:'relative'
                     }}
                     >
@@ -281,7 +281,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:5,
+                        gap:3,
                         position:'relative'
                     }}
                     >
@@ -394,7 +394,7 @@ function Menu_Estudiante_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        gap:5,
+                        gap:3,
                         position:'relative'
                     }}
                     >
