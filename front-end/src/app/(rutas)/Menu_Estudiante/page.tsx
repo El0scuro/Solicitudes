@@ -187,8 +187,8 @@ export default function Menu_Estudiante(){
                                 alignItems: 'center',
 
                                 transform: stateMirarRealizar
-                                ? 'translateX(-40px)'
-                                : 'translateX(-90px)',
+                                ? 'translateX(-30px)'
+                                : 'translateX(-80px)',
 
                                 transition: 'opacity 0.3s ease, transform 0.4s ease',
 
