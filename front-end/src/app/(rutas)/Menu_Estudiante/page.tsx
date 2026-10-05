@@ -128,49 +128,63 @@ function Menu_Estudiante_Content(){
             <Box
             sx={{
                 display:'flex',
-                height:'100%',
                 width:'100%',
-                gap:55
+                height:'100%'
             }}
             >
-                {/*Titulo */}
-                <Typography
-                variant="h2"
-                sx={{
-                    display:'flex',
-                    justifyContent:'flex-start',
-                    alignItems:'center',
-                    ml:'7%',
-                    fontWeight:'bold',
-                    color:'#003c58'
-                }}
-                >
-                    MENU PARA 
-                    <br/>
-                    ESTUDIANTES
-                </Typography>
-
-                {/*Realizar - Actualizar - Revisar */}
+                
                 <Box
                 sx={{
                     display:'flex',
-                    flexDirection:'column',
                     justifyContent:'center',
-                    alignItems:'flex-start',
-                    height:'100%',
-                    gap: 5,
-                    mr:'5%'
+                    alignItems:'center',
+                    backgroundColor: '#003c58'
                 }}
                 >
-                    {/*Realizar */}
+                    <Typography
+                    align="center"
+                    sx={{
+                        color:'white',
+                        fontWeight:'bold'
+                    }}
+                    >
+                        Espacio para foto
+                    </Typography>
+                </Box>
+
+                {/*Titulo y botones */}
+                <Box
+                sx={{
+                    display:'flex',
+                    height:'100%',
+                    width:'100%',
+                    gap:28
+                }}
+                >
+                    {/*Titulo - Descripciones*/}
                     <Box
                     sx={{
                         display:'flex',
-                        gap:1,
-                        position:'relative'
+                        flexDirection:'column',
+                        justifyContent:'flex-start',
+                        mt:'10%',
+                        gap:4
                     }}
                     >
-                        
+                        {/*Título */}
+                        <Typography
+                        variant="h3"
+                        sx={{
+                            display:'flex',
+                            fontWeight:'bold',
+                            color:'#003c58'
+                        }}
+                        >
+                            MENU PARA 
+                            <br/>
+                            ESTUDIANTES
+                        </Typography>
+
                         {stateDescripcionRealizar && (
                             <Typography
                             align="center"
@@ -192,6 +206,63 @@ function Menu_Estudiante_Content(){
                             </Typography>
                         )}
 
+                        {stateDescripcionActualizar && (
+                            <Typography
+                            align="center"
+                            sx={{
+                                position:'absolute',
+                                right:'130%',
+                                fontWeight:'bold',
+                                backgroundColor:'#F6F1E8',
+                                border:'2px solid black',
+                                borderRadius:'20px',
+                                width:'300px',
+                                height:'150px',
+                                color:'#003c58'
+                            }}
+                            >
+                                texto descriptivo para 
+                                <br/>
+                                actualizar datos
+                            </Typography>
+                        )}
+
+                        {stateDescripcionEnviado && (
+                            <Typography
+                            align="center"
+                            sx={{
+                                position:'absolute',
+                                right:'130%',
+                                fontWeight:'bold',
+                                backgroundColor:'#F6F1E8',
+                                border:'2px solid black',
+                                borderRadius:'20px',
+                                width:'300px',
+                                height:'150px',
+                                color:'#003c58'
+                            }}
+                            >
+                                texto descriptivo para 
+                                <br/>
+                                revisar solicitudes
+                            </Typography>
+                        )}
+
+                    </Box>
+                        
+                    {/*Realizar - Actualizar - Revisar */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        flexDirection:'column',
+                        justifyContent:'center',
+                        alignItems:'flex-start',
+                        height:'100%',
+                        gap: 5,
+                        mr:'5%'
+                    }}
+                    >
+                        {/*Realizar */}
                         <Button
                         onMouseEnter={() => {
                             setStateDescripcionRealizar(true);
@@ -275,36 +346,9 @@ function Menu_Estudiante_Content(){
                                 </Typography>
                             </Box>
                         </Button>
-                    </Box>
+                        
 
-                    {/*Actualizar */}
-                    <Box
-                    sx={{
-                        display:'flex',
-                        gap:1,
-                        position:'relative'
-                    }}
-                    >
-                        {stateDescripcionActualizar && (
-                            <Typography
-                            align="center"
-                            sx={{
-                                position:'absolute',
-                                right:'130%',
-                                fontWeight:'bold',
-                                backgroundColor:'#F6F1E8',
-                                border:'2px solid black',
-                                borderRadius:'20px',
-                                width:'300px',
-                                height:'150px',
-                                color:'#003c58'
-                            }}
-                            >
-                                texto descriptivo para 
-                                <br/>
-                                actualizar datos
-                            </Typography>
-                        )}
+                        {/*Actualizar */}
 
                         <Button
                         onMouseEnter={() => {
@@ -388,37 +432,8 @@ function Menu_Estudiante_Content(){
                                 </Typography>
                             </Box>
                         </Button>
-                    </Box>
-                        
-                    {/*Revisar */}
-                    <Box
-                    sx={{
-                        display:'flex',
-                        gap:1,
-                        position:'relative'
-                    }}
-                    >
-                        {stateDescripcionEnviado && (
-                            <Typography
-                            align="center"
-                            sx={{
-                                position:'absolute',
-                                right:'130%',
-                                fontWeight:'bold',
-                                backgroundColor:'#F6F1E8',
-                                border:'2px solid black',
-                                borderRadius:'20px',
-                                width:'300px',
-                                height:'150px',
-                                color:'#003c58'
-                            }}
-                            >
-                                texto descriptivo para 
-                                <br/>
-                                revisar solicitudes
-                            </Typography>
-                        )}
-
+                            
+                        {/*Revisar */}
                         <Button
                         onMouseEnter={() => {
                             setStateDescripcionEnviado(true);
@@ -502,10 +517,11 @@ function Menu_Estudiante_Content(){
                                 </Typography>
                             </Box>
                         </Button>
+                        
                     </Box>
-                    
                 </Box>
             </Box>
+            
             
         </Box>
     );
