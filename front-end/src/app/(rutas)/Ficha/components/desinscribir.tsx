@@ -68,7 +68,10 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
     const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
         setSeccionesSolicitud((seccionesActuales) => {
 
-            const yaSeleccionado = seccionesActuales.find(sec => sec === seccion);
+            const yaSeleccionado = seccionesActuales.some(sec => 
+                (sec.num_Seccion === seccion.num_Seccion) && 
+                (sec.asignatura?.Codigo === asignatura.Codigo)
+            );
 
 
             if (yaSeleccionado) {
@@ -76,7 +79,7 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
             }
 
             if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
-                setStateSeccionDuplicada(true);
+                mostrarDuplicado();
                 seccion.asignatura = asignatura;
                 
                 return seccionesActuales;

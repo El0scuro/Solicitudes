@@ -584,11 +584,15 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                     sx={{
                                         display:'flex',
                                         flexDirection:'column',
-                                        alignItems:'center',
+                                        alignItems: 
+                                            stateSeccionDuplicada || 
+                                            stateIncompleto ||
+                                            stateMismaSeccion 
+                                            ? 'center' : 'flex-end',
                                         justifyContent:'center',
-                                        width:'auto',
+                                        width:'300px',
+                                        height: '',
                                         gap:4,
-                                        position:'relative'
                                     }}
                                     >
                                         {stateSeccionDuplicada && (
@@ -670,21 +674,16 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                         )}
 
                                         {/*Agregar Cambio */}
-                                        <Box
+                                        <Button
+                                        onClick={() => agregarCambio()}
+                                        variant="contained"
                                         sx={{
-                                            display:'flex',
-                                            alignItems:'flex-end',
-                                            justifyContent:'center',
-                                            position:'absolute'
+                                            width:'150px',
+                                            height:'75px'
                                         }}
                                         >
-                                            <Button
-                                            onClick={() => agregarCambio()}
-                                            variant="contained"
-                                            >
-                                                Cargar Cambio
-                                            </Button>
-                                        </Box>
+                                            Cargar Cambio
+                                        </Button>
                                         
                                     </Box>
                                 </Box>
