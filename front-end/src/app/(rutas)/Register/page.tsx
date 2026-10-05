@@ -499,11 +499,31 @@ export default function RegisterPage(){
 
             <Box
             sx={{
-                width:'100%',
-                height:'auto',
+                width:'40%',
+                height:'100%',
+                display:'flex',
+                justifyContent:'center',
+                backgroundColor:'#003c58'
+            }}
+            >
+                <Typography
+                align="center"
+                sx={{
+                    color:'white',
+                    fontWeight:'bold'
+                }}
+                >
+                    Espacio para foto
+                </Typography>
+            </Box>
+
+            <Box
+            sx={{
+                width:'60%',
+                height:'100%',
                 display:'flex',
                 flexDirection:'column',
-                alignItems:'center'
+                alignItems:'flex-end'
             }}
             >
 
@@ -511,9 +531,7 @@ export default function RegisterPage(){
                 sx={{
                     display:'flex',
                     flexDirection:'column',
-                    gap:10,
-                    border: '2px solid black',
-                    borderRadius: '8px',
+                    gap:8,
                     padding: 3,
                     width:'70%',
                     height:'100%',
@@ -522,7 +540,7 @@ export default function RegisterPage(){
                 }}
                 >
 
-                    {/*Datos obligatorios*/}
+                    {/*Datos del estudiante*/}
                     <Box
                     sx={{
                         display:'flex',
@@ -538,16 +556,7 @@ export default function RegisterPage(){
                             fontWeight: 'bold'
                         }}
                         >
-                            Datos Obligatorios
-                        </Typography>
-
-                        <Typography
-                        variant="body1" 
-                        sx={{
-                            fontWeight: 'bold'
-                        }}
-                        >
-                            (En caso de no tener segundo nombre, dejar espacio en blanco)
+                            Datos del Estudiante
                         </Typography>
 
                         {/*Datos*/}
@@ -559,7 +568,7 @@ export default function RegisterPage(){
                             height:'auto'
                         }}
                         >
-                            {/*Nombre completo*/}
+                            {/*Nombres*/}
                             <Box
                             sx={{
                                 display:'flex',
@@ -581,19 +590,47 @@ export default function RegisterPage(){
                                 }}
                                 />
 
-                                <TextField
-                                label="Segundo nombre"
-                                placeholder="Segundo nombre"
-                                value={estudiante.Segundo_Nombre}
-                                onChange={(e) => setEstudiante({
-                                    ...estudiante,
-                                    Segundo_Nombre: e.target.value
-                                })}
+                                <Box
                                 sx={{
-                                    width:'150px'
+                                    display:'flex',
+                                    gap:4
                                 }}
-                                />
+                                >
+                                    <TextField
+                                    label="Segundo nombre"
+                                    placeholder="Segundo nombre"
+                                    value={estudiante.Segundo_Nombre}
+                                    onChange={(e) => setEstudiante({
+                                        ...estudiante,
+                                        Segundo_Nombre: e.target.value
+                                    })}
+                                    sx={{
+                                        width:'150px'
+                                    }}
+                                    />
+
+                                    <Typography
+                                    align="left"
+                                    sx={{
+                                        fontWeight:'bold'
+                                    }}
+                                    >
+                                        (OPCIONAL)
+                                    </Typography>
+                                </Box>
                                 
+                                
+                            </Box>
+                            
+                            {/*Apellidos */}
+                            <Box
+                            sx={{
+                                display:'flex',
+                                flexDirection:'row',
+                                gap: 4,
+                                flexWrap:'wrap'
+                            }}
+                            >
                                 <TextField
                                 label="Primer Apellido"
                                 placeholder="Primer apellido"
@@ -619,129 +656,120 @@ export default function RegisterPage(){
                                     width:'160px'
                                 }}
                                 />
-                                
                             </Box>
 
-
-                            {/*Rut-Digito verificador - Numero*/}
+                            {/*Rut - Digito_verificador */}
                             <Box
                             sx={{
                                 display:'flex',
-                                gap:6
+                                flexDirection:'row',
+                                gap: 1
                             }}
                             >
-                                <Box
+                                <TextField
+                                label={
+                                    <>
+                                    Rut sin el 
+                                    <br/>
+                                    digito verificador
+                                    </>
+                                }
+                                placeholder="12345678"
+                                value={estudiante.Rut}
+                                sx={{
+                                    width:'150px',
+                                    '& input::placeholder':{
+                                        fontSize: '10px'
+                                    },
+                                    '& .MuiInputLabel-root':{
+                                        fontSize: '10px'
+                                    }
+                                }}
+                                onChange={(e) => setEstudiante({
+                                    ...estudiante,
+                                    Rut: e.target.value
+                                })}
+                                />
+
+                                <Typography
                                 sx={{
                                     display:'flex',
-                                    flexDirection:'row',
-                                    gap: 1
+                                    alignItems:'center',
+                                    fontSize:'30px'
                                 }}
                                 >
-                                    <TextField
-                                    label={
-                                        <>
-                                        Rut sin el 
-                                        <br/>
-                                        digito verificador
-                                        </>
+                                    -
+                                </Typography>
+
+                                <TextField
+                                label={
+                                    <>
+                                    Digito
+                                    <br/>
+                                    Verificador
+                                    </>
+                                }
+                                placeholder="9"
+                                value={estudiante.Dig_Verificador}
+                                sx={{
+                                    width:'80px',
+                                    '& .MuiInputLabel-root':{
+                                        fontSize: '10px'
                                     }
-                                    placeholder="12345678"
-                                    value={estudiante.Rut}
-                                    sx={{
+                                }}
+                                onChange={(e) => setEstudiante({
+                                    ...estudiante,
+                                    Dig_Verificador: e.target.value
+                                })}
+                                />
+                            </Box>
+
+                            {/*Numero celular */}
+                            <Box
+                            sx={{
+                                display:'flex',
+                                width:'auto',
+                                height:'auto'
+                            }}
+                            >
+                                <Typography
+                                sx={{
+                                    fontSize:'20px',
+                                    backgroundColor:'#003c58',
+                                    width:'50px',
+                                    height:'55px',
+                                    display:'flex',
+                                    alignItems:'center',
+                                    justifyContent:'center',    
+                                    color: 'white'
+                                }}
+                                >
+                                    +56
+                                </Typography>
+
+                                <TextField
+                                label={
+                                    <>
+                                    Numero
+                                    <br/>
+                                    Celular
+                                    </>
+                                }
+                                placeholder="912345678"
+                                value={estudiante.Celular}
+                                sx={{
                                         width:'150px',
-                                        '& input::placeholder':{
-                                            fontSize: '10px'
-                                        },
                                         '& .MuiInputLabel-root':{
                                             fontSize: '10px'
                                         }
                                     }}
                                     onChange={(e) => setEstudiante({
                                         ...estudiante,
-                                        Rut: e.target.value
+                                        Celular: e.target.value
                                     })}
-                                    />
-
-                                    <Typography
-                                    sx={{
-                                        display:'flex',
-                                        alignItems:'center',
-                                        fontSize:'30px'
-                                    }}
-                                    >
-                                        -
-                                    </Typography>
-
-                                    <TextField
-                                    label={
-                                        <>
-                                        Digito
-                                        <br/>
-                                        Verificador
-                                        </>
-                                    }
-                                    placeholder="9"
-                                    value={estudiante.Dig_Verificador}
-                                    sx={{
-                                        width:'80px',
-                                        '& .MuiInputLabel-root':{
-                                            fontSize: '10px'
-                                        }
-                                    }}
-                                    onChange={(e) => setEstudiante({
-                                        ...estudiante,
-                                        Dig_Verificador: e.target.value
-                                    })}
-                                    />
-                                </Box>
-
-                                <Box
-                                sx={{
-                                    display:'flex',
-                                    width:'auto',
-                                    height:'auto'
-                                }}
-                                >
-                                    <Typography
-                                    sx={{
-                                        fontSize:'20px',
-                                        backgroundColor:'#003c58',
-                                        width:'50px',
-                                        height:'55px',
-                                        display:'flex',
-                                        alignItems:'center',
-                                        justifyContent:'center',    
-                                        color: 'white'
-                                    }}
-                                    >
-                                        +56
-                                    </Typography>
-
-                                    <TextField
-                                    label={
-                                        <>
-                                        Numero
-                                        <br/>
-                                        Celular
-                                        </>
-                                    }
-                                    placeholder="912345678"
-                                    value={estudiante.Celular}
-                                    sx={{
-                                            width:'150px',
-                                            '& .MuiInputLabel-root':{
-                                                fontSize: '10px'
-                                            }
-                                        }}
-                                        onChange={(e) => setEstudiante({
-                                            ...estudiante,
-                                            Celular: e.target.value
-                                        })}
-                                    />
-                                </Box>
+                                />
                             </Box>
                                 
-
                             {/*Correo*/}
                             <Box
                             sx={{
@@ -786,7 +814,6 @@ export default function RegisterPage(){
                                 </Typography>
                             </Box>
                             
-
                             {/*Contraseña*/}
                             <TextField
                                 label="Contraseña"
@@ -814,7 +841,6 @@ export default function RegisterPage(){
                                     }
                                 }}
                             />
-                            
 
                             {/*Año - Semestre - Sede*/}
                             <Box
@@ -883,22 +909,22 @@ export default function RegisterPage(){
                                 />
                             </Box>
 
-                                <Box
-                                sx={{
-                                    display:'flex',
-                                    justifyContent:'flex-start'
-                                }}
-                                >
-                                    <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                        checked={acepto}
-                                        onClick={() => setAcepto(true)}
-                                        />
-                                    }
-                                    label="Acepto compartir mis datos personales con esta página académica."
+                            <Box
+                            sx={{
+                                display:'flex',
+                                justifyContent:'flex-start'
+                            }}
+                            >
+                                <FormControlLabel
+                                control={
+                                    <Checkbox
+                                    checked={acepto}
+                                    onClick={() => setAcepto(prev => !prev)}
                                     />
-                                </Box>
+                                }
+                                label="Acepto compartir mis datos personales con esta página académica."
+                                />
+                            </Box>
                                     
                         </Box>
                         
@@ -908,7 +934,7 @@ export default function RegisterPage(){
                         
                     {/*Botón registro*/}
                     <Button
-                    disabled={acepto}
+                    disabled={!acepto}
                     onClick={() => {
                         registrar();
                     }}

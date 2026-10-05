@@ -970,7 +970,7 @@ function Inscribir_Page({close}: PropRamo){
                                     onChange={(event) => setSemestreMarcado(event.target.checked)}
                                     onClick={() => {
                                             setSemestreMarcado(prev => !prev);
-                                        setParametroBusqueda("Semestre");
+                                            setParametroBusqueda("Semestre");
                                             if (!semestreMarcado) {
                                                 setNombreMarcado(false);
                                                 setCodigoMarcado(false);
