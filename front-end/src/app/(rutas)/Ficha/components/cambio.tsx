@@ -584,14 +584,14 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                     sx={{
                                         display:'flex',
                                         flexDirection:'column',
-                                        alignItems: 
+                                        alignItems: 'center',
+                                        justifyContent:
                                             stateSeccionDuplicada || 
                                             stateIncompleto ||
                                             stateMismaSeccion 
                                             ? 'center' : 'flex-end',
-                                        justifyContent:'center',
                                         width:'300px',
-                                        height: '',
+                                        height: '200px',
                                         gap:4,
                                     }}
                                     >
@@ -678,8 +678,8 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                         onClick={() => agregarCambio()}
                                         variant="contained"
                                         sx={{
-                                            width:'150px',
-                                            height:'75px'
+                                            width:'200px',
+                                            height:'50px'
                                         }}
                                         >
                                             Cargar Cambio
