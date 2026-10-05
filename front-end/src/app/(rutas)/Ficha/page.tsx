@@ -2649,8 +2649,14 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(duplicadas){
                 mostrarDuplicado();
-                setSeccionActual(undefined);
-                setSeccionCambio(undefined);
+                const originales = seccionesSolicitud?.find(
+                    secs => secs.some(sec => (
+                        sec.num_Seccion === seccionActual?.num_Seccion &&
+                        sec.asignatura?.Codigo === asignaturaSeleccionada.Codigo    
+                    ))
+                )
+                setSeccionActual(originales![0]);
+                setSeccionCambio(originales![1]);
                 return seccionesCargadas;
             }
 
