@@ -2623,13 +2623,13 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(!seccionActual || !seccionCambio){
                 mostrarIncompleto();
+                setSeccionActual(undefined);
+                setSeccionCambio(undefined);
                 return seccionesCargadas;
             }
 
             if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
                 mostrarMismas();
-                setSeccionActual(undefined);
-                setSeccionCambio(undefined);
                 return seccionesCargadas;
             }
             
