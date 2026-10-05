@@ -463,7 +463,7 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                                                 sx={{
                                                                     cursor: 'pointer',
                                                                     backgroundColor: 
-                                                                        (sec.num_Seccion === seccionActual?.num_Seccion &&
+                                                                        (sec.num_Seccion === seccionCambio?.num_Seccion &&
                                                                             asignaturaSeleccionada.Codigo === sec.asignatura?.Codigo
                                                                         ) ||
                                                                         seccionesSolicitud.some(
@@ -471,7 +471,7 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                                                                 secs[0].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
                                                                                 secs[0].num_Seccion === sec.num_Seccion
                                                                         )
-                                                                            ? 'lightblue'
+                                                                            ? 'lightgreen'
                                                                             : 'transparent'
                                                                 }}
                                                             >
