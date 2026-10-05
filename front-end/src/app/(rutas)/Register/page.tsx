@@ -415,7 +415,7 @@ export default function RegisterPage(){
         sx={{
             display:'flex',
             flexDirection:'column',
-            minHeight:'100vh',
+            height:'100vh',
             width:'100%',
             backgroundColor:'#00577f'
         }}
@@ -510,6 +510,7 @@ export default function RegisterPage(){
                     height:'100%',
                     display:'flex',
                     justifyContent:'center',
+                    alignItems:'center',
                     backgroundColor:'#003c58'
                 }}
                 >
