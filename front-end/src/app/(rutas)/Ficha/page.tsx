@@ -3006,8 +3006,8 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
-                                                                    backgroundColor:
-                                                                    sec.num_Seccion === seccionActual?.num_Seccion ||
+                                                                    backgroundColor: seccionActual === undefined ? 'transparent'
+                                                                    : sec.num_Seccion === seccionActual?.num_Seccion ||
                                                                     seccionesSolicitud?.some(
                                                                         secs =>
                                                                             secs[0].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
@@ -3093,7 +3093,8 @@ function Cambio_Seccion({close} : PropCambio){
                                                                 sx={{
                                                                     cursor: 'pointer',
                                                                     backgroundColor:
-                                                                    sec.num_Seccion === seccionCambio?.num_Seccion ||
+                                                                    seccionCambio === undefined ? 'transparent'
+                                                                    : sec.num_Seccion === seccionCambio?.num_Seccion ||
                                                                     seccionesSolicitud?.some(
                                                                         secs =>
                                                                             secs[1].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
