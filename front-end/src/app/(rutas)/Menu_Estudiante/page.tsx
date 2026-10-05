@@ -307,7 +307,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarRealizar ? '250px' : '0px',
+                                    width: stateMirarRealizar ? '300px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
@@ -393,7 +393,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarActualizar ? '250px' : '0px',
+                                    width: stateMirarActualizar ? '300px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
@@ -478,7 +478,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarEnviadas ? '250px' : '0px',
+                                    width: stateMirarEnviadas ? '300px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
