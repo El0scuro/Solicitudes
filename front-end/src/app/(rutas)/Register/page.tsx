@@ -3,7 +3,8 @@
 import {Box, Typography, TextField, 
         Button, AppBar, Toolbar, 
         InputAdornment, IconButton, 
-        Backdrop, CircularProgress
+        Backdrop, CircularProgress,
+        Checkbox, FormControlLabel
     } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -103,9 +104,14 @@ export default function RegisterPage(){
 
     const router = useRouter();
 
+
     const [loading, setLoading] = useState(false);
 
+
     const [mostrarContrasena, setMostrarContrasena] = useState(false);
+
+
+    const [acepto, setAcepto] = useState(false);
     
     const [estudiante, setEstudiante] = useState<Estudiante>({
         Primer_Nombre: '',
@@ -876,12 +882,33 @@ export default function RegisterPage(){
                                 }}
                                 />
                             </Box>
+
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    justifyContent:'flex-start'
+                                }}
+                                >
+                                    <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                        checked={acepto}
+                                        onClick={() => setAcepto(true)}
+                                        />
+                                    }
+                                    label="Acepto compartir mis datos personales con esta página académica."
+                                    />
+                                </Box>
                                     
                         </Box>
+                        
+                        
+                        
                     </Box>
                         
                     {/*Botón registro*/}
                     <Button
+                    disabled={acepto}
                     onClick={() => {
                         registrar();
                     }}
