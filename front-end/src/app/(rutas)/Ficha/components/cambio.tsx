@@ -113,6 +113,9 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
         setSeccionesSolicitud(seccionesSolicitud.filter(secs =>
             (secs[0].asignatura?.Codigo !== secciones[0].asignatura?.Codigo) 
         ));
+
+        setSeccionActual(undefined);
+        setSeccionCambio(undefined);
     }
 
 
@@ -454,19 +457,22 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                                             <TableRow
                                                                 key={sec.num_Seccion}
                                                                 onClick={() => {
+                                                                    sec.asignatura = asignaturaSeleccionada;
                                                                     setSeccionActual(sec);
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
-                                                                    backgroundColor: seccionActual === undefined ? 'transparent'
-                                                                    : sec.num_Seccion === seccionActual?.num_Seccion ||
-                                                                    seccionesSolicitud.some(
-                                                                        secs =>
-                                                                            secs[0].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
-                                                                            secs[0].num_Seccion === sec.num_Seccion
-                                                                    )
-                                                                        ? 'lightblue'
-                                                                        : 'transparent'
+                                                                    backgroundColor: 
+                                                                        (sec.num_Seccion === seccionActual?.num_Seccion &&
+                                                                            asignaturaSeleccionada.Codigo === sec.asignatura?.Codigo
+                                                                        ) ||
+                                                                        seccionesSolicitud.some(
+                                                                            secs =>
+                                                                                secs[0].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                                secs[0].num_Seccion === sec.num_Seccion
+                                                                        )
+                                                                            ? 'lightblue'
+                                                                            : 'transparent'
                                                                 }}
                                                             >
 
@@ -540,20 +546,22 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                                             <TableRow
                                                                 key={sec.num_Seccion}
                                                                 onClick={() => {
-                                                                    setSeccionCambio(sec)
+                                                                    sec.asignatura = asignaturaSeleccionada;
+                                                                    setSeccionCambio(sec);
                                                                 }}
                                                                 sx={{
                                                                     cursor: 'pointer',
-                                                                    backgroundColor:
-                                                                    seccionCambio === undefined ? 'transparent'
-                                                                    : sec.num_Seccion === seccionCambio?.num_Seccion ||
-                                                                    seccionesSolicitud.some(
-                                                                        secs =>
-                                                                            secs[1].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
-                                                                            secs[1].num_Seccion === sec.num_Seccion
-                                                                    )
-                                                                        ? 'lightgreen'
-                                                                        : 'transparent'
+                                                                    backgroundColor: 
+                                                                        (sec.num_Seccion === seccionActual?.num_Seccion &&
+                                                                            asignaturaSeleccionada.Codigo === sec.asignatura?.Codigo
+                                                                        ) ||
+                                                                        seccionesSolicitud.some(
+                                                                            secs =>
+                                                                                secs[1].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
+                                                                                secs[1].num_Seccion === sec.num_Seccion
+                                                                        )
+                                                                            ? 'lightblue'
+                                                                            : 'transparent'
                                                                 }}
                                                             >
 
