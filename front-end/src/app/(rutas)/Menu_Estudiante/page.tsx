@@ -139,7 +139,7 @@ function Menu_Estudiante_Content(){
                     justifyContent:'center',
                     alignItems:'center',
                     backgroundColor: '#003c58',
-                    width:'40%'
+                    width:'25%'
                 }}
                 >
                     <Typography
@@ -158,8 +158,8 @@ function Menu_Estudiante_Content(){
                 sx={{
                     display:'flex',
                     height:'100%',
-                    width:'60%',
-                    gap:28
+                    width:'75%',
+                    gap:15
                 }}
                 >
                     {/*Titulo - Descripciones*/}
@@ -307,7 +307,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarRealizar ? '400px' : '0px',
+                                    width: stateMirarRealizar ? '200px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarRealizar ? '10px solid #24454A' : '0px solid black',
@@ -393,7 +393,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarActualizar ? '400px' : '0px',
+                                    width: stateMirarActualizar ? '200px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarActualizar ? '10px solid #24454A' : '0px solid black',
@@ -478,7 +478,7 @@ function Menu_Estudiante_Content(){
                                 sx={{
                                     borderTopRightRadius: '20px',
                                     borderBottomRightRadius: '20px',
-                                    width: stateMirarEnviadas ? '400px' : '0px',
+                                    width: stateMirarEnviadas ? '200px' : '0px',
                                     height: '75px',
                                     borderTop: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
                                     borderRight: stateMirarEnviadas ? '10px solid #24454A' : '0px solid black',
