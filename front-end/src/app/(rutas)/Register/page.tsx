@@ -415,7 +415,7 @@ export default function RegisterPage(){
         sx={{
             display:'flex',
             flexDirection:'column',
-            height:'100vh',
+            minHeight:'100vh',
             width:'100%',
             backgroundColor:'#00577f'
         }}
@@ -506,7 +506,7 @@ export default function RegisterPage(){
                 {/*Foto */}
                 <Box
                 sx={{
-                    width:'40%',
+                    width:'60%',
                     height:'100%',
                     display:'flex',
                     justifyContent:'center',
@@ -528,11 +528,10 @@ export default function RegisterPage(){
                 {/*Datos estudiante */}
                 <Box
                 sx={{
-                    width:'60%',
+                    width:'40%',
                     height:'100%',
                     display:'flex',
-                    flexDirection:'column',
-                    alignItems:'flex-end'
+                    flexDirection:'column'
                 }}
                 >
 
