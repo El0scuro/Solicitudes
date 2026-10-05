@@ -608,7 +608,7 @@ export default function RegisterPage(){
                                     />
 
                                     <Typography
-                                    align="left"
+                                    align="center"
                                     sx={{
                                         fontWeight:'bold'
                                     }}
