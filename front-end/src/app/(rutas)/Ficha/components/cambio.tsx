@@ -585,11 +585,7 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                         display:'flex',
                                         flexDirection:'column',
                                         alignItems: 'center',
-                                        justifyContent:
-                                            stateSeccionDuplicada || 
-                                            stateIncompleto ||
-                                            stateMismaSeccion 
-                                            ? 'center' : 'flex-end',
+                                        justifyContent: 'flex-end',
                                         width:'300px',
                                         height: '200px',
                                         gap:4,
@@ -679,7 +675,7 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                                         variant="contained"
                                         sx={{
                                             width:'200px',
-                                            height:'50px'
+                                            height:'50px',
                                         }}
                                         >
                                             Cargar Cambio
