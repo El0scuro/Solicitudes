@@ -138,7 +138,8 @@ function Menu_Estudiante_Content(){
                     display:'flex',
                     justifyContent:'center',
                     alignItems:'center',
-                    backgroundColor: '#003c58'
+                    backgroundColor: '#003c58',
+                    width:'40%'
                 }}
                 >
                     <Typography
@@ -157,7 +158,7 @@ function Menu_Estudiante_Content(){
                 sx={{
                     display:'flex',
                     height:'100%',
-                    width:'100%',
+                    width:'60%',
                     gap:28
                 }}
                 >
@@ -166,8 +167,10 @@ function Menu_Estudiante_Content(){
                     sx={{
                         display:'flex',
                         flexDirection:'column',
+                        alignItems:'center',
                         justifyContent:'flex-start',
                         mt:'10%',
+                        ml:'10%',
                         gap:4
                     }}
                     >
@@ -189,8 +192,6 @@ function Menu_Estudiante_Content(){
                             <Typography
                             align="center"
                             sx={{
-                                position:'absolute',
-                                right:'130%',
                                 fontWeight:'bold',
                                 backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
@@ -210,8 +211,6 @@ function Menu_Estudiante_Content(){
                             <Typography
                             align="center"
                             sx={{
-                                position:'absolute',
-                                right:'130%',
                                 fontWeight:'bold',
                                 backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
@@ -231,8 +230,6 @@ function Menu_Estudiante_Content(){
                             <Typography
                             align="center"
                             sx={{
-                                position:'absolute',
-                                right:'130%',
                                 fontWeight:'bold',
                                 backgroundColor:'#F6F1E8',
                                 border:'2px solid black',
