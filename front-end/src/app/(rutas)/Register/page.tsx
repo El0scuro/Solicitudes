@@ -417,8 +417,7 @@ export default function RegisterPage(){
             flexDirection:'column',
             minHeight:'100vh',
             width:'100%',
-            backgroundColor:'#00577f',
-            gap:5
+            backgroundColor:'#00577f'
         }}
         >
             <AppBar
@@ -500,6 +499,8 @@ export default function RegisterPage(){
             <Box
             sx={{
                 display:'flex',
+                width:'100%',
+                height:'100%'
             }}
             >
                 {/*Foto */}
