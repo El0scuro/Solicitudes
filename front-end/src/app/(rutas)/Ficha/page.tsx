@@ -2628,6 +2628,8 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(seccionActual.num_Seccion === seccionCambio.num_Seccion){
                 mostrarMismas();
+                setSeccionActual(undefined);
+                setSeccionCambio(undefined);
                 return seccionesCargadas;
             }
             
@@ -3097,7 +3099,7 @@ function Cambio_Seccion({close} : PropCambio){
                                                                             secs[1].asignatura?.Codigo === asignaturaSeleccionada.Codigo &&
                                                                             secs[1].num_Seccion === sec.num_Seccion
                                                                     )
-                                                                        ? 'lightblue'
+                                                                        ? 'lightgreen'
                                                                         : 'transparent'
                                                                 }}
                                                             >
@@ -3147,6 +3149,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             }}
                                             >
                                                 <Typography
+                                                align="center"
                                                 sx={{
                                                     fontWeight:'bold',
                                                     fontSize:'15px'
@@ -3172,6 +3175,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             }}
                                             >
                                                 <Typography
+                                                align="center"
                                                 sx={{
                                                     fontWeight:'bold',
                                                     fontSize:'15px'
@@ -3197,6 +3201,7 @@ function Cambio_Seccion({close} : PropCambio){
                                             }}
                                             >
                                                 <Typography
+                                                align="center"
                                                 sx={{
                                                     fontWeight:'bold',
                                                     fontSize:'15px'
