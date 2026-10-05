@@ -2623,8 +2623,6 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(!seccionActual || !seccionCambio){
                 mostrarIncompleto();
-                setSeccionActual(undefined);
-                setSeccionCambio(undefined);
                 return seccionesCargadas;
             }
 
@@ -2651,6 +2649,8 @@ function Cambio_Seccion({close} : PropCambio){
 
             if(duplicadas){
                 mostrarDuplicado();
+                setSeccionActual(undefined);
+                setSeccionCambio(undefined);
                 return seccionesCargadas;
             }
 
