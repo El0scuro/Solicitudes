@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `cambio_seccion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cambio_seccion` (
   `ID_Solicitud` int NOT NULL,
-  `Seccion_Original` varchar(100) NOT NULL,
+  `Seccion_Original` int NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   CONSTRAINT `cambio_seccion_solicitud_FK` FOREIGN KEY (`ID_Solicitud`) REFERENCES `solicitud` (`ID_Solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -327,6 +327,7 @@ CREATE TABLE `seccion` (
   `Ano_Malla` varchar(100) NOT NULL,
   `mail_Profesor` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `num_Seccion` int NOT NULL,
+  `Sede` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   KEY `seccion_profesor_FK` (`mail_Profesor`),
   CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),

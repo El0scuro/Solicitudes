@@ -6,7 +6,7 @@ export class CambioSeccion {
     @PrimaryColumn("int", { name: "ID_Solicitud" })
     ID_Solicitud: number;
 
-    @Column("varchar", { name: "Seccion_Original", length: 100 })
+    @Column({type: "int", name: "Seccion_Original"})
     Seccion_Original: string;
 
     @OneToOne("Solicitud", (solicitud: Solicitud) => solicitud.cambioSeccion)

@@ -7,7 +7,7 @@ import { UpdateFichaDto } from './dto/update-ficha.dto.js';
 export class FichaController {
   constructor(private readonly fichaService: FichaService) {}
 
-  @Post()
+  @Post('crear')
   create(@Body() createFichaDto: CreateFichaDto) {
     return this.fichaService.create(createFichaDto);
   }

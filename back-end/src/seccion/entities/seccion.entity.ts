@@ -6,6 +6,10 @@ import type { Solicitud } from "../../solicitud/entities/solicitud.entity.js";
 
 @Entity("seccion", { schema: "solicitud" })
 export class Seccion {
+
+    @Column("varchar", {name:'Sede', length: 100})
+    Sede: string;
+
     @PrimaryColumn({ type: "int", name: "num_Seccion" })
     num_Seccion: number;
 

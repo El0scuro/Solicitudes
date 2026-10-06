@@ -11,4 +11,5 @@ export interface Estudiante {
     Ano_Ingreso: string; 
     Sede: string;
     Semestre: string;
+    Generacion: string;
 }

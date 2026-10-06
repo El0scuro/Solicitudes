@@ -24,11 +24,21 @@ interface PropRamo {
     close: () => void;
 
     seccionesSolicitud: Seccion[];
-
     setSeccionesSolicitud: React.Dispatch<React.SetStateAction<Seccion[]>>;
+
+    carta: File | null;
+    setCarta: React.Dispatch<React.SetStateAction<File | null>>;
+
+    setStateInscripciones: React.Dispatch<React.SetStateAction<boolean>>
+
 }
 
-export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesSolicitud}: PropRamo){
+export default function Inscribir_Page({
+    close, 
+    seccionesSolicitud, setSeccionesSolicitud, 
+    carta, setCarta,
+    setStateInscripciones
+}: PropRamo){
     
     const [parametroBusqueda, setParametroBusqueda] = useState<"Semestre" |  "Codigo" | "Nombre">("Codigo");
 
@@ -51,8 +61,6 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
 
 
     const [stateCarta, setStateCarta] = useState(false);
-
-    const [archivo, setArchivo] = useState<File | null>(null);
 
 
     const [semestreMarcado, setSemestreMarcado] = useState(false);
@@ -86,12 +94,14 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
 
             seccion.asignatura = asignatura;
 
+            setStateInscripciones(true);
             return [...seccionesActuales, seccion];
         });
     };
 
     const deseleccionarRamo = (seccion: Seccion) => {
         setSeccionesSolicitud(seccionesSolicitud.filter(sec => sec !== seccion));
+        setStateInscripciones(false);
     };
 
     const buscar = async() => {
@@ -158,6 +168,7 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
             setStateSeccionDuplicada(false);
         }, 7000);
     }
+
     return(
         <Box
         sx={{
@@ -762,14 +773,14 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
                                         alignItems:'center'
                                     }}
                                     >
-                                        {archivo?.name}
+                                        {carta?.name}
                                     </Typography>
                                     <Button
                                     sx={{
                                         color:'red'
                                     }}
                                     onClick={() => {
-                                        setArchivo(null);
+                                        setCarta(null);
                                         setStateCarta(false);
                                     }}
                                     >
@@ -803,7 +814,7 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
                                             const archivoSeleccionado = event.target.files?.[0];
 
                                             if (archivoSeleccionado) {
-                                                setArchivo(archivoSeleccionado);
+                                                setCarta(archivoSeleccionado);
                                             }
                                         }}
                                     />
@@ -851,7 +862,7 @@ export default function Inscribir_Page({close, seccionesSolicitud, setSeccionesS
                                             const archivoSeleccionado = event.target.files?.[0];
 
                                             if (archivoSeleccionado) {
-                                                setArchivo(archivoSeleccionado)
+                                                setCarta(archivoSeleccionado)
                                                 setStateCarta(true);
                                             }else{
                                                 setStateCarta(false);

@@ -6,8 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
-import { Ficha } from "@/types/ficha";
 
 import Logo_Publica from "@/Imagenes/Logo escuela blanco.png"
 
@@ -19,6 +19,7 @@ import Inscribir_Page from "./components/inscribir";
 import Desinscribir_Page from "./components/desinscribir";
 import Justificar_Clase_Page from "./components/clase";
 import Cambio_Seccion from "./components/cambio";
+
 
 //interfaz para el estudiante cifrado para transporte
 interface EstudianteCifrado {
@@ -91,10 +92,77 @@ interface EstudianteDescifrado {
     Celular: string;
     Rut: string;
     Digito_Verificador: string;
+    Generacion: string;
     Ano_Ingreso: string;
     Sede: string;
     Semestre: string;
 }
+
+
+//Interface para las inscripciones de la solicitud//
+interface InscripcionInterface {
+    Tipo_Inscripcion: string;
+
+    Codigo: string;
+    Ano_Malla: string;
+    num_Seccion: number;
+}
+
+//Interface para las justificaciones//
+interface JustificacionesInterface {
+    Fecha_Inasistencia: string;
+    Tipo_Justificacion: string;
+    Semestre: string;
+
+    Codigo: string;
+    Ano_Malla: string;
+    num_Seccion: number;
+}
+
+//Interface para los cambios//
+interface CambioInterface {
+    Seccion_Original: number;
+
+    Codigo: string;
+    Ano_Malla: string;
+    num_Seccion: number;
+}
+
+//Interfaz para la creación de la ficha en la base de datos//
+interface CrearFicha {
+    //Datos de la Ficha//
+    Mail: string;
+    Fecha_Actual: string;
+    Estado: string;
+
+
+    //Estado de las solicitudes//
+    Inscripcion: boolean;
+    Desinscripcion: boolean;
+    Clase: boolean;
+    Evaluacion: boolean;
+    Cambio: boolean;
+
+
+    //Inscripciones y Desinscripciones//
+    Inscripciones: InscripcionInterface[];
+    cartaInscripcion?: FormData | null;
+
+    Desinscripciones: InscripcionInterface[];
+    cartaDesinscripcion?: FormData | null;
+
+    //Clases y Evaluaciones//
+    Clases: JustificacionesInterface[];
+    justificativosClases?: FormData[] | null;
+
+    Evaluaciones: JustificacionesInterface[];
+    justificativosEvaluaciones?: FormData[] | null;
+
+
+    //Cambio//
+    Cambios: CambioInterface[];
+}
+
 
 export default function Solicitud_Ficha() {
     return (
@@ -123,6 +191,7 @@ function Solicitud_Ficha_Content(){
         Celular: '',
         Rut: '',
         Digito_Verificador: '',
+        Generacion: '',
         Ano_Ingreso: '',
         Sede: '',
         Semestre: ''
@@ -130,15 +199,18 @@ function Solicitud_Ficha_Content(){
     
 
     const [seccionesInscripcion, setSeccionesInscripcion] = useState<Seccion[]>([]);
+    const [cartaInscripcion, setCartaInscripcion] = useState<File| null>(null);
 
     const [seccionesDesinscripcion, setSeccionesDesinscripcion] = useState<Seccion[]>([]);
+    const [cartaDesinscripcion, setCartaDesinscripcion] = useState<File | null>(null);
 
-    const [seccionesCambio, setSeccionesCambio] = useState<Seccion[][]>([])
+    const [seccionesClase, setSeccionesClase] = useState<Seccion[]>([]);
+    const [justificativosClases, setJustificativosClases] = useState<File[] | null>(null);
 
-    const [ficha, setFicha] = useState<Ficha>({
-        Fecha_Actual: '',
-        Estado: ''
-    });
+    const [seccionesEvaluacion, setSeccionesEvaluacion] = useState<Seccion[]>([]);
+    const [justificativosEvaluaciones, setJustificativosEvaluaciones] = useState<File[] | null>(null);
+    
+    const [seccionesCambio, setSeccionesCambio] = useState<Seccion[][]>([]);
 
 
     const [verInscribir, setVerInscribir] = useState(false);
@@ -149,7 +221,18 @@ function Solicitud_Ficha_Content(){
 
     const [verEvaluacion, setVerEvaluacion] = useState(false);
 
-    const [verSeccion, setVerSeccion] = useState(false);
+    const [verCambio, setVerCambio] = useState(false);
+
+
+    const [stateInscripcion, setStateInscripcion] = useState(false);
+
+    const [stateDesinscripcion, setStateDesinscripcion] = useState(false);
+
+    const [stateClase, setStateClase] = useState(false);
+
+    const [stateEvaluacion, setStateEvaluacion] = useState(false);
+
+    const [stateCambio, setStateCambio] = useState(false);
 
 
     useEffect(() => {
@@ -191,6 +274,132 @@ function Solicitud_Ficha_Content(){
     }, [estudiante]);
 
     
+    const generarFicha = async() => {
+
+        const Fecha_Actual = (new Date()).toISOString().split("T")[0];
+
+
+        const inscripciones: InscripcionInterface[] = [];
+        const formDataInscripcion = new FormData;
+
+        const desinscripciones: InscripcionInterface[] = [];
+        const formDataDesinscripcion = new FormData();
+
+        const clases: JustificacionesInterface[] = [];
+        const formDataClases = new FormData();
+
+        const evaluaciones: JustificacionesInterface[] = [];
+        const formDataEvaluaciones = new FormData();
+        
+        const cambios: CambioInterface[] = [];
+        const formDataCambios = new FormData();
+
+
+        if(stateInscripcion){
+            for(const seccion of seccionesInscripcion){
+
+                const datos: InscripcionInterface = {
+                    Tipo_Inscripcion: 'inscripcion',
+
+                    Codigo: seccion.asignatura!.Codigo,
+                    Ano_Malla: estudianteDescifrado.Generacion,
+                    num_Seccion: seccion.num_Seccion
+                }
+
+                inscripciones.push(datos);
+            }
+
+            if(cartaInscripcion === null){
+                alert('Debe subir la carta para la sus inscripciones');
+                return;
+            }
+            formDataInscripcion.append('cartaInscripcion', cartaInscripcion);
+        }
+
+        if(stateDesinscripcion){
+            for(const seccion of seccionesDesinscripcion){
+
+                const datos: InscripcionInterface = {
+                    Tipo_Inscripcion: 'desinscripcion',
+
+                    Codigo: seccion.asignatura!.Codigo,
+                    Ano_Malla: estudianteDescifrado.Generacion,
+                    num_Seccion: seccion.num_Seccion
+                }
+
+                desinscripciones.push(datos);
+            }
+
+            if(cartaDesinscripcion === null){
+                alert('Debe subir la carta para la sus desinscripciones');
+                return;
+            }
+            formDataInscripcion.append('cartaInscripcion', cartaDesinscripcion);
+        }
+
+        if(stateClase){
+            for(const seccion of seccionesClase){
+
+                //const datos: JustificacionesInterface = {
+                    
+                //}
+
+                //clases.push(datos);
+            }
+        }
+
+        if(stateEvaluacion){
+
+        }
+
+        if(stateCambio){
+            for(const secciones of seccionesCambio){
+                const datos: CambioInterface = {
+                    Seccion_Original: secciones[0].num_Seccion,
+
+                    Codigo: secciones[0].asignatura!.Codigo,
+                    Ano_Malla: estudianteDescifrado.Generacion,
+                    num_Seccion: secciones[1].num_Seccion
+                }
+
+                cambios.push(datos);
+                
+            }
+        }
+
+
+
+        const datos: CrearFicha = {
+            Mail: estudianteDescifrado.Mail,
+            Fecha_Actual,
+            Estado: 'revision',
+
+
+            Inscripcion: stateInscripcion,
+            Desinscripcion: stateDesinscripcion,
+            Clase: stateClase,
+            Evaluacion: stateEvaluacion,
+            Cambio: stateCambio,
+
+
+            Inscripciones: inscripciones,
+            cartaInscripcion: formDataInscripcion,
+
+            Desinscripciones: desinscripciones,
+            cartaDesinscripcion: formDataDesinscripcion,
+
+            Clases: clases,
+            Evaluaciones: evaluaciones,
+            Cambios: cambios,
+        };
+        try{
+            await axios.post(`${__url}/ficha/crear`,
+                datos
+            )
+        }catch(error){
+            console.log(error);
+        }
+    }
 
     return(
         <Box
@@ -651,7 +860,7 @@ function Solicitud_Ficha_Content(){
                                 fontWeight:'bold',
                                 backgroundColor:'#006391'
                             }}
-                            onClick={() => setVerSeccion(true)}
+                            onClick={() => setVerCambio(true)}
                             >
                                 Cambiar Sección
                             </Button>
@@ -674,6 +883,9 @@ function Solicitud_Ficha_Content(){
                         close={() => setVerInscribir(false)}
                         seccionesSolicitud={seccionesInscripcion}
                         setSeccionesSolicitud={setSeccionesInscripcion}
+                        carta={cartaInscripcion}
+                        setCarta={setCartaInscripcion}
+                        setStateInscripciones={setStateInscripcion}
                         />
                     )}
 
@@ -682,6 +894,9 @@ function Solicitud_Ficha_Content(){
                         close={() => setVerDesinscribir(false)}
                         seccionesSolicitud={seccionesDesinscripcion}
                         setSeccionesSolicitud={setSeccionesDesinscripcion}
+                        carta={cartaDesinscripcion}
+                        setCarta={setCartaDesinscripcion}
+                        setStateDesinscripciones={setStateDesinscripcion}
                         />
                     )}
 
@@ -696,11 +911,12 @@ function Solicitud_Ficha_Content(){
                     )}
                      */}
 
-                    {verSeccion && (
+                    {verCambio && (
                         <Cambio_Seccion
-                        close={() => setVerSeccion(false)}
+                        close={() => setVerCambio(false)}
                         seccionesSolicitud={seccionesCambio}
                         setSeccionesSolicitud={setSeccionesCambio}
+                        setStateCambios={setStateCambio}
                         />
                     )}
                 </Box>
@@ -710,10 +926,18 @@ function Solicitud_Ficha_Content(){
                 <Box
                 sx={{
                     display:'flex',
-                    justifyContent:'center'
+                    justifyContent:'center',
                 }}
                 >
                     <Button
+                    onClick={() => generarFicha()}
+                    disabled={
+                        (verInscribir && !seccionesInscripcion) ||
+                        (verDesinscribir && !seccionesDesinscripcion) ||
+                        (verClase && !seccionesClase) ||
+                        (verEvaluacion && !seccionesEvaluacion) ||
+                        (verCambio && !seccionesCambio)
+                    }
                     variant="contained"
                     sx={{
                         width:'300px',

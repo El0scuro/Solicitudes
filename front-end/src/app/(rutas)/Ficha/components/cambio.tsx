@@ -23,9 +23,15 @@ interface PropCambio {
     seccionesSolicitud: Seccion[][];
 
     setSeccionesSolicitud: React.Dispatch<React.SetStateAction<Seccion[][]>>;
+
+    setStateCambios: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesSolicitud} : PropCambio){
+export default function Cambio_Seccion({
+    close, 
+    seccionesSolicitud, setSeccionesSolicitud,
+    setStateCambios
+} : PropCambio){
 
     const [asignaturas, setAsignaturas] = useState<Asignatura[]>();
 
@@ -105,6 +111,7 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
                 return seccionesCargadas;
             }
 
+            setStateCambios(true);
             return [...seccionesCargadas, [seccionActual, seccionCambio]]
         });
     }
@@ -116,6 +123,8 @@ export default function Cambio_Seccion({close, seccionesSolicitud, setSeccionesS
 
         setSeccionActual(undefined);
         setSeccionCambio(undefined);
+
+        setStateCambios(false);
     }
 
 

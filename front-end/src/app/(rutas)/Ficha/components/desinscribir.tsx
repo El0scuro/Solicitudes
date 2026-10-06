@@ -24,11 +24,20 @@ interface PropRamo {
     close: () => void;
 
     seccionesSolicitud: Seccion[];
-
     setSeccionesSolicitud: React.Dispatch<React.SetStateAction<Seccion[]>>;
+
+    carta: File | null;
+    setCarta: React.Dispatch<React.SetStateAction<File | null>>;
+
+    setStateDesinscripciones: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Desinscribir_Page({close, seccionesSolicitud, setSeccionesSolicitud}: PropRamo){
+export default function Desinscribir_Page({
+    close, 
+    seccionesSolicitud, setSeccionesSolicitud, 
+    carta, setCarta,
+    setStateDesinscripciones: setStateDesinscripciones
+}: PropRamo){
     
     const [parametroBusqueda, setParametroBusqueda] = useState<"Semestre" |  "Codigo" | "Nombre">("Codigo");
 
@@ -51,8 +60,6 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
 
 
     const [stateCarta, setStateCarta] = useState(false);
-
-    const [archivo, setArchivo] = useState<File | null>(null);
 
 
     const [semestreMarcado, setSemestreMarcado] = useState(false);
@@ -87,12 +94,14 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
 
             seccion.asignatura = asignatura;
 
+            setStateDesinscripciones(true);
             return [...seccionesActuales, seccion];
         });
     };
 
     const deseleccionarRamo = (seccion: Seccion) => {
         setSeccionesSolicitud(seccionesSolicitud.filter(sec => sec !== seccion));
+        setStateDesinscripciones(false);
     };
 
     const buscar = async() => {
@@ -763,14 +772,14 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
                                         alignItems:'center'
                                     }}
                                     >
-                                        {archivo?.name}
+                                        {carta?.name}
                                     </Typography>
                                     <Button
                                     sx={{
                                         color:'red'
                                     }}
                                     onClick={() => {
-                                        setArchivo(null);
+                                        setCarta(null);
                                         setStateCarta(false);
                                     }}
                                     >
@@ -804,7 +813,7 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
                                             const archivoSeleccionado = event.target.files?.[0];
 
                                             if (archivoSeleccionado) {
-                                                setArchivo(archivoSeleccionado);
+                                                setCarta(archivoSeleccionado);
                                             }
                                         }}
                                     />
@@ -852,7 +861,7 @@ export default function Desinscribir_Page({close, seccionesSolicitud, setSeccion
                                             const archivoSeleccionado = event.target.files?.[0];
 
                                             if (archivoSeleccionado) {
-                                                setArchivo(archivoSeleccionado)
+                                                setCarta(archivoSeleccionado)
                                                 setStateCarta(true);
                                             }else{
                                                 setStateCarta(false);

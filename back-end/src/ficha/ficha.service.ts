@@ -4,17 +4,31 @@ import { UpdateFichaDto } from './dto/update-ficha.dto.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ficha } from './entities/ficha.entity.js';
 import { Repository } from 'typeorm';
+import { SolicitudService } from '../solicitud/solicitud.service.js';
 
 @Injectable()
 export class FichaService {
 
   constructor(
     @InjectRepository(Ficha, 'solicitudes')
-    private fichaRepository: Repository<Ficha>
+    private fichaRepository: Repository<Ficha>,
+
+    private readonly solicitudService: SolicitudService,
+
+
   ) {}
   
-  create(createFichaDto: CreateFichaDto) {
-    return 'This action adds a new ficha';
+  async create(createFichaDto: CreateFichaDto) {
+
+    //Creo la noción de la ficha
+    const ficha = await this.fichaRepository.create(createFichaDto);
+
+    await this.fichaRepository.save(ficha);
+
+    const solicitudes = 
+    
+
+
   }
 
   findAll() {

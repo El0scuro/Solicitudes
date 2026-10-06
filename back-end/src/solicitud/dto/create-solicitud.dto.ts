@@ -1,1 +1,4 @@
-export class CreateSolicitudDto {}
+export class CreateSolicitudDto {
+
+    
+}
