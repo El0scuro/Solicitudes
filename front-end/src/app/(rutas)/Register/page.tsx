@@ -122,6 +122,7 @@ export default function RegisterPage(){
         Mail: '',
         Contrasena: '', 
         Rut: '',
+        Generacion: '',
         Dig_Verificador: '',
         Ano_Ingreso: '', 
         Sede: '',
