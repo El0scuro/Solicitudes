@@ -18,7 +18,6 @@ import { SecretariaSeccionModule } from './secretaria_seccion/secretaria_seccion
 import { SecretariaModule } from './secretaria/secretaria.module.js';
 import { AdministradorModule } from './administrador/administrador.module.js';
 import { AsignaturaModule } from './asignatura/asignatura.module.js';
-import { ProfesorModule } from './profesor/profesor.module.js';
 import { JefeCarreraModule } from './jefe_carrera/jefe_carrera.module.js';
 import { HibridoModule as HibridoBackModule } from './hibrido_back/hibrido.module.js';
 import { HibridoModule as HibridoFrontModule } from './hibrido_front/hibrido.module.js';
@@ -98,7 +97,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SecretariaModule,
     AdministradorModule,
     AsignaturaModule,
-    ProfesorModule,
     JefeCarreraModule,
     HibridoBackModule,
     HibridoFrontModule,

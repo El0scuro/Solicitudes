@@ -4,7 +4,8 @@ import { Box, Button, Table, TableBody,
     TableCell, TableHead, TableRow, 
     TextField, Typography, Checkbox,
     FormControlLabel, CircularProgress,
-    Stack, Divider
+    Stack, Divider, FormControl,
+    InputLabel, Select, MenuItem
 } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
@@ -36,15 +37,16 @@ export default function Desinscribir_Page({
     close, 
     seccionesSolicitud, setSeccionesSolicitud, 
     carta, setCarta,
-    setStateDesinscripciones: setStateDesinscripciones
+    setStateDesinscripciones
 }: PropRamo){
     
+    //Buscador//
     const [parametroBusqueda, setParametroBusqueda] = useState<"Semestre" |  "Codigo" | "Nombre">("Codigo");
 
     const [valorBusqueda, setValorBusqueda] = useState<string>('');
 
 
-
+    //Respuesta busqueda//
     const [stateRespuesta, setStateRespuesta] = useState(false);
 
     const [stateError, setStateError] = useState(false);
@@ -56,12 +58,15 @@ export default function Desinscribir_Page({
     const [mensajeError, setMensajeError] = useState<string>();
 
 
+    //Buscando...//
     const [stateBusqueda, setStateBusqueda] = useState(false);
 
 
+    //Carta//
     const [stateCarta, setStateCarta] = useState(false);
 
 
+    //Buscadores//
     const [semestreMarcado, setSemestreMarcado] = useState(false);
 
     const [codigoMarcado, setCodigoMarcado] = useState(true);
@@ -69,33 +74,54 @@ export default function Desinscribir_Page({
     const [nombreMarcado, setNombreMarcado] = useState(false);
 
 
+    //Seccion y Profesor//
+    const [stateNumNom, setStateNumNom] = useState(false);
+
+    const [num_Seccion, setNum_Seccion] = useState<number | null>(null);
+
+    const [nombreProfesor, setNombreProfesor] = useState<string>("");
+
+    const [seccionSeleccionada, setSeccionSeleccionada] = useState<Seccion>({
+        num_Seccion: null,
+        Nombre_Profesor: '',
+        asignatura: null
+    });
+
+    const [seccionesDisponibles, setSeccionesDisponibles] = useState<number[]>([1, 2, 3, 4, 5])
+
+    const [asignaturaActual, setAsignaturaActual] = useState<Asignatura>();
+
+    // mismo numero de seccion :O //
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
 
-    const seleccionarSeccion = (asignatura: Asignatura, seccion: Seccion) => {
+    const seleccionarSeccion = (asignatura: Asignatura) => {
         setSeccionesSolicitud((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.some(sec => 
-                (sec.num_Seccion === seccion.num_Seccion) && 
+                (sec.num_Seccion === num_Seccion) && 
                 (sec.asignatura?.Codigo === asignatura.Codigo)
             );
-
 
             if (yaSeleccionado) {
                 return seccionesActuales;
             }
 
+            asignatura.secciones.push()
             if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
                 mostrarDuplicado();
-                seccion.asignatura = asignatura;
                 
                 return seccionesActuales;
             }
 
-            seccion.asignatura = asignatura;
+            const nuevaSeccion: Seccion = {
+                num_Seccion: num_Seccion,
+                Nombre_Profesor: nombreProfesor,
+                asignatura: asignatura
+            }
 
             setStateDesinscripciones(true);
-            return [...seccionesActuales, seccion];
+            return [...seccionesActuales, nuevaSeccion];
         });
     };
 
@@ -168,6 +194,7 @@ export default function Desinscribir_Page({
             setStateSeccionDuplicada(false);
         }, 7000);
     }
+
     return(
         <Box
         sx={{
@@ -486,7 +513,7 @@ export default function Desinscribir_Page({
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Correo Profesor
+                                            Nombre Profesor
                                         </TableCell>
 
                                         <TableCell sx={{
@@ -532,7 +559,7 @@ export default function Desinscribir_Page({
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.profesor?.Mail}
+                                                {nombreProfesor}
                                             </TableCell>
 
                                             <TableCell align='center' sx={{
@@ -609,23 +636,6 @@ export default function Desinscribir_Page({
                                                                 Asignatura
                                                             </TableCell>
 
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                width: '120px',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                Seccion
-                                                            </TableCell>
-
-                                                            <TableCell sx={{
-                                                                border: '1px solid black',
-                                                                width: '150px',
-                                                                py: 0.25,
-                                                                px: 0.5
-                                                            }}>
-                                                                Correo Profesor
-                                                            </TableCell>
                                                         </TableRow>
                                                     </TableHead>
 
@@ -635,7 +645,8 @@ export default function Desinscribir_Page({
                                                                 <TableRow
                                                                     key={seccion.num_Seccion}
                                                                     onClick={() => {
-                                                                        seleccionarSeccion(asig, seccion);
+                                                                        setStateNumNom(true);
+                                                                        setAsignaturaActual(asig);
                                                                     }}
                                                                     sx={{
                                                                         cursor: 'pointer',
@@ -663,34 +674,92 @@ export default function Desinscribir_Page({
                                                                     }}>
                                                                         {asig.Nombre}
                                                                     </TableCell>
-
-                                                                    <TableCell sx={{
-                                                                        border: '1px solid black',
-                                                                        py: 0.25,
-                                                                        px: 0.5
-                                                                    }}>
-                                                                        {seccion.num_Seccion}
-                                                                    </TableCell>
-
-                                                                    <TableCell sx={{
-                                                                        border: '1px solid black',
-                                                                        py: 0.25,
-                                                                        px: 0.5
-                                                                    }}>
-                                                                        {seccion.profesor?.Mail}
-                                                                    </TableCell>
                                                                 </TableRow>
                                                             ))
                                                         )}
                                                     </TableBody>
                                                 </Table>
+                                                
+                                                {stateNumNom && (
+                                                    <Box
+                                                    sx={{
+                                                        display:'flex',
+                                                        flexDirection:'column',
+                                                        gap:10
+                                                    }}
+                                                    >
+                                                        <Box
+                                                        sx={{
+                                                            display:'flex',
+                                                            gap: 4
+                                                        }}
+                                                        >
+                                                            {/*Secciones */}
+                                                            <FormControl
+                                                            sx={{
+                                                                minWidth:'250px'
+                                                            }}
+                                                            >
+                                                                <InputLabel id="demo-simple-select-label">Seleccione una sección</InputLabel>
+                                                                <Select
+                                                                labelId="demo-simple-select-label"
+                                                                id="demo-simple-select"
+                                                                label="Secciones"
+                                                                onChange={(e) => {
+                                                                    if(e.target.value === "Seleccione"){
+                                                                        setSeccionSeleccionada({
+                                                                            Nombre_Profesor: '',
+                                                                            num_Seccion: null,
+                                                                            asignatura: null
+                                                                        });
+                                                                        setStateNumNom(false);
+                                                                    }
 
+                                                                    
+                                                                }}
+                                                                >
+                                                                    <MenuItem
+                                                                    value={"Seleccione"}
+                                                                    ></MenuItem>
+
+                                                                    {seccionesDisponibles.map(sec => (
+                                                                        <MenuItem
+                                                                        key={sec}
+                                                                        >
+                                                                        {sec}
+                                                                        </MenuItem>
+                                                                    ))}
+                                                                </Select>
+                                                            </FormControl>
+                                                            
+                                                            <TextField
+                                                            value={nombreProfesor}
+                                                            onChange={(e) => setNombreProfesor(e.target.value)}
+                                                            sx={{
+                                                                width:'250px'
+                                                            }}
+                                                            />
+                                                        </Box>
+                                                        <Button
+                                                        onClick={() => seleccionarSeccion(asignaturaActual! )}
+                                                        sx={{
+                                                            fontWeight:'bold',
+                                                            backgroundColor: '#003c58',
+                                                            color:'white'
+                                                        }}
+                                                        >
+                                                            Agregar seccion
+                                                        </Button>
+                                                    </Box>
+                                                )}
                                                 {stateSeccionDuplicada && (
                                                     <Typography
                                                     align="center"
                                                     sx={{
                                                         fontWeight:'bold',
-                                                        fontSize:'15px'
+                                                        fontSize:'15px',
+                                                        position:'absolute',
+                                                        right:'40%'
                                                     }}
                                                     >
                                                         Ya seleccionaste una seccion de la misma asignatura

@@ -60,6 +60,11 @@ interface EstudianteCifrado {
     Iv_Semestre: string;
     Tag_Semestre: string;
 
+    //Generacion
+    Generacion: string;
+    Iv_Generacion: string;
+    Tag_Generacion: string;
+
     // Claves de Transporte
     Llave_Cifrada: string;
     Version_Llave: string;
@@ -77,6 +82,7 @@ interface EstudianteDescifrado {
     Ano_Ingreso: string;
     Sede: string;
     Semestre: string;
+    Generacion: string;
 }
 
 export async function POST(request: Request) {
@@ -96,7 +102,8 @@ export async function POST(request: Request) {
         Digito_Verificador: '',
         Ano_Ingreso: '',
         Sede: '',
-        Semestre: ''
+        Semestre: '',
+        Generacion: ''
     };
 
     // Desciframos la llave AES temporal
@@ -142,8 +149,6 @@ export async function POST(request: Request) {
                 authTag,
                 llaveTemporal
             );
-
-            console.log(estudiante_Descifrado);
     }
 
     // Enviamos el estudiante ya descifrado al navegador

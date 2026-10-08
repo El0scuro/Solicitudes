@@ -78,6 +78,11 @@ interface EstudianteCifrado {
     Iv_Semestre: string;
     Tag_Semestre: string;
 
+    //Generacion
+    Generacion: string;
+    Iv_Generacion: string;
+    Tag_Generacion: string;
+
     // Claves de Transporte
     Llave_Cifrada: string;
     Version_Llave: string;
@@ -92,10 +97,10 @@ interface EstudianteDescifrado {
     Celular: string;
     Rut: string;
     Digito_Verificador: string;
-    Generacion: string;
     Ano_Ingreso: string;
     Sede: string;
     Semestre: string;
+    Generacion: string;
 }
 
 
@@ -303,7 +308,7 @@ function Solicitud_Ficha_Content(){
 
                     Codigo: seccion.asignatura!.Codigo,
                     Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: seccion.num_Seccion
+                    num_Seccion: seccion.num_Seccion!
                 }
 
                 inscripciones.push(datos);
@@ -324,7 +329,7 @@ function Solicitud_Ficha_Content(){
 
                     Codigo: seccion.asignatura!.Codigo,
                     Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: seccion.num_Seccion
+                    num_Seccion: seccion.num_Seccion!
                 }
 
                 desinscripciones.push(datos);
@@ -355,11 +360,11 @@ function Solicitud_Ficha_Content(){
         if(stateCambio){
             for(const secciones of seccionesCambio){
                 const datos: CambioInterface = {
-                    Seccion_Original: secciones[0].num_Seccion,
+                    Seccion_Original: secciones[0].num_Seccion!,
 
                     Codigo: secciones[0].asignatura!.Codigo,
                     Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: secciones[1].num_Seccion
+                    num_Seccion: secciones[1].num_Seccion!
                 }
 
                 cambios.push(datos);

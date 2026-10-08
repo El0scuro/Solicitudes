@@ -109,6 +109,7 @@ CREATE TABLE `estudiante` (
   `Segundo_Apellido` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Celular` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Mail` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Generacion` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Semestre` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Ano_Ingreso` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Sede` varchar(384) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -262,34 +263,6 @@ LOCK TABLES `metadatos_cifrado` WRITE;
 /*!40000 ALTER TABLE `metadatos_cifrado` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `profesor`
---
-
-DROP TABLE IF EXISTS `profesor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `profesor` (
-  `Rut` varchar(55) NOT NULL,
-  `Digito_Verificador` varchar(55) NOT NULL,
-  `Primer_Nombre` varchar(100) NOT NULL,
-  `Segundo_Nombre` varchar(100) DEFAULT NULL,
-  `Primer_Apellido` varchar(100) NOT NULL,
-  `Segundo_Apellido` varchar(100) NOT NULL,
-  `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Mail`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `profesor`
---
-
-LOCK TABLES `profesor` WRITE;
-/*!40000 ALTER TABLE `profesor` DISABLE KEYS */;
-INSERT INTO `profesor` VALUES ('12345678','9','felipe','raul','robles','naveas','correo1@gmail.com'),('87654321','8','raul','felipe','naveas','robles','correo2@gmail.com'),('23456789','1','emilia','maira','gonzalez','gonzalez','correo3@gmail.com'),('98765432','2','maira','emilia','sanchez','sanchez','correo4@gmail.com');
-/*!40000 ALTER TABLE `profesor` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `rutas_justificativos`
@@ -328,10 +301,9 @@ CREATE TABLE `seccion` (
   `mail_Profesor` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `num_Seccion` int NOT NULL,
   `Sede` varchar(100) NOT NULL,
+  `Nombre_Profesor` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
-  KEY `seccion_profesor_FK` (`mail_Profesor`),
-  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),
-  CONSTRAINT `seccion_profesor_FK` FOREIGN KEY (`mail_Profesor`) REFERENCES `profesor` (`Mail`)
+  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

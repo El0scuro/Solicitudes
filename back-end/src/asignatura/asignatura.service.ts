@@ -19,13 +19,7 @@ export class AsignaturaService {
   }
 
   async findAll() {
-    return await this.asignaturaRepository.find({
-      relations:{
-        secciones:{
-          profesor: true
-        }
-      }
-    }) 
+    return await this.asignaturaRepository.find();
   }
 
   async findOneCodigo(Codigo: string) {
@@ -33,12 +27,7 @@ export class AsignaturaService {
     const asignatura = await this.asignaturaRepository.findOne({
       where:{
         Codigo: Codigo
-      },
-      relations: {
-        secciones: {
-          profesor: true
-        }
-      },
+      }
     });
 
     if(!asignatura){
@@ -53,12 +42,7 @@ export class AsignaturaService {
     const asignatura = await this.asignaturaRepository.findOne({
       where:{
         Nombre: Nombre
-      },
-      relations: {
-        secciones: {
-          profesor: true
-        }
-      },
+      }
     });
 
     if(!asignatura){
@@ -73,12 +57,7 @@ export class AsignaturaService {
     const asignaturas = await this.asignaturaRepository.find({
       where:{
         Semestre: Semestre
-      },
-      relations: {
-        secciones: {
-          profesor: true
-        }
-      },
+      }
     });
 
     if(asignaturas.length === 0){

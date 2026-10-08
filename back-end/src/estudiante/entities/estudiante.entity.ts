@@ -31,6 +31,9 @@ export class Estudiante {
     @Column("varchar", { name: "Contrasena", length: 384 })
     Contrasena: string;
 
+    @Column("varchar", {name: "Generacion", length: 384})
+    Generacion: string;
+
     @Column("varchar", { name: "Semestre", length: 384 })
     Semestre: string;
 

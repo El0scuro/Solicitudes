@@ -96,6 +96,16 @@ export class CreateEstudianteDto {
 
 
     @IsString()
+    Generacion: string;
+
+    @IsString()
+    Iv_Generacion: string;
+
+    @IsString()
+    Tag_Generacion: string;
+
+    
+    @IsString()
     Ano_Ingreso: string;
 
     @IsString()

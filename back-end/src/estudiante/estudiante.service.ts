@@ -69,6 +69,11 @@ export interface EstudianteCifrado {
     Iv_Semestre: string;
     Tag_Semestre: string;
 
+    //Generacion
+    Generacion: string;
+    Iv_Generacion: string;
+    Tag_Generacion: string;
+
     // Claves de Transporte
     Llave_Cifrada: string;
     Version_Llave: string;
@@ -238,6 +243,18 @@ export class EstudianteService {
             llaveAlmacenamiento.llave
         );
 
+    //Generacion
+    const generacion_Cifrado = 
+        await this.almacenamientoService.cifrarDatoAlmacenamiento(
+            await this.hibridoServiceBack.descifrarDatoTransporte(
+                createEstudianteDto.Generacion,
+                createEstudianteDto.Iv_Generacion,
+                createEstudianteDto.Tag_Generacion,
+                llaveTemporal
+            ),
+            llaveAlmacenamiento.llave
+        );
+
     // Semestre
     const semestre_Cifrado =
         await this.almacenamientoService.cifrarDatoAlmacenamiento(
@@ -298,6 +315,8 @@ export class EstudianteService {
 
         Contrasena: ContrasenaHash,
 
+        Generacion: generacion_Cifrado.cifrado,
+
         Semestre: semestre_Cifrado.cifrado,
 
         Ano_Ingreso: ano_Ingreso_Cifrado.cifrado,
@@ -320,6 +339,7 @@ export class EstudianteService {
         Primer_Apellido: primer_Apellido_Cifrado,
         Segundo_Apellido: segundo_Apellido_Cifrado,
         Celular: celular_Cifrado,
+        Generacion: generacion_Cifrado,
         Semestre: semestre_Cifrado,
         Ano_Ingreso: ano_Ingreso_Cifrado,
         Sede: sede_Cifrado
@@ -446,6 +466,7 @@ export class EstudianteService {
                 Ano_Ingreso: string;
                 Sede: string;
                 Semestre: string;
+                Generacion: string;
             }
 
             // Inicializo el estudiante cifrado vacío
@@ -494,6 +515,11 @@ export class EstudianteService {
                 Ano_Ingreso: '',
                 Iv_Ano_Ingreso: '',
                 Tag_Ano_Ingreso: '',
+                
+                //Generacion
+                Generacion: '',
+                Iv_Generacion: '',
+                Tag_Generacion: '',
 
                 // Sede
                 Sede: '',
@@ -522,7 +548,8 @@ export class EstudianteService {
                 Digito_Verificador: "",
                 Ano_Ingreso: "", 
                 Sede: "",
-                Semestre: ""
+                Semestre: "",
+                Generacion: ""
             }
 
             //descifro los datos del estudiante
@@ -570,14 +597,10 @@ export class EstudianteService {
                     llave_Temporal_Ficha
                 )
             );
-
-            console.log(estudiante_Descifrado);
-
-            console.log(datosEncriptados);
             
 
             const llave_Publica = await this.hibridoServiceFront.getCurrent();
-           
+
 
             //cifro la llave temporal
             const llaveCifrada: Buffer = publicEncrypt(
@@ -657,6 +680,11 @@ export class EstudianteService {
             estudianteCifrado.Semestre = datosEncriptados[indiceCifrado].valor;
             estudianteCifrado.Iv_Semestre = datosEncriptados[indiceCifrado].ivValor;
             estudianteCifrado.Tag_Semestre = datosEncriptados[indiceCifrado].authTag;
+
+            // Generacion
+            estudianteCifrado.Generacion = datosEncriptados[indiceCifrado].valor;
+            estudianteCifrado.Iv_Generacion = datosEncriptados[indiceCifrado].ivValor;
+            estudianteCifrado.Tag_Generacion = datosEncriptados[indiceCifrado].authTag;
 
             // Información de transporte de la llave
             estudianteCifrado.Llave_Cifrada = llaveCifrada.toString('base64');

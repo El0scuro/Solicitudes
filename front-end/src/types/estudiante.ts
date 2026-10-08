@@ -8,8 +8,8 @@ export interface Estudiante {
     Contrasena: string;
     Rut: string;
     Dig_Verificador: string;
+    Generacion: string;
     Ano_Ingreso: string; 
     Sede: string;
     Semestre: string;
-    Generacion: string;
 }
