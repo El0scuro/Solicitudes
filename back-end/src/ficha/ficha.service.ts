@@ -25,7 +25,7 @@ export class FichaService {
 
     await this.fichaRepository.save(ficha);
 
-    const solicitudes = 
+    
     
 
 
