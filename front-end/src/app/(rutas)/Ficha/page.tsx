@@ -18,7 +18,7 @@ import { Seccion } from "@/types/seccion";
 import Inscribir_Page from "./components/inscribir";
 import Desinscribir_Page from "./components/desinscribir";
 import Justificar_Clase_Page from "./components/clase";
-import Cambio_Seccion from "./components/cambio";
+//import Cambio_Seccion from "./components/cambio.tsx";
 
 
 //interfaz para el estudiante cifrado para transporte
@@ -916,6 +916,7 @@ function Solicitud_Ficha_Content(){
                     )}
                      */}
 
+{/* 
                     {verCambio && (
                         <Cambio_Seccion
                         close={() => setVerCambio(false)}
@@ -924,6 +925,8 @@ function Solicitud_Ficha_Content(){
                         setStateCambios={setStateCambio}
                         />
                     )}
+
+                    */}
                 </Box>
 
 
