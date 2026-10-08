@@ -13,8 +13,6 @@ export class FichaService {
     @InjectRepository(Ficha, 'solicitudes')
     private fichaRepository: Repository<Ficha>,
 
-    private readonly solicitudService: SolicitudService,
-
 
   ) {}
   
@@ -24,10 +22,6 @@ export class FichaService {
     const ficha = await this.fichaRepository.create(createFichaDto);
 
     await this.fichaRepository.save(ficha);
-
-    
-    
-
 
   }
 
