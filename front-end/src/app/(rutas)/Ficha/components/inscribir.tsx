@@ -158,7 +158,6 @@ export default function Inscribir_Page({
             );
             break;
         }
-        console.log(response.data);
         setStateBusqueda(false);
 
         setStateRespuesta(true);
@@ -641,10 +640,9 @@ export default function Inscribir_Page({
                                                     </TableHead>
 
                                                     <TableBody>
-                                                        {respuestaServidor?.map(asig =>
-                                                            asig.secciones?.map(seccion => (
+                                                        {respuestaServidor?.map(asig =>(
                                                                 <TableRow
-                                                                    key={seccion.num_Seccion}
+                                                                    key={asig.Codigo}
                                                                     onClick={() => {
                                                                         setStateNumNom(true);
                                                                         setAsignaturaActual(asig);
@@ -652,10 +650,8 @@ export default function Inscribir_Page({
                                                                     sx={{
                                                                         cursor: 'pointer',
                                                                         backgroundColor: seccionesSolicitud.find(
-                                                                            sec => 
-                                                                            sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura?.Codigo === asig.Codigo
-                                                                        )
+                                                                            sec => sec.asignatura?.Codigo === asig.Codigo
+                                                                        ) || asignaturaActual?.Codigo === asig.Codigo
                                                                             ? 'lightblue'
                                                                             : 'transparent'
                                                                     }}
@@ -676,7 +672,7 @@ export default function Inscribir_Page({
                                                                         {asig.Nombre}
                                                                     </TableCell>
                                                                 </TableRow>
-                                                            ))
+                                                            )
                                                         )}
                                                     </TableBody>
                                                 </Table>
