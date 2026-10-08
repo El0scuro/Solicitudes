@@ -19,7 +19,7 @@ export class FichaService {
   async create(createFichaDto: CreateFichaDto) {
 
     //Creo la noción de la ficha
-    const ficha = await this.fichaRepository.create(createFichaDto);
+    const ficha = this.fichaRepository.create(createFichaDto);
 
     await this.fichaRepository.save(ficha);
 
