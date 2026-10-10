@@ -719,37 +719,35 @@ export default function Desinscribir_Page({
                                                             }}
                                                             >
                                                                 {/*Secciones */}
-                                                                <FormControl
-                                                                sx={{
-                                                                    width:'200px'
-                                                                }}
-                                                                >
-                                                                    <InputLabel id="demo-simple-select-label">Seleccione <br/> una sección</InputLabel>
+                                                                <FormControl sx={{ width: '200px' }}>
+                                                                    <InputLabel id="seccion-label">
+                                                                        Seleccione una sección
+                                                                    </InputLabel>
+
                                                                     <Select
-                                                                    labelId="demo-simple-select-label"
-                                                                    id="demo-simple-select"
-                                                                    label="Secciones"
-                                                                    value={num_Seccion}
-                                                                    onChange={(e) => {
-                                                                        if(e.target.value === "Seleccione"){
-                                                                            setNombreProfesor('');
-                                                                            setNum_Seccion(null);
-                                                                            setStateNumNom(false);
-                                                                        }
+                                                                        labelId="seccion-label"
+                                                                        id="seccion-select"
+                                                                        label="Seleccione una sección"
+                                                                        value={num_Seccion ?? ''}
+                                                                        onChange={(e) => {
+                                                                            const valor = e.target.value;
 
-                                                                        
-                                                                    }}
+                                                                            if (valor === null) {
+                                                                                setNombreProfesor('');
+                                                                                setNum_Seccion(null);
+                                                                                setStateNumNom(false);
+                                                                                return;
+                                                                            }
+
+                                                                            setNum_Seccion(Number(valor));
+                                                                        }}
                                                                     >
-                                                                        <MenuItem
-                                                                        value={"Seleccione"}
-                                                                        ></MenuItem>
-
                                                                         {seccionesDisponibles.map(sec => (
                                                                             <MenuItem
-                                                                            key={sec}
-                                                                            onClick={() => setNum_Seccion(Number(sec))}
+                                                                                key={sec}
+                                                                                value={Number(sec)}
                                                                             >
-                                                                            {sec}
+                                                                                {sec}
                                                                             </MenuItem>
                                                                         ))}
                                                                     </Select>
