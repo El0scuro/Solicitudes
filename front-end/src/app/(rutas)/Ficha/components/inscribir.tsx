@@ -128,54 +128,62 @@ export default function Inscribir_Page({
 
         let response;
 
-       try {
+        try {
 
         
-        switch (parametroBusqueda) {
+            switch (parametroBusqueda) {
+                
+                case "Codigo":
+                response = await axios.get(
+                    `${__url}/asignatura/buscar-codigo/${valorBusqueda}`
+                );
+                break;
+
+                case "Nombre":
+                response = await axios.get(
+                    `${__url}/asignatura/buscar-nombre/${valorBusqueda}`
+                );
+                break;
+
+                case "Semestre":
+                response = await axios.get(
+                    `${__url}/asignatura/buscar-semestre/${valorBusqueda}`
+                );
+                break;
+            }
+
+            setStateBusqueda(false);
+
+            setRespuestaServidor(response.data);
+            setStateRespuesta(true);
             
-            case "Codigo":
-            response = await axios.get(
-                `${__url}/asignatura/buscar-codigo/${valorBusqueda}`
-            );
-            break;
+            setStateExito(true);
+            setStateError(false);
 
-            case "Nombre":
-            response = await axios.get(
-                `${__url}/asignatura/buscar-nombre/${valorBusqueda}`
-            );
-            break;
+        } catch (error: unknown) {
 
-            case "Semestre":
-            response = await axios.get(
-                `${__url}/asignatura/buscar-semestre/${valorBusqueda}`
-            );
-            break;
-        }
-        setStateBusqueda(false);
+            setStateBusqueda(false);
 
-        setStateRespuesta(true);
-        setRespuestaServidor(response.data);
-        setStateExito(true);
+            setStateRespuesta(true);
 
-        } catch (error) {
-        setStateExito(false);
-        setStateError(true);
+            setStateExito(false);
+            setStateError(true);
 
-        if (parametroBusqueda === "Codigo") {
-            setMensajeError("El código ingresado no es válido.");
-        }
-
-        if (parametroBusqueda === "Nombre") {
-            setMensajeError("El nombre ingresado no es válido.");
-        }
-
-        if (parametroBusqueda === "Semestre") {
-            setMensajeError(
-            `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
-            );
-        }
-        
-        setStateBusqueda(false);
+            switch(parametroBusqueda){
+                case "Codigo":
+                    setMensajeError("El código ingresado no es válido.");
+                    break;
+                case "Nombre":
+                    setMensajeError("El nombre ingresado no es válido.");
+                    break;
+                case "Semestre":
+                    setMensajeError(
+                    `La carrera Administración Pública no tiene un ${valorBusqueda} semestre.`
+                    );
+                    break;
+            }
+            
+            setStateBusqueda(false);
         }
     };
 
@@ -493,7 +501,7 @@ export default function Inscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '20%',
+                                            width: '30%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -502,7 +510,7 @@ export default function Inscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '20%',
+                                            width: '15%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -512,7 +520,7 @@ export default function Inscribir_Page({
                                         
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '20%',
+                                            width: '15%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -711,6 +719,7 @@ export default function Inscribir_Page({
                                                             gap:10
                                                         }}
                                                         >
+                                                            {/*Seccion - Nombre */}
                                                             <Box
                                                             sx={{
                                                                 display:'flex',
@@ -769,7 +778,7 @@ export default function Inscribir_Page({
                                                             onClick={() => {
                                                                 seleccionarSeccion();
                                                             }}
-                                                            disabled={!num_Seccion && !nombreProfesor}
+                                                            disabled={!num_Seccion || !nombreProfesor}
                                                             sx={{
                                                                 fontWeight:'bold',
                                                                 backgroundColor: '#003c58',
@@ -792,7 +801,9 @@ export default function Inscribir_Page({
                                                         fontSize:'15px',
                                                         position:'absolute',
                                                         right:'40%',
-                                                        backgroundColor:'white'
+                                                        backgroundColor:'white',
+                                                        border:'2px solid black',
+                                                        borderRadius:'20px'
                                                     }}
                                                     >
                                                         Ya seleccionaste una seccion de la misma asignatura
