@@ -213,7 +213,7 @@ export default function Inscribir_Page({
             border: '2px solid black',
             borderRadius: '8px',
             padding: 1,
-            width:'90%'
+            width:'80%'
             }}
             >
 
@@ -231,7 +231,7 @@ export default function Inscribir_Page({
                 <Box
                 sx={{
                 display:'flex',
-                width:'88%'
+                width:'100%'
                 }}
                 >
                     <Box
@@ -249,7 +249,7 @@ export default function Inscribir_Page({
                             border: '2px solid black',
                             borderRadius: '8px',
                             padding: 0.5,
-                            width: '600px',
+                            width: '46%',
                             height:'80px'
                         }}
                         >
@@ -334,7 +334,8 @@ export default function Inscribir_Page({
                             display:'flex',
                             flexDirection:'column',
                             ml:'20px',
-                            mt:'20px'
+                            mt:'20px',
+                            width:'20%'
                         }}
                         >
                             {/*Buscador */}
@@ -370,7 +371,7 @@ export default function Inscribir_Page({
                                 },
                             }}
                             sx={{
-                                width:'400px'
+                                width:'100%'
                             }}
 
                             value={valorBusqueda}
@@ -416,7 +417,6 @@ export default function Inscribir_Page({
                     sx={{
                         ml:'auto',
                         display:'flex',
-                        justifyContent:'center',
                         alignItems: 'center',
                         backgroundColor:'red',
                         color:'white',
@@ -433,13 +433,13 @@ export default function Inscribir_Page({
                 {/*Seleccionados - Repuesta / Carta */}
                 <Stack
                 sx={{
-                    width:'88%'
+                    width:'100%'
                 }}
                 spacing={5}
                 divider={
                     <Divider
                         sx={{
-                            width:'80%',
+                            width:'90%',
                             alignSelf: 'center',
                             borderBottomWidth: 3,
                             borderColor:'#003c58'
@@ -451,7 +451,8 @@ export default function Inscribir_Page({
                     <Box
                     sx={{
                         display:'flex',
-                        gap: 10
+                        gap: 10,
+                        width:'100%'
                     }}
                     >
 
@@ -486,7 +487,7 @@ export default function Inscribir_Page({
                                     <TableRow>
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '65px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -495,7 +496,7 @@ export default function Inscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '150px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -504,7 +505,7 @@ export default function Inscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '120px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -514,16 +515,16 @@ export default function Inscribir_Page({
                                         
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '150px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Nombre Profesor
+                                            Nombre <br/> Profesor
                                         </TableCell>
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '120px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -589,19 +590,26 @@ export default function Inscribir_Page({
                         {/*Respuesta servidor - Buscando */}
                         <Box
                         sx={{
-                            position:'relative'
+                            position:'relative',
+                            width:'40%'
                         }}
                         >
                             {/*Respuesta servidor */}
                             {stateRespuesta && (
-                                <Box>
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    width:'100%'
+                                }}
+                                >
                                     <Box>
                                         {stateError && (
                                             <Box
                                             sx={{
                                                 display:'flex',
                                                 justifyContent:'center',
-                                                alignItems:'center'
+                                                alignItems:'center',
+                                                width:'100%'
                                             }}
                                             >
                                                 <Typography>
@@ -618,10 +626,10 @@ export default function Inscribir_Page({
                                                     justifyContent: 'center',
                                                     alignItems: 'center',
                                                     gap: 5,
-                                                    width:'20%'
+                                                    width:'100%'
                                                 }}
                                             >
-                                                <Table sx={{ tableLayout: 'fixed', width: '10%' }}>
+                                                <Table sx={{ tableLayout: 'fixed', width: '50%' }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell sx={{
@@ -687,9 +695,9 @@ export default function Inscribir_Page({
                                                     <Box
                                                     sx={{
                                                         display:'flex',
-                                                        justifyContent:'column',
+                                                        flexDirection: 'column',
                                                         gap:8,
-                                                        width:'10%'
+                                                        width:'50%'
                                                     }}
                                                     >
                                                         {/*Seccion - Nombre */}
