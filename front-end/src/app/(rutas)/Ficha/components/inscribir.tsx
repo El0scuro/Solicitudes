@@ -483,7 +483,8 @@ export default function Inscribir_Page({
                             <Table
                                 sx={{
                                     tableLayout: 'fixed',
-                                    width: '100%'
+                                    width: '100%',
+                                    minHeight:'100%'
                                 }}
                             >
                                 <TableHead>
