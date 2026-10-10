@@ -87,7 +87,7 @@ export default function Desinscribir_Page({
         asignatura: null
     });
 
-    const [seccionesDisponibles, setSeccionesDisponibles] = useState<number[]>([1, 2, 3, 4, 5])
+    const seccionesDisponibles: number[] = [1, 2, 3, 4, 5];
 
     const [asignaturaActual, setAsignaturaActual] = useState<Asignatura>();
 
@@ -95,33 +95,26 @@ export default function Desinscribir_Page({
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
 
-    const seleccionarSeccion = (asignatura: Asignatura) => {
+    const seleccionarSeccion = () => {
         setSeccionesSolicitud((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.some(sec => 
                 (sec.num_Seccion === num_Seccion) && 
-                (sec.asignatura?.Codigo === asignatura.Codigo)
+                (sec.asignatura?.Codigo === asignaturaActual!.Codigo)
             );
 
             if (yaSeleccionado) {
                 return seccionesActuales;
             }
 
-            asignatura.secciones.push()
-            if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
+            if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignaturaActual!.Nombre)){
                 mostrarDuplicado();
                 
                 return seccionesActuales;
             }
 
-            const nuevaSeccion: Seccion = {
-                num_Seccion: num_Seccion,
-                Nombre_Profesor: nombreProfesor,
-                asignatura: asignatura
-            }
-
             setStateDesinscripciones(true);
-            return [...seccionesActuales, nuevaSeccion];
+            return [...seccionesActuales, seccionSeleccionada];
         });
     };
 
@@ -157,7 +150,6 @@ export default function Desinscribir_Page({
             );
             break;
         }
-
         setStateBusqueda(false);
 
         setStateRespuesta(true);
@@ -196,11 +188,11 @@ export default function Desinscribir_Page({
     }
 
     return(
+
         <Box
         sx={{
-            alignItems: 'flex-start',
-            width:'1500px',
-            ml:'0.5%'
+            display:'flex',
+            justifyContent:'center'
         }}
         >
             <Box
@@ -213,6 +205,7 @@ export default function Desinscribir_Page({
             border: '2px solid black',
             borderRadius: '8px',
             padding: 1,
+            width:'80%'
             }}
             >
 
@@ -229,13 +222,16 @@ export default function Desinscribir_Page({
                 {/* Buscador - CheckBox's - Cerrar*/}
                 <Box
                 sx={{
-                display:'flex'
+                display:'flex',
+                width:'100%',
+                height:'30%'
                 }}
                 >
                     <Box
                     sx={{
                         display:'flex',
                         gap:2,
+                        width:'85%'
                     }}
                     >
 
@@ -247,7 +243,7 @@ export default function Desinscribir_Page({
                             border: '2px solid black',
                             borderRadius: '8px',
                             padding: 0.5,
-                            width: '600px',
+                            width: '70%',
                             height:'80px'
                         }}
                         >
@@ -332,7 +328,8 @@ export default function Desinscribir_Page({
                             display:'flex',
                             flexDirection:'column',
                             ml:'20px',
-                            mt:'20px'
+                            mt:'20px',
+                            width:'30%'
                         }}
                         >
                             {/*Buscador */}
@@ -368,7 +365,7 @@ export default function Desinscribir_Page({
                                 },
                             }}
                             sx={{
-                                width:'400px'
+                                width:'100%'
                             }}
 
                             value={valorBusqueda}
@@ -414,7 +411,6 @@ export default function Desinscribir_Page({
                     sx={{
                         ml:'auto',
                         display:'flex',
-                        justifyContent:'center',
                         alignItems: 'center',
                         backgroundColor:'red',
                         color:'white',
@@ -430,11 +426,15 @@ export default function Desinscribir_Page({
 
                 {/*Seleccionados - Repuesta / Carta */}
                 <Stack
+                sx={{
+                    width:'100%',
+                    height:'70%'
+                }}
                 spacing={5}
                 divider={
                     <Divider
                         sx={{
-                            width: '1200px',
+                            width:'90%',
                             alignSelf: 'center',
                             borderBottomWidth: 3,
                             borderColor:'#003c58'
@@ -446,7 +446,9 @@ export default function Desinscribir_Page({
                     <Box
                     sx={{
                         display:'flex',
-                        gap: 10
+                        gap: 10,
+                        width:'100%',
+                        height:'70%'
                     }}
                     >
 
@@ -457,9 +459,8 @@ export default function Desinscribir_Page({
                             border: '2px solid black',
                             borderRadius: '8px',
                             padding: 0.5,
-                            width: '300px',
-                            minHeight:'300px',
-                            height:'auto',
+                            width: '50%',
+                            height:'100%',
                         }}
                         >
                             <Typography
@@ -474,14 +475,15 @@ export default function Desinscribir_Page({
                             <Table
                                 sx={{
                                     tableLayout: 'fixed',
-                                    width: '190px'
+                                    width: '100%',
+                                    minHeight:'250px'
                                 }}
                             >
                                 <TableHead>
                                     <TableRow>
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '65px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -490,7 +492,7 @@ export default function Desinscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '150px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -499,7 +501,7 @@ export default function Desinscribir_Page({
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '120px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -509,16 +511,16 @@ export default function Desinscribir_Page({
                                         
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '150px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
-                                            Nombre Profesor
+                                            Nombre <br/> Profesor
                                         </TableCell>
 
                                         <TableCell sx={{
                                             border: '1px solid black',
-                                            width: '120px',
+                                            width: '20%',
                                             py: 0.25,
                                             px: 0.5
                                         }}>
@@ -584,19 +586,29 @@ export default function Desinscribir_Page({
                         {/*Respuesta servidor - Buscando */}
                         <Box
                         sx={{
-                            position:'relative'
+                            position:'relative',
+                            width:'50%',
+                            height: '100%'
                         }}
                         >
                             {/*Respuesta servidor */}
                             {stateRespuesta && (
-                                <Box>
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    width:'100%',
+                                    height:'100%'
+                                }}
+                                >
                                     <Box>
                                         {stateError && (
                                             <Box
                                             sx={{
                                                 display:'flex',
                                                 justifyContent:'center',
-                                                alignItems:'center'
+                                                alignItems:'center',
+                                                width:'100%',
+                                                height:'100%'
                                             }}
                                             >
                                                 <Typography>
@@ -610,12 +622,14 @@ export default function Desinscribir_Page({
                                             <Box
                                                 sx={{
                                                     display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                    gap: 5
+                                                    justifyContent: 'flex-start',
+                                                    alignItems: 'flex-start',
+                                                    gap: 5,
+                                                    width:'100%',
+                                                    height:'100%'
                                                 }}
                                             >
-                                                <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                                                <Table sx={{ tableLayout: 'fixed', width: '50%' }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell sx={{
@@ -640,10 +654,9 @@ export default function Desinscribir_Page({
                                                     </TableHead>
 
                                                     <TableBody>
-                                                        {respuestaServidor?.map(asig =>
-                                                            asig.secciones?.map(seccion => (
+                                                        {respuestaServidor?.map(asig =>(
                                                                 <TableRow
-                                                                    key={seccion.num_Seccion}
+                                                                    key={asig.Codigo}
                                                                     onClick={() => {
                                                                         setStateNumNom(true);
                                                                         setAsignaturaActual(asig);
@@ -651,10 +664,8 @@ export default function Desinscribir_Page({
                                                                     sx={{
                                                                         cursor: 'pointer',
                                                                         backgroundColor: seccionesSolicitud.find(
-                                                                            sec => 
-                                                                            sec.num_Seccion === seccion.num_Seccion && 
-                                                                            sec.asignatura?.Codigo === asig.Codigo
-                                                                        )
+                                                                            sec => sec.asignatura?.Codigo === asig.Codigo
+                                                                        ) || asignaturaActual?.Codigo === asig.Codigo
                                                                             ? 'lightblue'
                                                                             : 'transparent'
                                                                     }}
@@ -675,83 +686,114 @@ export default function Desinscribir_Page({
                                                                         {asig.Nombre}
                                                                     </TableCell>
                                                                 </TableRow>
-                                                            ))
+                                                            )
                                                         )}
                                                     </TableBody>
                                                 </Table>
                                                 
-                                                {stateNumNom && (
-                                                    <Box
-                                                    sx={{
-                                                        display:'flex',
-                                                        flexDirection:'column',
-                                                        gap:10
-                                                    }}
-                                                    >
+                                                
+                                                <Box
+                                                sx={{
+                                                    width:'50%',
+                                                    height:'100%'
+                                                }}
+                                                >
+                                                    {/*Seccion - Nombre */}
+                                                    {stateNumNom && (
+                                                        
                                                         <Box
                                                         sx={{
-                                                            display:'flex',
-                                                            gap: 4
+                                                            dispaly:'flex',
+                                                            flexDirection:'column',
+                                                            width:'100%',
+                                                            height:'100%',
+                                                            gap:10
                                                         }}
                                                         >
-                                                            {/*Secciones */}
-                                                            <FormControl
+                                                            <Box
                                                             sx={{
-                                                                minWidth:'250px'
+                                                                display:'flex',
+                                                                flexDirection:'column',
+                                                                gap: 2,
+                                                                height:'70%'
                                                             }}
                                                             >
-                                                                <InputLabel id="demo-simple-select-label">Seleccione una sección</InputLabel>
-                                                                <Select
-                                                                labelId="demo-simple-select-label"
-                                                                id="demo-simple-select"
-                                                                label="Secciones"
-                                                                onChange={(e) => {
-                                                                    if(e.target.value === "Seleccione"){
-                                                                        setSeccionSeleccionada({
-                                                                            Nombre_Profesor: '',
-                                                                            num_Seccion: null,
-                                                                            asignatura: null
-                                                                        });
-                                                                        setStateNumNom(false);
-                                                                    }
-
-                                                                    
+                                                                {/*Secciones */}
+                                                                <FormControl
+                                                                sx={{
+                                                                    width:'200px'
                                                                 }}
                                                                 >
-                                                                    <MenuItem
-                                                                    value={"Seleccione"}
-                                                                    ></MenuItem>
+                                                                    <InputLabel id="demo-simple-select-label">Seleccione <br/> una sección</InputLabel>
+                                                                    <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    label="Secciones"
+                                                                    value={seccionesDisponibles}
+                                                                    onChange={(e) => {
+                                                                        if(e.target.value === "Seleccione"){
+                                                                            setSeccionSeleccionada({
+                                                                                Nombre_Profesor: '',
+                                                                                num_Seccion: null,
+                                                                                asignatura: null
+                                                                            });
+                                                                            setNombreProfesor('');
+                                                                            setNum_Seccion(null);
+                                                                            setStateNumNom(false);
+                                                                        }
 
-                                                                    {seccionesDisponibles.map(sec => (
+                                                                        
+                                                                    }}
+                                                                    >
                                                                         <MenuItem
-                                                                        key={sec}
-                                                                        >
-                                                                        {sec}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-                                                            </FormControl>
-                                                            
-                                                            <TextField
-                                                            value={nombreProfesor}
-                                                            onChange={(e) => setNombreProfesor(e.target.value)}
-                                                            sx={{
-                                                                width:'250px'
+                                                                        value={"Seleccione"}
+                                                                        ></MenuItem>
+
+                                                                        {seccionesDisponibles.map(sec => (
+                                                                            <MenuItem
+                                                                            key={sec}
+                                                                            onClick={() => setNum_Seccion(Number(sec))}
+                                                                            >
+                                                                            {sec}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                    </Select>
+                                                                </FormControl>
+                                                                
+                                                                <TextField
+                                                                label='Nombre Profesor'
+                                                                placeholder="Nombre Profesor"
+                                                                value={nombreProfesor}
+                                                                onChange={(e) => setNombreProfesor(e.target.value)}
+                                                                sx={{
+                                                                    width:'200px'
+                                                                }}
+                                                                />
+                                                            </Box>
+
+                                                            <Button
+                                                            onClick={() => {
+                                                                setSeccionSeleccionada({
+                                                                    Nombre_Profesor: nombreProfesor,
+                                                                    num_Seccion: num_Seccion,
+                                                                    asignatura: asignaturaActual!
+                                                                });
+                                                                seleccionarSeccion();
                                                             }}
-                                                            />
+                                                            sx={{
+                                                                fontWeight:'bold',
+                                                                backgroundColor: '#003c58',
+                                                                color:'white',
+                                                                width:'200px',
+                                                                height:'20%'
+                                                            }}
+                                                            >
+                                                                Agregar seccion
+                                                            </Button>
                                                         </Box>
-                                                        <Button
-                                                        onClick={() => seleccionarSeccion(asignaturaActual! )}
-                                                        sx={{
-                                                            fontWeight:'bold',
-                                                            backgroundColor: '#003c58',
-                                                            color:'white'
-                                                        }}
-                                                        >
-                                                            Agregar seccion
-                                                        </Button>
-                                                    </Box>
-                                                )}
+                                                    )}
+                                                </Box>
+                                                
                                                 {stateSeccionDuplicada && (
                                                     <Typography
                                                     align="center"
@@ -814,7 +856,8 @@ export default function Desinscribir_Page({
                     sx={{
                         display:'flex',
                         justifyContent: 'center',
-                        alignItems:'center'
+                        alignItems:'center',
+                        height:'20%'
                     }}
                     >
                         {stateCarta && (
@@ -955,8 +998,6 @@ export default function Desinscribir_Page({
                 </Stack>
                 
             </Box>
-                
-            
         </Box>
             
     )
