@@ -114,23 +114,8 @@ export default function Inscribir_Page({
                 return seccionesActuales;
             }
 
-            setAsignaturaActual(prev => {
-                if(!prev){return prev}
-                
-                return {
-                    ...prev,
-                    secciones: [...prev.secciones, seccionSeleccionada]
-                }
-            });
-
-            const nuevaSeccion: Seccion = {
-                num_Seccion: num_Seccion,
-                Nombre_Profesor: nombreProfesor,
-                asignatura: asignaturaActual!
-            }
-
             setStateInscripciones(true);
-            return [...seccionesActuales, nuevaSeccion];
+            return [...seccionesActuales, seccionSeleccionada];
         });
     };
 
