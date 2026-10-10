@@ -96,30 +96,37 @@ export default function Inscribir_Page({
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
 
-    const seleccionarSeccion = (asignatura: Asignatura) => {
+    const seleccionarSeccion = () => {
         setSeccionesSolicitud((seccionesActuales) => {
 
             const yaSeleccionado = seccionesActuales.some(sec => 
                 (sec.num_Seccion === num_Seccion) && 
-                (sec.asignatura?.Codigo === asignatura.Codigo)
+                (sec.asignatura?.Codigo === asignaturaActual!.Codigo)
             );
 
             if (yaSeleccionado) {
                 return seccionesActuales;
             }
 
-            if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
+            if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignaturaActual!.Nombre)){
                 mostrarDuplicado();
                 
                 return seccionesActuales;
             }
 
-            asignatura.secciones.push(seccionSeleccionada);
+            setAsignaturaActual(prev => {
+                if(!prev){return prev}
+                
+                return {
+                    ...prev,
+                    secciones: [...prev.secciones, seccionSeleccionada]
+                }
+            });
 
             const nuevaSeccion: Seccion = {
                 num_Seccion: num_Seccion,
                 Nombre_Profesor: nombreProfesor,
-                asignatura: asignatura
+                asignatura: asignaturaActual!
             }
 
             setStateInscripciones(true);
@@ -715,7 +722,8 @@ export default function Inscribir_Page({
                                                             dispaly:'flex',
                                                             flexDirection:'column',
                                                             width:'100%',
-                                                            height:'100%'
+                                                            height:'100%',
+                                                            gap:10
                                                         }}
                                                         >
                                                             <Box
