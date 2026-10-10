@@ -223,7 +223,8 @@ export default function Inscribir_Page({
             {/* Buscador - CheckBox's - Cerrar*/}
             <Box
             sx={{
-            display:'flex'
+            display:'flex',
+            width:'88%'
             }}
             >
                 <Box
@@ -424,11 +425,14 @@ export default function Inscribir_Page({
 
             {/*Seleccionados - Repuesta / Carta */}
             <Stack
+            sx={{
+                width:'88%'
+            }}
             spacing={5}
             divider={
                 <Divider
                     sx={{
-                        width: '1200px',
+                        width:'80%',
                         alignSelf: 'center',
                         borderBottomWidth: 3,
                         borderColor:'#003c58'
