@@ -88,7 +88,7 @@ export default function Inscribir_Page({
         asignatura: null
     });
 
-    const [seccionesDisponibles, setSeccionesDisponibles] = useState<number[]>([1, 2, 3, 4, 5])
+    const seccionesDisponibles: number[] = [1, 2, 3, 4, 5];
 
     const [asignaturaActual, setAsignaturaActual] = useState<Asignatura>();
 
@@ -108,12 +108,13 @@ export default function Inscribir_Page({
                 return seccionesActuales;
             }
 
-            asignatura.secciones.push()
             if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignatura.Nombre)){
                 mostrarDuplicado();
                 
                 return seccionesActuales;
             }
+
+            asignatura.secciones.push(seccionSeleccionada);
 
             const nuevaSeccion: Seccion = {
                 num_Seccion: num_Seccion,
@@ -484,7 +485,7 @@ export default function Inscribir_Page({
                                 sx={{
                                     tableLayout: 'fixed',
                                     width: '100%',
-                                    minHeight:'100%'
+                                    minHeight:'250px'
                                 }}
                             >
                                 <TableHead>
@@ -699,89 +700,107 @@ export default function Inscribir_Page({
                                                     </TableBody>
                                                 </Table>
                                                 
-                                                {stateNumNom && (
-                                                    <Box
-                                                    sx={{
-                                                        display:'flex',
-                                                        flexDirection: 'column',
-                                                        gap:8,
-                                                        width:'50%',
-                                                        height:'100%'
-                                                    }}
-                                                    >
-                                                        {/*Seccion - Nombre */}
+                                                
+                                                <Box
+                                                sx={{
+                                                    width:'50%',
+                                                    height:'100%'
+                                                }}
+                                                >
+                                                    {/*Seccion - Nombre */}
+                                                    {stateNumNom && (
+                                                        
                                                         <Box
                                                         sx={{
-                                                            display:'flex',
+                                                            dispaly:'flex',
                                                             flexDirection:'column',
-                                                            gap: 4,
-                                                            height:'70%'
+                                                            width:'100%',
+                                                            height:'100%'
                                                         }}
                                                         >
-                                                            {/*Secciones */}
-                                                            <FormControl
+                                                            <Box
                                                             sx={{
-                                                                width:'100px'
+                                                                display:'flex',
+                                                                flexDirection:'column',
+                                                                gap: 2,
+                                                                height:'70%'
                                                             }}
                                                             >
-                                                                <InputLabel id="demo-simple-select-label">Seleccione <br/> una sección</InputLabel>
-                                                                <Select
-                                                                labelId="demo-simple-select-label"
-                                                                id="demo-simple-select"
-                                                                label="Secciones"
-                                                                value={seccionesDisponibles}
-                                                                onChange={(e) => {
-                                                                    if(e.target.value === "Seleccione"){
-                                                                        setSeccionSeleccionada({
-                                                                            Nombre_Profesor: '',
-                                                                            num_Seccion: null,
-                                                                            asignatura: null
-                                                                        });
-                                                                        setStateNumNom(false);
-                                                                    }
-
-                                                                    
+                                                                {/*Secciones */}
+                                                                <FormControl
+                                                                sx={{
+                                                                    width:'200px'
                                                                 }}
                                                                 >
-                                                                    <MenuItem
-                                                                    value={"Seleccione"}
-                                                                    ></MenuItem>
+                                                                    <InputLabel id="demo-simple-select-label">Seleccione <br/> una sección</InputLabel>
+                                                                    <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    label="Secciones"
+                                                                    value={seccionesDisponibles}
+                                                                    onChange={(e) => {
+                                                                        if(e.target.value === "Seleccione"){
+                                                                            setSeccionSeleccionada({
+                                                                                Nombre_Profesor: '',
+                                                                                num_Seccion: null,
+                                                                                asignatura: null
+                                                                            });
+                                                                            setNombreProfesor('');
+                                                                            setNum_Seccion(null);
+                                                                            setStateNumNom(false);
+                                                                        }
 
-                                                                    {seccionesDisponibles.map(sec => (
+                                                                        
+                                                                    }}
+                                                                    >
                                                                         <MenuItem
-                                                                        key={sec}
-                                                                        >
-                                                                        {sec}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-                                                            </FormControl>
-                                                            
-                                                            <TextField
-                                                            label='Nombre Profesor'
-                                                            placeholder="Nombre Profesor"
-                                                            value={nombreProfesor}
-                                                            onChange={(e) => setNombreProfesor(e.target.value)}
-                                                            sx={{
-                                                                width:'200px'
-                                                            }}
-                                                            />
-                                                        </Box>
+                                                                        value={"Seleccione"}
+                                                                        ></MenuItem>
 
-                                                        <Button
-                                                        onClick={() => seleccionarSeccion(asignaturaActual! )}
-                                                        sx={{
-                                                            fontWeight:'bold',
-                                                            backgroundColor: '#003c58',
-                                                            color:'white',
-                                                            width:'200px',
-                                                            height:'20%'
-                                                        }}
-                                                        >
-                                                            Agregar seccion
-                                                        </Button>
-                                                    </Box>
-                                                )}
+                                                                        {seccionesDisponibles.map(sec => (
+                                                                            <MenuItem
+                                                                            key={sec}
+                                                                            onClick={() => setNum_Seccion(Number(sec))}
+                                                                            >
+                                                                            {sec}
+                                                                            </MenuItem>
+                                                                        ))}
+                                                                    </Select>
+                                                                </FormControl>
+                                                                
+                                                                <TextField
+                                                                label='Nombre Profesor'
+                                                                placeholder="Nombre Profesor"
+                                                                value={nombreProfesor}
+                                                                onChange={(e) => setNombreProfesor(e.target.value)}
+                                                                sx={{
+                                                                    width:'200px'
+                                                                }}
+                                                                />
+                                                            </Box>
+
+                                                            <Button
+                                                            onClick={() => {
+                                                                setSeccionSeleccionada({
+                                                                    Nombre_Profesor: nombreProfesor,
+                                                                    num_Seccion: num_Seccion,
+                                                                    asignatura: asignaturaActual!
+                                                                });
+                                                                seleccionarSeccion(asignaturaActual! )}}
+                                                            sx={{
+                                                                fontWeight:'bold',
+                                                                backgroundColor: '#003c58',
+                                                                color:'white',
+                                                                width:'200px',
+                                                                height:'20%'
+                                                            }}
+                                                            >
+                                                                Agregar seccion
+                                                            </Button>
+                                                        </Box>
+                                                    )}
+                                                </Box>
+                                                
                                                 {stateSeccionDuplicada && (
                                                     <Typography
                                                     align="center"
