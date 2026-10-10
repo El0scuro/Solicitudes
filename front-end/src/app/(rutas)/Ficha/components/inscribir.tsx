@@ -794,7 +794,8 @@ export default function Inscribir_Page({
                                                                     num_Seccion: num_Seccion,
                                                                     asignatura: asignaturaActual!
                                                                 });
-                                                                seleccionarSeccion(asignaturaActual! )}}
+                                                                seleccionarSeccion();
+                                                            }}
                                                             sx={{
                                                                 fontWeight:'bold',
                                                                 backgroundColor: '#003c58',
