@@ -8,7 +8,7 @@ services:
       context: ./front-end
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_BACKEND_URL:  https://marks-tear-bulk-copyrighted.trycloudflare.com/api
+        NEXT_PUBLIC_BACKEND_URL:  https://replica-comparing-thu-cookies.trycloudflare.com/api
     container_name: ficha-frontend
 
     ports:
@@ -21,7 +21,7 @@ services:
 
     environment:
       BACKEND_INTERNAL_URL: http://backend:4000/api
-      NEXT_PUBLIC_BACKEND_URL:  https://marks-tear-bulk-copyrighted.trycloudflare.com/api
+      NEXT_PUBLIC_BACKEND_URL: https://replica-comparing-thu-cookies.trycloudflare.com/api
 
     networks:
       - ficha-network
