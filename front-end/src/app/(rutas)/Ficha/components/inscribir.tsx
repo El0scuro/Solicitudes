@@ -231,7 +231,8 @@ export default function Inscribir_Page({
                 <Box
                 sx={{
                 display:'flex',
-                width:'100%'
+                width:'100%',
+                height:'30%'
                 }}
                 >
                     <Box
@@ -434,7 +435,8 @@ export default function Inscribir_Page({
                 {/*Seleccionados - Repuesta / Carta */}
                 <Stack
                 sx={{
-                    width:'100%'
+                    width:'100%',
+                    height:'70%'
                 }}
                 spacing={5}
                 divider={
@@ -453,7 +455,8 @@ export default function Inscribir_Page({
                     sx={{
                         display:'flex',
                         gap: 10,
-                        width:'100%'
+                        width:'100%',
+                        height:'70%'
                     }}
                     >
 
@@ -465,8 +468,7 @@ export default function Inscribir_Page({
                             borderRadius: '8px',
                             padding: 0.5,
                             width: '50%',
-                            minHeight:'300px',
-                            height:'auto',
+                            height:'100%',
                         }}
                         >
                             <Typography
@@ -592,7 +594,8 @@ export default function Inscribir_Page({
                         <Box
                         sx={{
                             position:'relative',
-                            width:'50%'
+                            width:'50%',
+                            height: '100%'
                         }}
                         >
                             {/*Respuesta servidor */}
@@ -600,7 +603,8 @@ export default function Inscribir_Page({
                                 <Box
                                 sx={{
                                     display:'flex',
-                                    width:'100%'
+                                    width:'100%',
+                                    height:'100%'
                                 }}
                                 >
                                     <Box>
@@ -610,7 +614,8 @@ export default function Inscribir_Page({
                                                 display:'flex',
                                                 justifyContent:'center',
                                                 alignItems:'center',
-                                                width:'100%'
+                                                width:'100%',
+                                                height:'100%'
                                             }}
                                             >
                                                 <Typography>
@@ -624,10 +629,11 @@ export default function Inscribir_Page({
                                             <Box
                                                 sx={{
                                                     display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
+                                                    justifyContent: 'flex-start',
+                                                    alignItems: 'flex-start',
                                                     gap: 5,
-                                                    width:'100%'
+                                                    width:'100%',
+                                                    height:'100%'
                                                 }}
                                             >
                                                 <Table sx={{ tableLayout: 'fixed', width: '50%' }}>
@@ -698,7 +704,8 @@ export default function Inscribir_Page({
                                                         display:'flex',
                                                         flexDirection: 'column',
                                                         gap:8,
-                                                        width:'50%'
+                                                        width:'50%',
+                                                        height:'100%'
                                                     }}
                                                     >
                                                         {/*Seccion - Nombre */}
@@ -706,7 +713,8 @@ export default function Inscribir_Page({
                                                         sx={{
                                                             display:'flex',
                                                             flexDirection:'column',
-                                                            gap: 4
+                                                            gap: 4,
+                                                            height:'70%'
                                                         }}
                                                         >
                                                             {/*Secciones */}
@@ -765,7 +773,8 @@ export default function Inscribir_Page({
                                                             fontWeight:'bold',
                                                             backgroundColor: '#003c58',
                                                             color:'white',
-                                                            width:'200px'
+                                                            width:'200px',
+                                                            height:'20%'
                                                         }}
                                                         >
                                                             Agregar seccion
@@ -834,7 +843,8 @@ export default function Inscribir_Page({
                     sx={{
                         display:'flex',
                         justifyContent: 'center',
-                        alignItems:'center'
+                        alignItems:'center',
+                        height:'20%'
                     }}
                     >
                         {stateCarta && (
