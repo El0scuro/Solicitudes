@@ -238,6 +238,7 @@ export default function Inscribir_Page({
                     sx={{
                         display:'flex',
                         gap:2,
+                        width:'85%'
                     }}
                     >
 
@@ -249,7 +250,7 @@ export default function Inscribir_Page({
                             border: '2px solid black',
                             borderRadius: '8px',
                             padding: 0.5,
-                            width: '46%',
+                            width: '70%',
                             height:'80px'
                         }}
                         >
@@ -335,7 +336,7 @@ export default function Inscribir_Page({
                             flexDirection:'column',
                             ml:'20px',
                             mt:'20px',
-                            width:'20%'
+                            width:'30%'
                         }}
                         >
                             {/*Buscador */}
@@ -463,7 +464,7 @@ export default function Inscribir_Page({
                             border: '2px solid black',
                             borderRadius: '8px',
                             padding: 0.5,
-                            width: '60%',
+                            width: '50%',
                             minHeight:'300px',
                             height:'auto',
                         }}
@@ -591,7 +592,7 @@ export default function Inscribir_Page({
                         <Box
                         sx={{
                             position:'relative',
-                            width:'40%'
+                            width:'50%'
                         }}
                         >
                             {/*Respuesta servidor */}
@@ -704,7 +705,7 @@ export default function Inscribir_Page({
                                                         <Box
                                                         sx={{
                                                             display:'flex',
-                                                            justifyContent:'column',
+                                                            flexDirection:'column',
                                                             gap: 4
                                                         }}
                                                         >
