@@ -81,12 +81,6 @@ export default function Desinscribir_Page({
 
     const [nombreProfesor, setNombreProfesor] = useState<string>("");
 
-    const [seccionSeleccionada, setSeccionSeleccionada] = useState<Seccion>({
-        num_Seccion: null,
-        Nombre_Profesor: '',
-        asignatura: null
-    });
-
     const seccionesDisponibles: number[] = [1, 2, 3, 4, 5];
 
     const [asignaturaActual, setAsignaturaActual] = useState<Asignatura>();
@@ -113,8 +107,14 @@ export default function Desinscribir_Page({
                 return seccionesActuales;
             }
 
+            const nuevaSeccion: Seccion = {
+                Nombre_Profesor: nombreProfesor,
+                num_Seccion: num_Seccion,
+                asignatura: asignaturaActual!
+            }
+
             setStateDesinscripciones(true);
-            return [...seccionesActuales, seccionSeleccionada];
+            return [...seccionesActuales, nuevaSeccion];
         });
     };
 
@@ -714,7 +714,7 @@ export default function Desinscribir_Page({
                                                             sx={{
                                                                 display:'flex',
                                                                 flexDirection:'column',
-                                                                gap: 2,
+                                                                gap: 4,
                                                                 height:'70%'
                                                             }}
                                                             >
@@ -729,14 +729,9 @@ export default function Desinscribir_Page({
                                                                     labelId="demo-simple-select-label"
                                                                     id="demo-simple-select"
                                                                     label="Secciones"
-                                                                    value={seccionesDisponibles}
+                                                                    value={num_Seccion}
                                                                     onChange={(e) => {
                                                                         if(e.target.value === "Seleccione"){
-                                                                            setSeccionSeleccionada({
-                                                                                Nombre_Profesor: '',
-                                                                                num_Seccion: null,
-                                                                                asignatura: null
-                                                                            });
                                                                             setNombreProfesor('');
                                                                             setNum_Seccion(null);
                                                                             setStateNumNom(false);
@@ -773,11 +768,6 @@ export default function Desinscribir_Page({
 
                                                             <Button
                                                             onClick={() => {
-                                                                setSeccionSeleccionada({
-                                                                    Nombre_Profesor: nombreProfesor,
-                                                                    num_Seccion: num_Seccion,
-                                                                    asignatura: asignaturaActual!
-                                                                });
                                                                 seleccionarSeccion();
                                                             }}
                                                             sx={{
