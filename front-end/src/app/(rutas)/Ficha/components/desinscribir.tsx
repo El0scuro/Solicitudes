@@ -703,13 +703,14 @@ export default function Desinscribir_Page({
                                                         
                                                         <Box
                                                         sx={{
-                                                            dispaly:'flex',
+                                                            display:'flex',
                                                             flexDirection:'column',
                                                             width:'100%',
                                                             height:'100%',
                                                             gap:10
                                                         }}
                                                         >
+                                                            {/*Seccion - Nombre */}
                                                             <Box
                                                             sx={{
                                                                 display:'flex',
@@ -768,6 +769,7 @@ export default function Desinscribir_Page({
                                                             onClick={() => {
                                                                 seleccionarSeccion();
                                                             }}
+                                                            disabled={!num_Seccion && !nombreProfesor}
                                                             sx={{
                                                                 fontWeight:'bold',
                                                                 backgroundColor: '#003c58',
@@ -789,7 +791,8 @@ export default function Desinscribir_Page({
                                                         fontWeight:'bold',
                                                         fontSize:'15px',
                                                         position:'absolute',
-                                                        right:'40%'
+                                                        right:'40%',
+                                                        backgroundColor:'white'
                                                     }}
                                                     >
                                                         Ya seleccionaste una seccion de la misma asignatura
