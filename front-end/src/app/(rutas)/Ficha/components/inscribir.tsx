@@ -702,6 +702,7 @@ export default function Inscribir_Page({
                                                                 labelId="demo-simple-select-label"
                                                                 id="demo-simple-select"
                                                                 label="Secciones"
+                                                                value={seccionesDisponibles}
                                                                 onChange={(e) => {
                                                                     if(e.target.value === "Seleccione"){
                                                                         setSeccionSeleccionada({
