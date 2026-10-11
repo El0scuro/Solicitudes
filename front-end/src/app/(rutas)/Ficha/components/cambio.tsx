@@ -224,7 +224,7 @@ export default function Cambio_Seccion({
                         alignItems:'flex-start',
                         gap:5,
                         height:'100%',
-                        width:'30%'
+                        width:'35%'
                     }}
                     >
                         {/*Asignaturas */}
@@ -389,14 +389,14 @@ export default function Cambio_Seccion({
                         display:'flex',
                         gap:4,
                         height:'100%',
-                        width:'70%'
+                        width:'65%'
                     }}
                     >
                         {/*Inscrita y Cambio */}
                         <Box
                         sx={{
                             display:'flex',
-                            gap:10,
+                            gap:6,
                             height:'100%',
                             width:'90%'
                         }}
@@ -417,7 +417,7 @@ export default function Cambio_Seccion({
                                 sx={{
                                     fontWeight:'bold',
                                     width:'100%',
-                                    fontSize:'10px'
+                                    fontSize:'12px'
                                 }}
                                 >
                                     Indique la sección que tiene inscrita
@@ -497,7 +497,7 @@ export default function Cambio_Seccion({
                                 sx={{
                                     fontWeight:'bold',
                                     width:'100%',
-                                    fontSize:'10px'
+                                    fontSize:'12px'
                                 }}
                                 >
                                     Indique la sección a la que quiere 
