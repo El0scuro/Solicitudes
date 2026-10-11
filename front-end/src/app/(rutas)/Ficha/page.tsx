@@ -1211,16 +1211,18 @@ function Solicitud_Ficha_Content(){
                     alignItems: 'center',
                     width: '100%',
                     flex: 1,
-                    minHeight: 300,
+                    minHeight: 400,
+                    position:'relative'
                 }}
                 >
                     {/*Retroceder */}
                     <Box
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '5%',
+                        position: 'absolute',
+                        left: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 2,
                     }}
                     >
                         {mostrarFlechas && (
@@ -1245,7 +1247,7 @@ function Solicitud_Ficha_Content(){
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '90%',
+                        width: '80%',
                         flex: 1,
                         minWidth: 0
                     }}
@@ -1305,10 +1307,11 @@ function Solicitud_Ficha_Content(){
                     {/*Avanzar */}
                     <Box
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '5%'
+                        position: 'absolute',
+                        right: '16px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 2,
                     }}
                     >
                         {mostrarFlechas && (
