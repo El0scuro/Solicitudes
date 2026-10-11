@@ -418,18 +418,24 @@ function Solicitud_Ficha_Content(){
     }
 
     const gestionarVista = (accion: string, tipo?: string) => {
+
+        let nuevaCantidadVistas: number;
+
+        let nuevaVistaActual: number;
+
         switch(accion){
             case "atras":
+                
+                nuevaVistaActual = vistaActual! - 1;
 
-                setVistaActual(vistaActual! - 1);
-
-                if(vistaActual === 0){
+                if(nuevaVistaActual < 0){
+                    nuevaVistaActual = cantidad_Vistas - 1;
                     setVistaActual(cantidad_Vistas - 1);
                 }else {
                     setVistaActual(vistaActual! - 1);
                 }
 
-                switch(vistas[vistaActual!]){
+                switch(vistas[nuevaVistaActual!]){
                     case "inscripcion":
                         setVerInscribir(true);
                         break;
@@ -454,7 +460,7 @@ function Solicitud_Ficha_Content(){
                 }
 
                 for(let i = 0; i < cantidad_Vistas; i++){
-                    if(i === vistaActual){
+                    if(i === nuevaVistaActual){
                         continue
                     }else{
                         switch(vistas[i]){
@@ -477,8 +483,6 @@ function Solicitud_Ficha_Content(){
                             case "cambio":
                                 setVerCambio(false);
                                 break;
-                            
-                            
                         }
                     }
                 }
@@ -487,15 +491,16 @@ function Solicitud_Ficha_Content(){
 
             case "adelante":
 
-                setVistaActual(vistaActual! + 1);
+                nuevaVistaActual = vistaActual! + 1; 
 
                 if(vistaActual === cantidad_Vistas){
+                    nuevaVistaActual = 0;
                     setVistaActual(0);
                 }else {
                     setVistaActual(vistaActual! + 1);
                 }
 
-                switch(vistas[vistaActual!]){
+                switch(vistas[nuevaVistaActual!]){
                     case "inscripcion":
                         setVerInscribir(true);
                         break;
@@ -515,12 +520,10 @@ function Solicitud_Ficha_Content(){
                     case "cambio":
                         setVerCambio(true);
                         break;
-                    
-                    
                 }
 
                 for(let i = 0; i < cantidad_Vistas; i++){
-                    if(i === vistaActual){
+                    if(i === nuevaVistaActual){
                         continue
                     }else{
                         switch(vistas[i]){
@@ -550,9 +553,12 @@ function Solicitud_Ficha_Content(){
                 break;
 
             case "cerrar":
+
+                nuevaCantidadVistas = cantidad_Vistas - 1;
+                
                 setCantidad_Vistas(cantidad_Vistas - 1);
 
-                if(cantidad_Vistas === 0){
+                if(nuevaCantidadVistas === 0){
 
                     setVistas([]);
                         
@@ -605,17 +611,23 @@ function Solicitud_Ficha_Content(){
 
             case "agregar":
 
+                nuevaCantidadVistas = cantidad_Vistas + 1;
+
                 setCantidad_Vistas(cantidad_Vistas + 1);
 
-                if(cantidad_Vistas === 1){
+                if(nuevaCantidadVistas === 1){
 
                     setVistas([tipo!]);
 
+                    nuevaVistaActual = 0;
+
                     setVistaActual(0);
                 }
-                else if(cantidad_Vistas > 1){
+                else if(nuevaCantidadVistas > 1){
 
                     setMostrarFlechas(true);
+
+                    nuevaVistaActual = vistaActual! + 1;
 
                     setVistaActual(vistaActual! + 1);
 
@@ -626,7 +638,7 @@ function Solicitud_Ficha_Content(){
                     const nuevasVistas = [...vistas, tipo!];
 
                     for(let i = 0; i < cantidad_Vistas; i++){
-                        if(i === vistaActual){
+                        if(i === nuevaVistaActual){
                             continue
                         }else{
                             switch(nuevasVistas[i]){
@@ -649,8 +661,6 @@ function Solicitud_Ficha_Content(){
                                 case "cambio":
                                     setVerCambio(false);
                                     break;
-                                
-                                
                             }
                         }
                     }
