@@ -382,7 +382,7 @@ export default function Cambio_Seccion({
                 <Box
                 sx={{
                     display:'flex',
-                    gap:4,
+                    gap:2,
                     height:'100%',
                     width:'65%'
                 }}
@@ -393,7 +393,7 @@ export default function Cambio_Seccion({
                         display:'flex',
                         gap:2,
                         height:'100%',
-                        width:'80%'
+                        width:'70%'
                     }}
                     >
                         {/*Inscrita*/}
@@ -564,7 +564,7 @@ export default function Cambio_Seccion({
                         flexDirection:'column',
                         alignItems: 'center',
                         justifyContent: 'flex-end',
-                        width:'15%',
+                        width:'25%',
                         height: '100%',
                         gap:4,
                         flexShrink: 0
