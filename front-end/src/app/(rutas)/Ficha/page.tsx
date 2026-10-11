@@ -1206,11 +1206,13 @@ function Solicitud_Ficha_Content(){
                 {/*Páginas seleccionadas*/}
                 <Box
                 sx={{
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    width:'100%',
-                    height:'50%'
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    width: '100%',
+                    flex: 1,
+                    minHeight: 300,
+                    minWidth: 0,
                 }}
                 >
                     {/*Retroceder */}
@@ -1241,11 +1243,13 @@ function Solicitud_Ficha_Content(){
                     {/*Páginas */}
                     <Box
                     sx={{
-                        display:'flex',
-                        width:'90%',
-                        height:'100%',
-                        justifyContent:'center',
-                        alignItems:'center'
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '90%',
+                        flex: 1,
+                        minWidth: 0,
+                        minHeight: 0,
                     }}
                     >
                         {verInscribir && (
