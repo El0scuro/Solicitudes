@@ -631,13 +631,14 @@ function Solicitud_Ficha_Content(){
 
                     setVistaActual(vistaActual! + 1);
 
+                    const nuevasVistas = [...vistas, tipo!];
+
                     setVistas((agregadas) => {
                         return [...agregadas, tipo!];
                     });
 
-                    const nuevasVistas = [...vistas, tipo!];
 
-                    for(let i = 0; i < cantidad_Vistas; i++){
+                    for(let i = 0; i < nuevaCantidadVistas; i++){
                         if(i === nuevaVistaActual){
                             continue
                         }else{
@@ -734,7 +735,7 @@ function Solicitud_Ficha_Content(){
                 flexDirection:'column',
                 gap: 10,
                 width:'100%',
-                justifyContent:'center'
+                alignItems:'center'
             }}
             >
 
