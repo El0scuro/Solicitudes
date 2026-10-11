@@ -1212,7 +1212,6 @@ function Solicitud_Ficha_Content(){
                     width: '100%',
                     flex: 1,
                     minHeight: 300,
-                    minWidth: 0,
                 }}
                 >
                     {/*Retroceder */}
@@ -1251,7 +1250,7 @@ function Solicitud_Ficha_Content(){
                         width: '90%',
                         flex: 1,
                         minWidth: 0,
-                        minHeight: 0,
+                        minHeight: '100%',
                     }}
                     >
                         {verInscribir && (

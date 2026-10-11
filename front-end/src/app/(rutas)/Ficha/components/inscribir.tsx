@@ -201,7 +201,9 @@ export default function Inscribir_Page({
         <Box
         sx={{
             display:'flex',
-            justifyContent:'center'
+            justifyContent:'center',
+            width:'100%',
+            height:'100%'
         }}
         >
             <Box
