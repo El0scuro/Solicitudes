@@ -719,7 +719,8 @@ function Solicitud_Ficha_Content(){
             display:'flex',
             flexDirection:'column',
             gap: 10,
-            width:'100vw'
+            width:'100vw',
+            minHeight:'100vh'
         }}
         >
             <AppBar 
@@ -727,7 +728,8 @@ function Solicitud_Ficha_Content(){
             sx={{
                 backgroundColor:'#003c58',
                 boxShadow:'10',
-                width:'100%'
+                width:'100%',
+                height:'10%'
             }}
             >
                 <Toolbar
@@ -755,7 +757,8 @@ function Solicitud_Ficha_Content(){
                 flexDirection:'column',
                 gap: 10,
                 width:'100%',
-                alignItems:'center'
+                alignItems:'center',
+                height:'80%'
             }}
             >
 
@@ -765,7 +768,8 @@ function Solicitud_Ficha_Content(){
                     display:'flex',
                     flexDirection:'column',
                     gap: 4,
-                    width:'70%'
+                    width:'70%',
+                    height:'10%'
                 }}
                 >
                     <Typography
@@ -808,7 +812,8 @@ function Solicitud_Ficha_Content(){
                     flexDirection:'row',
                     gap:5,
                     width: '90%',
-                    justifyContent:'center'
+                    justifyContent:'center',
+                    height:'30%'
                 }}
                 >
                     {/*Datos estudiante*/}
@@ -1204,7 +1209,8 @@ function Solicitud_Ficha_Content(){
                     display:'flex',
                     justifyContent:'center',
                     alignItems:'center',
-                    width:'100%'
+                    width:'100%',
+                    height:'50%'
                 }}
                 >
                     {/*Retroceder */}
@@ -1213,7 +1219,8 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'5%'
+                        width:'5%',
+                        height:'100%'
                     }}
                     >
                         {mostrarFlechas && (
@@ -1235,7 +1242,8 @@ function Solicitud_Ficha_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        width:'90%'
+                        width:'90%',
+                        height:'100%'
                     }}
                     >
                         {verInscribir && (
@@ -1296,7 +1304,8 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'5%'
+                        width:'5%',
+                        height:'100%'
                     }}
                     >
                         {mostrarFlechas && (
@@ -1321,6 +1330,7 @@ function Solicitud_Ficha_Content(){
                 sx={{
                     display:'flex',
                     justifyContent:'center',
+                    height:'10%'
                 }}
                 >
                     <Button
