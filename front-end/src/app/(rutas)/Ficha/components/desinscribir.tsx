@@ -224,7 +224,7 @@ export default function Desinscribir_Page({
                     ml:'10px'
                 }}
                 >
-                    Inscribir Asignaturas
+                    Desinscribir Asignaturas
                 </Typography>
 
                 {/* Buscador - CheckBox's - Cerrar*/}

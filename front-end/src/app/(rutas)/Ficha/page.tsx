@@ -431,32 +431,8 @@ function Solicitud_Ficha_Content(){
                 if(nuevaVistaActual < 0){
                     nuevaVistaActual = cantidad_Vistas - 1;
                     setVistaActual(cantidad_Vistas - 1);
-                }else {
+                }else if(nuevaVistaActual >= 0){
                     setVistaActual(vistaActual! - 1);
-                }
-
-                switch(vistas[nuevaVistaActual!]){
-                    case "inscripcion":
-                        setVerInscribir(true);
-                        break;
-
-                    case "desinscripcion":
-                        setVerDesinscribir(true);
-                        break;
-                    
-                    case "clase":
-                        setVerClase(true);
-                        break;
-                    
-                    case "evaluacion":
-                        setVerEvaluacion(true);
-                        break;
-                    
-                    case "cambio":
-                        setVerCambio(true);
-                        break;
-                    
-                    
                 }
 
                 for(let i = 0; i < cantidad_Vistas; i++){
@@ -487,16 +463,38 @@ function Solicitud_Ficha_Content(){
                     }
                 }
 
+                switch(vistas[nuevaVistaActual!]){
+                    case "inscripcion":
+                        setVerInscribir(true);
+                        break;
+
+                    case "desinscripcion":
+                        setVerDesinscribir(true);
+                        break;
+                    
+                    case "clase":
+                        setVerClase(true);
+                        break;
+                    
+                    case "evaluacion":
+                        setVerEvaluacion(true);
+                        break;
+                    
+                    case "cambio":
+                        setVerCambio(true);
+                        break;
+                }
+
                 break;
 
             case "adelante":
 
                 nuevaVistaActual = vistaActual! + 1; 
 
-                if(vistaActual === cantidad_Vistas){
+                if(nuevaVistaActual === cantidad_Vistas){
                     nuevaVistaActual = 0;
                     setVistaActual(0);
-                }else {
+                }else if(nuevaVistaActual <= cantidad_Vistas){
                     setVistaActual(vistaActual! + 1);
                 }
 
@@ -1193,7 +1191,7 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'15%'
+                        width:'10%'
                     }}
                     >
                         {mostrarFlechas && (
@@ -1215,7 +1213,7 @@ function Solicitud_Ficha_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        width:'70%'
+                        width:'80%'
                     }}
                     >
                         {verInscribir && (
@@ -1276,7 +1274,7 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'15%'
+                        width:'10%'
                     }}
                     >
                         {mostrarFlechas && (
