@@ -1208,7 +1208,7 @@ function Solicitud_Ficha_Content(){
                 sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'stretch',
+                    alignItems: 'center',
                     width: '100%',
                     flex: 1,
                     minHeight: 300,
@@ -1221,8 +1221,6 @@ function Solicitud_Ficha_Content(){
                         justifyContent: 'center',
                         alignItems: 'center',
                         width: '5%',
-                        minHeight: '100%',
-                        alignSelf: 'stretch',
                     }}
                     >
                         {mostrarFlechas && (
@@ -1249,8 +1247,7 @@ function Solicitud_Ficha_Content(){
                         alignItems: 'center',
                         width: '90%',
                         flex: 1,
-                        minWidth: 0,
-                        minHeight: '100%',
+                        minWidth: 0
                     }}
                     >
                         {verInscribir && (
@@ -1311,9 +1308,7 @@ function Solicitud_Ficha_Content(){
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: '5%',
-                        minHeight: '100%',
-                        alignSelf: 'stretch',
+                        width: '5%'
                     }}
                     >
                         {mostrarFlechas && (
