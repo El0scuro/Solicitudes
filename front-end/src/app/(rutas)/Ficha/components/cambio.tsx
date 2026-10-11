@@ -570,6 +570,25 @@ export default function Cambio_Seccion({
                         flexShrink: 0
                     }}
                     >
+
+                        {/*Agregar Cambio */}
+                        <Button
+                        onClick={() => agregarCambio()}
+                        variant="contained"
+                        disabled={ 
+                            !num_SeccionInsrita || 
+                            !nombreProfesorInscrita ||
+                            !num_SeccionCambio || 
+                            !nombreProfesorCambio
+                        }
+                        sx={{
+                            width:'200px',
+                            height:'50px',
+                        }}
+                        >
+                            Cargar Cambio
+                        </Button>
+
                         {stateSeccionDuplicada && (
                             <Box
                             sx={{
@@ -651,25 +670,6 @@ export default function Cambio_Seccion({
                                 
                             </Box>
                         )}
-
-                        {/*Agregar Cambio */}
-                        <Button
-                        onClick={() => agregarCambio()}
-                        variant="contained"
-                        disabled={ 
-                            !num_SeccionInsrita || 
-                            !nombreProfesorInscrita ||
-                            !num_SeccionCambio || 
-                            !nombreProfesorCambio
-                        }
-                        sx={{
-                            width:'200px',
-                            height:'50px',
-                        }}
-                        >
-                            Cargar Cambio
-                        </Button>
-                        
                     </Box>
                 </Box>
                 
