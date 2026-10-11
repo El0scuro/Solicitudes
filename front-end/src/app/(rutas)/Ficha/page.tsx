@@ -1233,7 +1233,8 @@ function Solicitud_Ficha_Content(){
                                 display:'flex',
                                 justifyContent:'center',
                                 alignItems:'center',
-                                width:'100%'
+                                width:'100%',
+                                height:'100%'
                             }}
                             >
                                 <ArrowBackIosNewIcon/>
@@ -1323,7 +1324,8 @@ function Solicitud_Ficha_Content(){
                                 display:'flex',
                                 justifyContent:'center',
                                 alignItems:'center',
-                                width:'100%'
+                                width:'100%',
+                                height:'100%'
                             }}
                             >
                                 <ArrowForwardIosIcon/>
