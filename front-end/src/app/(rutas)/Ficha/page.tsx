@@ -421,7 +421,9 @@ function Solicitud_Ficha_Content(){
 
         let nuevaCantidadVistas: number;
 
-        let nuevaVistaActual: number;
+        let nuevaVistaActual: number | null;
+
+        let nuevasVistas: string[];
 
         switch(accion){
             case "atras":
@@ -558,30 +560,28 @@ function Solicitud_Ficha_Content(){
 
                 if(nuevaCantidadVistas === 0){
 
+                    nuevasVistas = [];
                     setVistas([]);
                         
+                    nuevaVistaActual = null;
                     setVistaActual(null);
 
-                }else if(cantidad_Vistas === 1){
-
-                    setMostrarFlechas(false);
-
+                }else {
+                    nuevasVistas = vistas;
+                    nuevasVistas.filter(vista => vista !== tipo!);
                     setVistas(() => {
                             return vistas.filter(vista => vista !== vistas[vistaActual!])
                         }
                     );
 
-                    setVistaActual(0);
-                    
+                    nuevaVistaActual = vistaActual! - 1;
+                    setVistaActual(vistaActual! - 1);
 
-                }else if(cantidad_Vistas > 1){
-
-                    setVistas(() => {
-                            return vistas.filter(vista => vista !== vistas[vistaActual!])
-                        }
-                    );
-
+                    if(nuevaCantidadVistas === 1){
+                        setMostrarFlechas(false);
+                    }
                 }
+                
 
                 switch(tipo){
                     case "inscripcion":
@@ -605,26 +605,28 @@ function Solicitud_Ficha_Content(){
                         break;
                 }
 
-                switch(vistas[vistaActual!]){
-                    case "inscripcion":
-                        setVerInscribir(true);
-                        break;
-                    
-                    case "desinscripcion":
-                        setVerDesinscribir(true);
-                        break;
+                if(nuevasVistas.length > 0){
+                    switch(nuevasVistas[nuevaVistaActual!]){
+                        case "inscripcion":
+                            setVerInscribir(true);
+                            break;
+                        
+                        case "desinscripcion":
+                            setVerDesinscribir(true);
+                            break;
 
-                    case "clase":
-                        setVerClase(true);
-                        break;
+                        case "clase":
+                            setVerClase(true);
+                            break;
 
-                    case "evaluacion":
-                        setVerEvaluacion(true);
-                        break;
+                        case "evaluacion":
+                            setVerEvaluacion(true);
+                            break;
 
-                    case "cambio":
-                        setVerCambio(true);
-                        break;
+                        case "cambio":
+                            setVerCambio(true);
+                            break;
+                    }
                 }
                 
                 break;
@@ -637,22 +639,22 @@ function Solicitud_Ficha_Content(){
 
                 if(nuevaCantidadVistas === 1){
 
+                    nuevasVistas = [tipo!];
                     setVistas([tipo!]);
 
                     nuevaVistaActual = 0;
-
                     setVistaActual(0);
+
                 }
                 else if(nuevaCantidadVistas > 1){
 
                     setMostrarFlechas(true);
 
-                    nuevaVistaActual = vistaActual! + 1;
 
+                    nuevaVistaActual = vistaActual! + 1;
                     setVistaActual(vistaActual! + 1);
 
-                    const nuevasVistas = [...vistas, tipo!];
-
+                    nuevasVistas = [...vistas, tipo!];
                     setVistas((agregadas) => {
                         return [...agregadas, tipo!];
                     });
