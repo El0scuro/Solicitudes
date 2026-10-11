@@ -15,6 +15,9 @@ import __url from "@/lib/const";
 
 import { Seccion } from "@/types/seccion";
 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 import Inscribir_Page from "./components/inscribir";
 import Desinscribir_Page from "./components/desinscribir";
 import Justificar_Clase_Page from "./components/clase";
@@ -240,6 +243,15 @@ function Solicitud_Ficha_Content(){
     const [stateCambio, setStateCambio] = useState(false);
 
 
+    const [mostrarFlechas, setMostrarFlechas] = useState(false);
+
+    const [cantidad_Vistas, setCantidad_Vistas] = useState<number>(0);
+
+    const [vistas, setVistas] = useState<string[]>([]);
+
+    const [vistaActual, setVistaActual] = useState<number | null>(null);
+
+
     useEffect(() => {
         if (!estudiante) {
             return;
@@ -406,19 +418,260 @@ function Solicitud_Ficha_Content(){
         }
     }
 
+    const gestionarVista = (accion: string, tipo?: string) => {
+        switch(accion){
+            case "atras":
+
+                setVistaActual(vistaActual! - 1);
+
+                if(vistaActual === 0){
+                    setVistaActual(cantidad_Vistas - 1);
+                }else {
+                    setVistaActual(vistaActual! - 1);
+                }
+
+                switch(vistas[vistaActual!]){
+                    case "inscripcion":
+                        setVerInscribir(true);
+                        break;
+
+                    case "desinscripcion":
+                        setVerDesinscribir(true);
+                        break;
+                    
+                    case "clase":
+                        setVerClase(true);
+                        break;
+                    
+                    case "evaluacion":
+                        setVerEvaluacion(true);
+                        break;
+                    
+                    case "cambio":
+                        setVerCambio(true);
+                        break;
+                    
+                    
+                }
+
+                for(let i = 0; i < cantidad_Vistas; i++){
+                    if(i === vistaActual){
+                        continue
+                    }else{
+                        switch(vistas[i]){
+                            case "inscripcion":
+                                setVerInscribir(false);
+                                break;
+
+                            case "desinscripcion":
+                                setVerDesinscribir(false);
+                                break;
+                            
+                            case "clase":
+                                setVerClase(false);
+                                break;
+                            
+                            case "evaluacion":
+                                setVerEvaluacion(false);
+                                break;
+                            
+                            case "cambio":
+                                setVerCambio(false);
+                                break;
+                            
+                            
+                        }
+                    }
+                }
+
+                break;
+
+            case "adelante":
+
+                setVistaActual(vistaActual! + 1);
+
+                if(vistaActual === cantidad_Vistas){
+                    setVistaActual(0);
+                }else {
+                    setVistaActual(vistaActual! + 1);
+                }
+
+                switch(vistas[vistaActual!]){
+                    case "inscripcion":
+                        setVerInscribir(true);
+                        break;
+
+                    case "desinscripcion":
+                        setVerDesinscribir(true);
+                        break;
+                    
+                    case "clase":
+                        setVerClase(true);
+                        break;
+                    
+                    case "evaluacion":
+                        setVerEvaluacion(true);
+                        break;
+                    
+                    case "cambio":
+                        setVerCambio(true);
+                        break;
+                    
+                    
+                }
+
+                for(let i = 0; i < cantidad_Vistas; i++){
+                    if(i === vistaActual){
+                        continue
+                    }else{
+                        switch(vistas[i]){
+                            case "inscripcion":
+                                setVerInscribir(false);
+                                break;
+
+                            case "desinscripcion":
+                                setVerDesinscribir(false);
+                                break;
+                            
+                            case "clase":
+                                setVerClase(false);
+                                break;
+                            
+                            case "evaluacion":
+                                setVerEvaluacion(false);
+                                break;
+                            
+                            case "cambio":
+                                setVerCambio(false);
+                                break;
+                        }
+                    }
+                }
+
+                break;
+
+            case "cerrar":
+                setCantidad_Vistas(cantidad_Vistas - 1);
+
+                if(cantidad_Vistas === 0){
+
+                    setVistas([]);
+                        
+                    setVistaActual(null);
+
+                }else if(cantidad_Vistas === 1){
+
+                    setMostrarFlechas(false);
+
+                    setVistas(() => {
+                            return vistas.filter(vista => vista !== vistas[vistaActual!])
+                        }
+                    );
+
+                    setVistaActual(0);
+                    
+
+                }else if(cantidad_Vistas > 1){
+
+                    setVistas(() => {
+                            return vistas.filter(vista => vista !== vistas[vistaActual!])
+                        }
+                    );
+
+                }
+
+                switch(tipo){
+                    case "inscripcion":
+                        setVerInscribir(false);
+                        break;
+                    
+                    case "desinscripcion":
+                        setVerDesinscribir(false);
+                        break;
+
+                    case "clase":
+                        setVerClase(false);
+                        break;
+
+                    case "evaluacion":
+                        setVerEvaluacion(false);
+                        break;
+
+                    case "cambio":
+                        setVerCambio(false);
+                        break;
+                }
+                
+                break;
+
+            case "agregar":
+
+                setCantidad_Vistas(cantidad_Vistas + 1);
+
+                let agregada: string = '';
+
+                if(verInscribir){
+                    agregada = 'inscripcion';
+                }else if(verDesinscribir){
+                    agregada = 'desinscripcion';
+                }else if(verClase){
+                    agregada = 'clase';
+                }else if(verEvaluacion){
+                    agregada = 'evaluacion';
+                }else if(verCambio){
+                    agregada = 'cambio';
+                }
+
+                setVistas((agregadas) => {
+                    return [...agregadas, agregada];
+                });
+
+
+                if(cantidad_Vistas > 1){
+                    setMostrarFlechas(true);
+                }
+
+                switch(tipo){
+                    case "inscripcion":
+                        setVerInscribir(true);
+                        break;
+                    
+                    case "desinscripcion":
+                        setVerDesinscribir(true);
+                        break;
+
+                    case "clase":
+                        setVerClase(true);
+                        break;
+
+                    case "evaluacion":
+                        setVerEvaluacion(true);
+                        break;
+
+                    case "cambio":
+                        setVerCambio(true);
+                        break;
+                }
+                
+                break;
+        }
+    };
+
     return(
         <Box
         sx={{
             display:'flex',
             flexDirection:'column',
-            gap: 10
+            gap: 10,
+            width:'100vw'
         }}
         >
             <AppBar 
             position="static"
             sx={{
                 backgroundColor:'#003c58',
-                boxShadow:'10'
+                boxShadow:'10',
+                width:'100%'
             }}
             >
                 <Toolbar
@@ -444,7 +697,8 @@ function Solicitud_Ficha_Content(){
             sx={{
                 display:'flex',
                 flexDirection:'column',
-                gap: 10
+                gap: 10,
+                width:'100%'
             }}
             >
 
@@ -453,7 +707,8 @@ function Solicitud_Ficha_Content(){
                 sx={{
                     display:'flex',
                     flexDirection:'column',
-                    gap: 4
+                    gap: 4,
+                    width:'70%'
                 }}
                 >
                     <Typography
@@ -494,7 +749,9 @@ function Solicitud_Ficha_Content(){
                 sx={{
                     display:'flex',
                     flexDirection:'row',
-                    gap:5
+                    gap:5,
+                    width: '90%',
+                    justifyContent:'center'
                 }}
                 >
                     {/*Datos estudiante*/}
@@ -504,11 +761,10 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         flexDirection:'column',
                         gap:2,
-                        ml:'4%',
                         border: '2px solid black',
                         borderRadius: '8px',
                         padding: 3,
-                        width:'35%',
+                        width:'30%',
                         height:'auto',
                         alignItems:'flex-start'
                     }}
@@ -716,7 +972,7 @@ function Solicitud_Ficha_Content(){
                         padding: 1,
                         flexWrap:'wrap',
                         flexDirection:'column',
-                        width:'30%',
+                        width:'60%',
                     }}
                     >
                         <Typography
@@ -763,7 +1019,9 @@ function Solicitud_Ficha_Content(){
                                     fontWeight:'bold',
                                     backgroundColor:'#006391'
                                 }}
-                                onClick={() => setVerInscribir(true)}
+                                onClick={() => 
+                                    gestionarVista("agregar", "inscripcion")
+                                }
                                 >
                                     Inscripción Asignaturas
                                 </Button>
@@ -775,7 +1033,9 @@ function Solicitud_Ficha_Content(){
                                     width:'350px',
                                     fontWeight:'bold'
                                 }}
-                                onClick={() => setVerDesinscribir(true)}
+                                onClick={() => 
+                                    gestionarVista("agregar", "desinscripcion")
+                                }
                                 >
                                     Desinscripción Asignaturas
                                 </Button>
@@ -816,7 +1076,9 @@ function Solicitud_Ficha_Content(){
                                     fontWeight:'bold',
                                     backgroundColor:'#006391'
                                 }}
-                                onClick={() => setVerClase(true)}
+                                onClick={() => 
+                                    gestionarVista("agregar", "clase")
+                                }
                                 >
                                     Justificar inasistencia a clase
                                 </Button>
@@ -828,7 +1090,9 @@ function Solicitud_Ficha_Content(){
                                     fontWeight:'bold',
                                     backgroundColor:'#006391'
                                 }}
-                                
+                                onClick={() => 
+                                    gestionarVista("agregar", "evaluacion")
+                                }
                                 >
                                     Justificar inasistencia a evaluación
                                 </Button>
@@ -865,7 +1129,9 @@ function Solicitud_Ficha_Content(){
                                 fontWeight:'bold',
                                 backgroundColor:'#006391'
                             }}
-                            onClick={() => setVerCambio(true)}
+                            onClick={() => 
+                                    gestionarVista("agregar", "cambio")
+                                }
                             >
                                 Cambiar Sección
                             </Button>
@@ -873,60 +1139,123 @@ function Solicitud_Ficha_Content(){
                             
                     </Box>
                 </Box>
-                
-                
+
+
                 {/*Páginas seleccionadas*/}
                 <Box
                 sx={{
                     display:'flex',
-                    flexDirection:'column',
-                    gap:10
+                    justifyContent:'center',
+                    alignItems:'center',
+                    width:'100%'
                 }}
                 >
-                    {verInscribir && (
-                        <Inscribir_Page
-                        close={() => setVerInscribir(false)}
-                        seccionesSolicitud={seccionesInscripcion}
-                        setSeccionesSolicitud={setSeccionesInscripcion}
-                        carta={cartaInscripcion}
-                        setCarta={setCartaInscripcion}
-                        setStateInscripciones={setStateInscripcion}
-                        />
-                    )}
+                    {/*Retroceder */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        justifyContent:'center',
+                        alignItems:'center',
+                        width:'15%'
+                    }}
+                    >
+                        {mostrarFlechas && (
+                            <Button
+                            onClick={() => gestionarVista("atras")}
+                            sx={{
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center',
+                                width:'100%'
+                            }}
+                            >
+                                <ArrowBackIosNewIcon/>
+                            </Button>
+                        )}
+                    </Box>
 
-                    {verDesinscribir && (
-                        <Desinscribir_Page
-                        close={() => setVerDesinscribir(false)}
-                        seccionesSolicitud={seccionesDesinscripcion}
-                        setSeccionesSolicitud={setSeccionesDesinscripcion}
-                        carta={cartaDesinscripcion}
-                        setCarta={setCartaDesinscripcion}
-                        setStateDesinscripciones={setStateDesinscripcion}
-                        />
-                    )}
+                    {/*Páginas */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        width:'70%'
+                    }}
+                    >
+                        {verInscribir && (
+                            <Inscribir_Page
+                            close={() => 
+                                gestionarVista("cerrar", "inscripcion")
+                            }
+                            seccionesSolicitud={seccionesInscripcion}
+                            setSeccionesSolicitud={setSeccionesInscripcion}
+                            carta={cartaInscripcion}
+                            setCarta={setCartaInscripcion}
+                            setStateInscripciones={setStateInscripcion}
+                            />
+                        )}
 
-                    {verClase && (
-                        <Justificar_Clase_Page
-                        close={() => setVerClase(false)}
-                        />
-                    )}
-{/*
-                    {verEvaluacion && (
+                        {verDesinscribir && (
+                            <Desinscribir_Page
+                            close={() => 
+                                gestionarVista("cerrar", "desinscripcion")
+                            }
+                            seccionesSolicitud={seccionesDesinscripcion}
+                            setSeccionesSolicitud={setSeccionesDesinscripcion}
+                            carta={cartaDesinscripcion}
+                            setCarta={setCartaDesinscripcion}
+                            setStateDesinscripciones={setStateDesinscripcion}
+                            />
+                        )}
 
-                    )}
-                     */}
+                        {verClase && (
+                            <Justificar_Clase_Page
+                            close={() => 
+                                gestionarVista("cerrar", "clase")
+                            }
+                            />
+                        )}
+                        {/*
+                        {verEvaluacion && (
 
-{/* 
-                    {verCambio && (
-                        <Cambio_Seccion
-                        close={() => setVerCambio(false)}
-                        seccionesSolicitud={seccionesCambio}
-                        setSeccionesSolicitud={setSeccionesCambio}
-                        setStateCambios={setStateCambio}
-                        />
-                    )}
+                        )}
+                        */}
 
-                    */}
+                        {/* 
+                        {verCambio && (
+                            <Cambio_Seccion
+                            close={() => setVerCambio(false)}
+                            seccionesSolicitud={seccionesCambio}
+                            setSeccionesSolicitud={setSeccionesCambio}
+                            setStateCambios={setStateCambio}
+                            />
+                        )}
+
+                        */}
+                    </Box>
+
+                    {/*Avanzar */}
+                    <Box
+                    sx={{
+                        display:'flex',
+                        justifyContent:'center',
+                        alignItems:'center',
+                        width:'15%'
+                    }}
+                    >
+                        {mostrarFlechas && (
+                            <Button
+                            onClick={() => gestionarVista("adelante")}
+                            sx={{
+                                display:'flex',
+                                justifyContent:'center',
+                                alignItems:'center',
+                                width:'100%'
+                            }}
+                            >
+                                <ArrowForwardIosIcon/>
+                            </Button>
+                        )}
+                    </Box>
                 </Box>
 
 

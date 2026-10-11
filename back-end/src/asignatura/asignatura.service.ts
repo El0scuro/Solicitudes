@@ -1,10 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAsignaturaDto } from './dto/create-asignatura.dto.js';
 import { UpdateAsignaturaDto } from './dto/update-asignatura.dto.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Asignatura } from './entities/asignatura.entity.js';
 import { Repository } from 'typeorm';
-import { Seccion } from '../seccion/entities/seccion.entity.js';
 
 @Injectable()
 export class AsignaturaService {
@@ -13,10 +11,6 @@ export class AsignaturaService {
     @InjectRepository(Asignatura, 'solicitudes')
     private asignaturaRepository: Repository<Asignatura>
   ){}
-  
-  create(createAsignaturaDto: CreateAsignaturaDto) {
-    return 'This action adds a new asignatura';
-  }
 
   async findAll() {
     return await this.asignaturaRepository.find();

@@ -7,11 +7,6 @@ import { UpdateAsignaturaDto } from './dto/update-asignatura.dto.js';
 export class AsignaturaController {
   constructor(private readonly asignaturaService: AsignaturaService) {}
 
-  @Post()
-  create(@Body() createAsignaturaDto: CreateAsignaturaDto) {
-    return this.asignaturaService.create(createAsignaturaDto);
-  }
-
   @Get('buscar-todas')
   findAll() {
     return this.asignaturaService.findAll();
