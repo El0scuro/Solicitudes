@@ -41,16 +41,13 @@ export default function Cambio_Seccion({
         Ano_Malla: ''
     });
 
-    
-    //Secciones inscrita y cambio//
-    const [stateSecciones, setStateSecciones] = useState(false);
-
 
     //Warnings//
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
     const [stateMismaSeccion, setStateMismaSeccion] = useState(false);
 
+    const [stateSinAsignatura, setStateSinAsignatura] = useState(false);
 
     //Seccion y Profesor//
     const [num_SeccionInsrita, setNum_SeccionInscrita] = useState<number | null>(null);
@@ -79,6 +76,11 @@ export default function Cambio_Seccion({
     const agregarCambio = () => {
 
         setSeccionesSolicitud((seccionesCargadas) => {
+
+            if(!asignaturaSeleccionada){
+                mostrarAsignatura();
+                return seccionesCargadas;
+            }
 
             if(num_SeccionInsrita === num_SeccionCambio){
                 mostrarMismas();
@@ -148,6 +150,15 @@ export default function Cambio_Seccion({
         }, 7000);
     }
 
+    const mostrarAsignatura = () => {
+        setStateSinAsignatura(true);
+
+        setTimeout(() => {
+            setStateSinAsignatura(false);
+        }, 7000);
+    }
+
+
     return(
         <Box
         sx={{
@@ -165,7 +176,7 @@ export default function Cambio_Seccion({
             border: '2px solid black',
             borderRadius: '8px',
             padding: 2,
-            minWidth:'80%'
+            width:'80%'
             }}
             >
 
@@ -239,7 +250,6 @@ export default function Cambio_Seccion({
                                         Nombre: '',
                                         Ano_Malla: ''
                                     });
-                                    setStateSecciones(false);
                                 }
                                 if(!asignaturas){
                                     return;
@@ -250,8 +260,6 @@ export default function Cambio_Seccion({
                                     return;
                                 }
                                 setAsignaturaSeleccionada(seleccionado);
-
-                                setStateSecciones(true);
                             }}
                             >
                                 {asignaturas?.map(asig => (
@@ -285,7 +293,7 @@ export default function Cambio_Seccion({
                                 Cambios Solicitados
                             </Typography>
 
-                            <Table sx={{ tableLayout: 'fixed', width: '190px' }}>
+                            <Table sx={{ tableLayout: 'fixed', width: '100%' }}>
                                 <TableHead>
                                     <TableRow>
 
@@ -388,266 +396,289 @@ export default function Cambio_Seccion({
                         width:'70%'
                     }}
                     >
-                        {stateSecciones && (
+                        {/*Inscrita y Cambio */}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            gap:10,
+                            height:'100%',
+                            width:'90%'
+                        }}
+                        >
+                            {/*Inscrita*/}
                             <Box
                             sx={{
                                 display:'flex',
-                                gap:4,
+                                flexDirection:'column',
+                                justifyContent:'center',
                                 height:'100%',
-                                width:'100%'
+                                width:'50%'
                             }}
                             >
-                                {/*Inscrita y Cambio */}
-                                <Box
+                                
+                                <Typography
+                                align="left"
                                 sx={{
-                                    display:'flex',
-                                    gap:10,
-                                    height:'100%',
-                                    width:'90%'
+                                    fontWeight:'bold',
+                                    width:'100%',
+                                    fontSize:'15px'
                                 }}
                                 >
-                                    {/*Inscrita*/}
-                                    <Box
-                                    sx={{
-                                        display:'flex',
-                                        flexDirection:'column',
-                                        justifyContent:'center',
-                                        height:'100%',
-                                        width:'50%'
-                                    }}
-                                    >
-                                        
-                                        <Typography
-                                        align="left"
-                                        sx={{
-                                            fontWeight:'bold',
-                                            width:'100%'
-                                        }}
-                                        >
-                                            Indique que sección tiene inscrita
-                                            <br/>
-                                            actualmente, y su profesor asociado.
-                                        </Typography>
+                                    Indique que sección tiene inscrita
+                                    <br/>
+                                    actualmente, y su profesor asociado.
+                                </Typography>
 
-                                        {/*Seccion - Nombre */}
-                                        <Box
-                                        sx={{
-                                            display:'flex',
-                                            flexDirection:'column',
-                                            gap: 4,
-                                            height:'100%',
-                                            width:'100%'
-                                        }}
-                                        >
-                                            {/*Secciones */}
-                                            <FormControl sx={{ width: '200px' }}>
-                                                <InputLabel id="seccion-label">
-                                                    Seleccione una sección
-                                                </InputLabel>
-
-                                                <Select
-                                                    labelId="seccion-label"
-                                                    id="seccion-select"
-                                                    label="Seleccione una sección"
-                                                    value={num_SeccionInsrita ?? ''}
-                                                    onChange={(e) => {
-                                                        const valor = e.target.value;
-
-                                                        if (valor === null) {
-                                                            setNombreProfesorInscrita('');
-                                                            setNum_SeccionInscrita(null);
-                                                            return;
-                                                        }
-
-                                                        setNum_SeccionInscrita(Number(valor));
-                                                    }}
-                                                >
-                                                    {seccionesDisponibles.map(sec => (
-                                                        <MenuItem
-                                                            key={sec}
-                                                            value={Number(sec)}
-                                                        >
-                                                            {sec}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-                                            
-                                            <TextField
-                                            label='Nombre Profesor'
-                                            placeholder="Nombre Profesor"
-                                            value={nombreProfesorInscrita}
-                                            onChange={(e) => setNombreProfesorInscrita(e.target.value)}
-                                            sx={{
-                                                width:'200px'
-                                            }}
-                                            />
-                                        </Box>
-                                    </Box>
-
-                                    {/*Cambio */}
-                                    <Box
-                                    sx={{
-                                        display:'flex',
-                                        flexDirection:'column',
-                                        justifyContent:'center',
-                                        height:'100%',
-                                        width:'50%'
-                                    }}
-                                    >
-
-                                        <Typography
-                                        align="left"
-                                        sx={{
-                                            fontWeight:'bold',
-                                            width:'100%'
-                                        }}
-                                        >
-                                            Indique a que sección quiere cambiarse,
-                                            <br/>
-                                            y su profesor asociado.
-                                        </Typography>
-
-                                        {/*Seccion - Nombre */}
-                                        <Box
-                                        sx={{
-                                            display:'flex',
-                                            flexDirection:'column',
-                                            gap: 4,
-                                            height:'100%',
-                                            width:'100%'
-                                        }}
-                                        >
-                                            {/*Secciones */}
-                                            <FormControl sx={{ width: '200px' }}>
-                                                <InputLabel id="seccion-label">
-                                                    Seleccione una sección
-                                                </InputLabel>
-
-                                                <Select
-                                                    labelId="seccion-label"
-                                                    id="seccion-select"
-                                                    label="Seleccione una sección"
-                                                    value={num_SeccionCambio ?? ''}
-                                                    onChange={(e) => {
-                                                        const valor = e.target.value;
-
-                                                        if (valor === null) {
-                                                            setNombreProfesorInscrita('');
-                                                            setNum_SeccionCambio(null);
-                                                            return;
-                                                        }
-
-                                                        setNum_SeccionCambio(Number(valor));
-                                                    }}
-                                                >
-                                                    {seccionesDisponibles.map(sec => (
-                                                        <MenuItem
-                                                            key={sec}
-                                                            value={Number(sec)}
-                                                        >
-                                                            {sec}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
-                                            
-                                            <TextField
-                                            label='Nombre Profesor'
-                                            placeholder="Nombre Profesor"
-                                            value={nombreProfesorCambio}
-                                            onChange={(e) => setNombreProfesorCambio(e.target.value)}
-                                            sx={{
-                                                width:'200px'
-                                            }}
-                                            />
-                                        </Box>
-                                    </Box>
-                                </Box>
-                                
-                                {/*Agregar Cambio y Warnings*/}
+                                {/*Seccion - Nombre */}
                                 <Box
                                 sx={{
                                     display:'flex',
                                     flexDirection:'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'flex-end',
-                                    width:'10%px',
-                                    height: '100%',
-                                    gap:4,
+                                    gap: 4,
+                                    height:'100%',
+                                    width:'100%'
                                 }}
                                 >
-                                    {stateSeccionDuplicada && (
-                                        <Box
-                                        sx={{
-                                            borderRadius:'20px',
-                                            border:'2px solid black',
-                                            width:'300px',
-                                            height:'100px',
-                                            display:'flex',
-                                            justifyContent:'center'
-                                        }}
-                                        >
-                                            <Typography
-                                            align="center"
-                                            sx={{
-                                                fontWeight:'bold',
-                                                fontSize:'15px'
-                                            }}
-                                            >
-                                                No puedes solicitar más de un 
-                                                <br/>
-                                                cambio de sección de una misma asignatura.
-                                            </Typography>
-                                            
-                                        </Box>
-                                    )}
+                                    {/*Secciones */}
+                                    <FormControl sx={{ width: '200px' }}>
+                                        <InputLabel id="seccion-label">
+                                            Seleccione una sección
+                                        </InputLabel>
 
-                                    {stateMismaSeccion && (
-                                        <Box
-                                        sx={{
-                                            borderRadius:'20px',
-                                            border:'2px solid black',
-                                            width:'300px',
-                                            height:'100px',
-                                            display:'flex',
-                                            justifyContent:'center'
-                                        }}
-                                        >
-                                            <Typography
-                                            align="center"
-                                            sx={{
-                                                fontWeight:'bold',
-                                                fontSize:'15px'
-                                            }}
-                                            >
-                                                La seccion solicitada debe ser
-                                                <br/>
-                                                distinta a la inscrita actualmente.
-                                            </Typography>
-                                            
-                                        </Box>
-                                    )}
+                                        <Select
+                                            labelId="seccion-label"
+                                            id="seccion-select"
+                                            label="Seleccione una sección"
+                                            value={num_SeccionInsrita ?? ''}
+                                            onChange={(e) => {
+                                                const valor = e.target.value;
 
-                                    {/*Agregar Cambio */}
-                                    <Button
-                                    onClick={() => agregarCambio()}
-                                    variant="contained"
-                                    disabled={ 
-                                        (!num_SeccionInsrita || !nombreProfesorInscrita) &&
-                                        (!num_SeccionCambio || !nombreProfesorCambio)
-                                    }
-                                    sx={{
-                                        width:'200px',
-                                        height:'50px',
-                                    }}
-                                    >
-                                        Cargar Cambio
-                                    </Button>
+                                                if (valor === null) {
+                                                    setNombreProfesorInscrita('');
+                                                    setNum_SeccionInscrita(null);
+                                                    return;
+                                                }
+
+                                                setNum_SeccionInscrita(Number(valor));
+                                            }}
+                                        >
+                                            {seccionesDisponibles.map(sec => (
+                                                <MenuItem
+                                                    key={sec}
+                                                    value={Number(sec)}
+                                                >
+                                                    {sec}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
                                     
+                                    <TextField
+                                    label='Nombre Profesor'
+                                    placeholder="Nombre Profesor"
+                                    value={nombreProfesorInscrita}
+                                    onChange={(e) => setNombreProfesorInscrita(e.target.value)}
+                                    sx={{
+                                        width:'200px'
+                                    }}
+                                    />
                                 </Box>
                             </Box>
-                        )}
+
+                            {/*Cambio */}
+                            <Box
+                            sx={{
+                                display:'flex',
+                                flexDirection:'column',
+                                justifyContent:'center',
+                                height:'100%',
+                                width:'50%'
+                            }}
+                            >
+
+                                <Typography
+                                align="left"
+                                sx={{
+                                    fontWeight:'bold',
+                                    width:'100%',
+                                    fontSize:'15px'
+                                }}
+                                >
+                                    Indique a que sección quiere cambiarse,
+                                    <br/>
+                                    y su profesor asociado.
+                                </Typography>
+
+                                {/*Seccion - Nombre */}
+                                <Box
+                                sx={{
+                                    display:'flex',
+                                    flexDirection:'column',
+                                    gap: 4,
+                                    height:'100%',
+                                    width:'100%'
+                                }}
+                                >
+                                    {/*Secciones */}
+                                    <FormControl sx={{ width: '200px' }}>
+                                        <InputLabel id="seccion-label">
+                                            Seleccione una sección
+                                        </InputLabel>
+
+                                        <Select
+                                            labelId="seccion-label"
+                                            id="seccion-select"
+                                            label="Seleccione una sección"
+                                            value={num_SeccionCambio ?? ''}
+                                            onChange={(e) => {
+                                                const valor = e.target.value;
+
+                                                if (valor === null) {
+                                                    setNombreProfesorInscrita('');
+                                                    setNum_SeccionCambio(null);
+                                                    return;
+                                                }
+
+                                                setNum_SeccionCambio(Number(valor));
+                                            }}
+                                        >
+                                            {seccionesDisponibles.map(sec => (
+                                                <MenuItem
+                                                    key={sec}
+                                                    value={Number(sec)}
+                                                >
+                                                    {sec}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    
+                                    <TextField
+                                    label='Nombre Profesor'
+                                    placeholder="Nombre Profesor"
+                                    value={nombreProfesorCambio}
+                                    onChange={(e) => setNombreProfesorCambio(e.target.value)}
+                                    sx={{
+                                        width:'200px'
+                                    }}
+                                    />
+                                </Box>
+                            </Box>
+                        </Box>
+                        
+                        {/*Agregar Cambio y Warnings*/}
+                        <Box
+                        sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            width:'10%px',
+                            height: '100%',
+                            gap:4,
+                        }}
+                        >
+                            {stateSeccionDuplicada && (
+                                <Box
+                                sx={{
+                                    borderRadius:'20px',
+                                    border:'2px solid black',
+                                    width:'200px',
+                                    height:'100px',
+                                    display:'flex',
+                                    justifyContent:'center'
+                                }}
+                                >
+                                    <Typography
+                                    align="center"
+                                    sx={{
+                                        fontWeight:'bold',
+                                        fontSize:'15px'
+                                    }}
+                                    >
+                                        No puedes solicitar 
+                                        <br/>
+                                        más de un cambio de sección
+                                        <br/>
+                                        en una misma asignatura.
+                                    </Typography>
+                                    
+                                </Box>
+                            )}
+
+                            {stateMismaSeccion && (
+                                <Box
+                                sx={{
+                                    borderRadius:'20px',
+                                    border:'2px solid black',
+                                    width:'200px',
+                                    height:'100px',
+                                    display:'flex',
+                                    justifyContent:'center'
+                                }}
+                                >
+                                    <Typography
+                                    align="center"
+                                    sx={{
+                                        fontWeight:'bold',
+                                        fontSize:'15px'
+                                    }}
+                                    >
+                                        La seccion solicitada 
+                                        <br/>
+                                        debe ser distinta a
+                                        <br/>
+                                        la inscrita actualmente.
+                                    </Typography>
+                                    
+                                </Box>
+                            )}
+
+                            {stateSinAsignatura && (
+                                <Box
+                                sx={{
+                                    borderRadius:'20px',
+                                    border:'2px solid black',
+                                    width:'200px',
+                                    height:'100px',
+                                    display:'flex',
+                                    justifyContent:'center'
+                                }}
+                                >
+                                    <Typography
+                                    align="center"
+                                    sx={{
+                                        fontWeight:'bold',
+                                        fontSize:'15px'
+                                    }}
+                                    >
+                                        Debe seleccionar
+                                        <br/>
+                                        una asignatura
+                                    </Typography>
+                                    
+                                </Box>
+                            )}
+
+                            {/*Agregar Cambio */}
+                            <Button
+                            onClick={() => agregarCambio()}
+                            variant="contained"
+                            disabled={ 
+                                !num_SeccionInsrita || 
+                                !nombreProfesorInscrita ||
+                                !num_SeccionCambio || 
+                                !nombreProfesorCambio
+                            }
+                            sx={{
+                                width:'200px',
+                                height:'50px',
+                            }}
+                            >
+                                Cargar Cambio
+                            </Button>
+                            
+                        </Box>
                     </Box>
                     
                 </Box>
