@@ -623,11 +623,13 @@ function Solicitud_Ficha_Content(){
                         return [...agregadas, tipo!];
                     });
 
+                    const nuevasVistas = [...vistas, tipo!];
+
                     for(let i = 0; i < cantidad_Vistas; i++){
                         if(i === vistaActual){
                             continue
                         }else{
-                            switch(vistas[i]){
+                            switch(nuevasVistas[i]){
                                 case "inscripcion":
                                     setVerInscribir(false);
                                     break;
