@@ -604,6 +604,28 @@ function Solicitud_Ficha_Content(){
                         setVerCambio(false);
                         break;
                 }
+
+                switch(vistas[vistaActual!]){
+                    case "inscripcion":
+                        setVerInscribir(true);
+                        break;
+                    
+                    case "desinscripcion":
+                        setVerDesinscribir(true);
+                        break;
+
+                    case "clase":
+                        setVerClase(true);
+                        break;
+
+                    case "evaluacion":
+                        setVerEvaluacion(true);
+                        break;
+
+                    case "cambio":
+                        setVerCambio(true);
+                        break;
+                }
                 
                 break;
 
@@ -1191,7 +1213,7 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'10%'
+                        width:'5%'
                     }}
                     >
                         {mostrarFlechas && (
@@ -1213,7 +1235,7 @@ function Solicitud_Ficha_Content(){
                     <Box
                     sx={{
                         display:'flex',
-                        width:'80%'
+                        width:'90%'
                     }}
                     >
                         {verInscribir && (
@@ -1274,7 +1296,7 @@ function Solicitud_Ficha_Content(){
                         display:'flex',
                         justifyContent:'center',
                         alignItems:'center',
-                        width:'10%'
+                        width:'5%'
                     }}
                     >
                         {mostrarFlechas && (
