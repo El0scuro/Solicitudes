@@ -1211,7 +1211,7 @@ function Solicitud_Ficha_Content(){
                     alignItems: 'center',
                     width: '100%',
                     flex: 1,
-                    minHeight: 400,
+                    minHeight: 800,
                     position:'relative'
                 }}
                 >
