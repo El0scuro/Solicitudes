@@ -555,7 +555,6 @@ function Solicitud_Ficha_Content(){
             case "cerrar":
 
                 nuevaCantidadVistas = cantidad_Vistas - 1;
-                
                 setCantidad_Vistas(cantidad_Vistas - 1);
 
                 if(nuevaCantidadVistas === 0){
@@ -566,11 +565,10 @@ function Solicitud_Ficha_Content(){
                     nuevaVistaActual = null;
                     setVistaActual(null);
 
-                }else {
-                    nuevasVistas = vistas;
-                    nuevasVistas.filter(vista => vista !== tipo!);
+                }else if(nuevaCantidadVistas > 0){
+                    nuevasVistas = vistas.filter(vista => vista !== tipo!);
                     setVistas(() => {
-                            return vistas.filter(vista => vista !== vistas[vistaActual!])
+                            return vistas.filter(vista => vista !== tipo!)
                         }
                     );
 
@@ -605,8 +603,8 @@ function Solicitud_Ficha_Content(){
                         break;
                 }
 
-                if(nuevasVistas.length > 0){
-                    switch(nuevasVistas[nuevaVistaActual!]){
+                if(nuevasVistas!.length > 0){
+                    switch(nuevasVistas![nuevaVistaActual!]){
                         case "inscripcion":
                             setVerInscribir(true);
                             break;
