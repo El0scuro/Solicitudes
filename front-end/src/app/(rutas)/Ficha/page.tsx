@@ -1218,11 +1218,12 @@ function Solicitud_Ficha_Content(){
                     {/*Retroceder */}
                     <Box
                     sx={{
-                        display:'flex',
-                        justifyContent:'center',
-                        alignItems:'center',
-                        width:'5%',
-                        height:'100%'
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '5%',
+                        height: '100%',
+                        alignSelf: 'stretch',
                     }}
                     >
                         {mostrarFlechas && (
@@ -1307,11 +1308,12 @@ function Solicitud_Ficha_Content(){
                     {/*Avanzar */}
                     <Box
                     sx={{
-                        display:'flex',
-                        justifyContent:'center',
-                        alignItems:'center',
-                        width:'5%',
-                        height:'100%'
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '5%',
+                        height: '100%',
+                        alignSelf: 'stretch',
                     }}
                     >
                         {mostrarFlechas && (
