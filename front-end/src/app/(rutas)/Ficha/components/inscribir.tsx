@@ -415,7 +415,6 @@ export default function Inscribir_Page({
 
                     {/* Cerrar */}
                     <Button
-
                     onClick={() => close()}
                     sx={{
                         ml:'auto',
