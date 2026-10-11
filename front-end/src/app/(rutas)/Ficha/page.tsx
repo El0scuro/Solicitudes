@@ -608,27 +608,48 @@ function Solicitud_Ficha_Content(){
 
                 setCantidad_Vistas(cantidad_Vistas + 1);
 
-                let agregada: string = '';
-
-                if(verInscribir){
-                    agregada = 'inscripcion';
-                }else if(verDesinscribir){
-                    agregada = 'desinscripcion';
-                }else if(verClase){
-                    agregada = 'clase';
-                }else if(verEvaluacion){
-                    agregada = 'evaluacion';
-                }else if(verCambio){
-                    agregada = 'cambio';
-                }
-
                 setVistas((agregadas) => {
-                    return [...agregadas, agregada];
+                    return [...agregadas, tipo!];
                 });
 
+                if(cantidad_Vistas === 1){
+                    setVistaActual(0);
+                }
+                else if(cantidad_Vistas > 1){
 
-                if(cantidad_Vistas > 1){
                     setMostrarFlechas(true);
+
+                    setVistaActual(vistaActual! + 1);
+
+                    for(let i = 0; i < cantidad_Vistas; i++){
+                        if(i === vistaActual){
+                            continue
+                        }else{
+                            switch(vistas[i]){
+                                case "inscripcion":
+                                    setVerInscribir(false);
+                                    break;
+
+                                case "desinscripcion":
+                                    setVerDesinscribir(false);
+                                    break;
+                                
+                                case "clase":
+                                    setVerClase(false);
+                                    break;
+                                
+                                case "evaluacion":
+                                    setVerEvaluacion(false);
+                                    break;
+                                
+                                case "cambio":
+                                    setVerCambio(false);
+                                    break;
+                                
+                                
+                            }
+                        }
+                    }
                 }
 
                 switch(tipo){
@@ -698,7 +719,8 @@ function Solicitud_Ficha_Content(){
                 display:'flex',
                 flexDirection:'column',
                 gap: 10,
-                width:'100%'
+                width:'100%',
+                justifyContent:'center'
             }}
             >
 
