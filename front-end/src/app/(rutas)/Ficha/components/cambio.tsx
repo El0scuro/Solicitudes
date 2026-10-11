@@ -569,9 +569,10 @@ export default function Cambio_Seccion({
                             flexDirection:'column',
                             alignItems: 'center',
                             justifyContent: 'flex-end',
-                            width:'10%px',
+                            width:'10%',
                             height: '100%',
                             gap:4,
+                            flexShrink: 0
                         }}
                         >
                             {stateSeccionDuplicada && (
