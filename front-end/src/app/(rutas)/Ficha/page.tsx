@@ -1220,7 +1220,7 @@ function Solicitud_Ficha_Content(){
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                         width: '5%',
                         height: '100%',
                         alignSelf: 'stretch',
@@ -1310,7 +1310,7 @@ function Solicitud_Ficha_Content(){
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                         width: '5%',
                         height: '100%',
                         alignSelf: 'stretch',
