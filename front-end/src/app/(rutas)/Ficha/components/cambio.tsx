@@ -393,7 +393,7 @@ export default function Cambio_Seccion({
                         display:'flex',
                         gap:2,
                         height:'100%',
-                        width:'85%'
+                        width:'80%'
                     }}
                     >
                         {/*Inscrita*/}
@@ -403,7 +403,7 @@ export default function Cambio_Seccion({
                             flexDirection:'column',
                             justifyContent:'center',
                             height:'100%',
-                            width:'50%'
+                            width:'45%'
                         }}
                         >
                             
@@ -483,7 +483,7 @@ export default function Cambio_Seccion({
                             flexDirection:'column',
                             justifyContent:'center',
                             height:'100%',
-                            width:'50%'
+                            width:'45%'
                         }}
                         >
 
