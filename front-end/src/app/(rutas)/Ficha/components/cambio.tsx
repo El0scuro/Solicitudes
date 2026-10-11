@@ -35,11 +35,7 @@ export default function Cambio_Seccion({
     //Asignaturas seleccionadas//
     const [asignaturas, setAsignaturas] = useState<Asignatura[]>();
 
-    const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState<Asignatura>({
-        Codigo: '',
-        Nombre: '',
-        Ano_Malla: ''
-    });
+    const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState<Asignatura>();
 
 
     //Warnings//
@@ -421,10 +417,10 @@ export default function Cambio_Seccion({
                                 sx={{
                                     fontWeight:'bold',
                                     width:'100%',
-                                    fontSize:'15px'
+                                    fontSize:'10px'
                                 }}
                                 >
-                                    Indique que sección tiene inscrita
+                                    Indique la sección que tiene inscrita
                                     <br/>
                                     actualmente, y su profesor asociado.
                                 </Typography>
@@ -501,12 +497,12 @@ export default function Cambio_Seccion({
                                 sx={{
                                     fontWeight:'bold',
                                     width:'100%',
-                                    fontSize:'15px'
+                                    fontSize:'10px'
                                 }}
                                 >
-                                    Indique a que sección quiere cambiarse,
+                                    Indique la sección a la que quiere 
                                     <br/>
-                                    y su profesor asociado.
+                                    cambiarse, y su profesor asociado.
                                 </Typography>
 
                                 {/*Seccion - Nombre */}
