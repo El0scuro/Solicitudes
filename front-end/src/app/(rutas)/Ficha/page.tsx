@@ -171,7 +171,6 @@ interface CrearFicha {
     Cambios: CambioInterface[];
 }
 
-
 export default function Solicitud_Ficha() {
     return (
         <Suspense fallback={<div>Cargando...</div>}>
@@ -608,11 +607,10 @@ function Solicitud_Ficha_Content(){
 
                 setCantidad_Vistas(cantidad_Vistas + 1);
 
-                setVistas((agregadas) => {
-                    return [...agregadas, tipo!];
-                });
-
                 if(cantidad_Vistas === 1){
+
+                    setVistas([tipo!]);
+
                     setVistaActual(0);
                 }
                 else if(cantidad_Vistas > 1){
@@ -620,6 +618,10 @@ function Solicitud_Ficha_Content(){
                     setMostrarFlechas(true);
 
                     setVistaActual(vistaActual! + 1);
+
+                    setVistas((agregadas) => {
+                        return [...agregadas, tipo!];
+                    });
 
                     for(let i = 0; i < cantidad_Vistas; i++){
                         if(i === vistaActual){
