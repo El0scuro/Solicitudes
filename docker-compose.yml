@@ -45,6 +45,8 @@ services:
       - transporte_front-mysql
       - transporte_back-mysql
       - almacenamiento-mysql
+      - administrador-mysql
+      - secretaria-mysql
 
     env_file:
       - ./back-end/.env
@@ -90,7 +92,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_administrador:/var/lib/mysql
       - ./init_administrador.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - ficha-network
@@ -109,7 +111,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_secretaria:/var/lib/mysql
       - ./init_secretaria.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - ficha-network
