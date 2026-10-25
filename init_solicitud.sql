@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `cambio_seccion`;
 CREATE TABLE `cambio_seccion` (
   `ID_Solicitud` int NOT NULL,
   `num_Seccion_Original` int NOT NULL,
-  `Profesor_Original` varchar NOT NULL,
+  `Profesor_Original` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   CONSTRAINT `cambio_seccion_solicitud_FK` FOREIGN KEY (`ID_Solicitud`) REFERENCES `solicitud` (`ID_Solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -268,17 +268,7 @@ CREATE TABLE `seccion` (
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `seccion`
---
-
-LOCK TABLES `seccion` WRITE;
-/*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
-INSERT INTO `seccion` VALUES ('APU 111', '2014', 'correo1@gmail.com',1),('APU 112', '2014','correo1@gmail.com',2),('APU 113', '2014', 'correo2@gmail.com',1),('APU 114', '2014','correo2@gmail.com',1),('APU 111', '2014','correo3@gmail.com',2),('APU 113', '2014','correo3@gmail.com',2),('APU 112', '2014','correo4@gmail.com',1),('APU 114', '2014','correo4@gmail.com',2);
-/*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `solicitud`
