@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class AdministradorService {
 
   constructor(
-    @InjectRepository(Administrador, 'solicitudes')
+    @InjectRepository(Administrador, 'administrador')
     private administradorRepository: Repository<Administrador>
   ) {}
   
