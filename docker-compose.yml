@@ -80,7 +80,7 @@ services:
   # =========================
   # MYSQL - ADMINISTRADOR
   # =========================
-  solicitudes-mysql:
+  administrador-mysql:
     image: mysql:8.4
     container_name: administrador-mysql
     restart: unless-stopped
@@ -99,7 +99,7 @@ services:
   # =========================
   # MYSQL - SECRETARIA
   # =========================
-  solicitudes-mysql:
+  secretaria-mysql:
     image: mysql:8.4
     container_name: secretaria-mysql
     restart: unless-stopped
