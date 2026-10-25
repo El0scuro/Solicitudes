@@ -16,34 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `administrador`
---
-
-DROP TABLE IF EXISTS `administrador`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `administrador` (
-  `Rut` varchar(55) NOT NULL,
-  `Digito_Verificador` varchar(55) NOT NULL,
-  `Primer_Nombre` varchar(100) NOT NULL,
-  `Segundo_Nombre` varchar(100) DEFAULT NULL,
-  `Primer_Apellido` varchar(100) NOT NULL,
-  `Segundo_Apellido` varchar(100) NOT NULL,
-  `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Rut`,`Digito_Verificador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `administrador`
---
-
-LOCK TABLES `administrador` WRITE;
-/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `asignatura`
 --
 
@@ -298,10 +270,9 @@ DROP TABLE IF EXISTS `seccion`;
 CREATE TABLE `seccion` (
   `Codigo` varchar(100) NOT NULL,
   `Ano_Malla` varchar(100) NOT NULL,
-  `mail_Profesor` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Nombre_Profesor` varchar(55) NOT NULL,
   `num_Seccion` int NOT NULL,
   `Sede` varchar(100) NOT NULL,
-  `Nombre_Profesor` varchar(100) NOT NULL,
   PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
   CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -315,38 +286,6 @@ LOCK TABLES `seccion` WRITE;
 /*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
 INSERT INTO `seccion` VALUES ('APU 111', '2014', 'correo1@gmail.com',1),('APU 112', '2014','correo1@gmail.com',2),('APU 113', '2014', 'correo2@gmail.com',1),('APU 114', '2014','correo2@gmail.com',1),('APU 111', '2014','correo3@gmail.com',2),('APU 113', '2014','correo3@gmail.com',2),('APU 112', '2014','correo4@gmail.com',1),('APU 114', '2014','correo4@gmail.com',2);
 /*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `secretaria`
---
-
-DROP TABLE IF EXISTS `secretaria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `secretaria` (
-  `Rut_Secretaria` varchar(55) NOT NULL,
-  `Digito_Verificador_Secretaria` varchar(55) NOT NULL,
-  `Rut_Administrador` varchar(55) NOT NULL,
-  `Digito_Verificador_Administrador` varchar(55) NOT NULL,
-  `Primer_Nombre` varchar(100) NOT NULL,
-  `Segundo_Nombre` varchar(100) DEFAULT NULL,
-  `Primer_Apellido` varchar(100) NOT NULL,
-  `Segundo_Apellido` varchar(100) NOT NULL,
-  `Mail` varchar(100) NOT NULL,
-  PRIMARY KEY (`Mail`),
-  KEY `secretaria_administrador_FK` (`Rut_Administrador`,`Digito_Verificador_Administrador`),
-  CONSTRAINT `secretaria_administrador_FK` FOREIGN KEY (`Rut_Administrador`, `Digito_Verificador_Administrador`) REFERENCES `administrador` (`Rut`, `Digito_Verificador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `secretaria`
---
-
-LOCK TABLES `secretaria` WRITE;
-/*!40000 ALTER TABLE `secretaria` DISABLE KEYS */;
-/*!40000 ALTER TABLE `secretaria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -366,7 +305,7 @@ CREATE TABLE `solicitud` (
   KEY `solicitud_ficha_FK` (`ID_Ficha`),
   KEY `solicitud_seccion_FK` (`num_Seccion`),
   KEY `FK_solicitud_seccion_` (`Codigo`,`num_Seccion`, `Ano_Malla`),
-  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `num_Seccion`, `Ano_Malla`) REFERENCES `seccion` (`Codigo`, `num_Seccion`, `Ano_Malla`),
+  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `Ano_Malla`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `Ano_Malla`, `num_Seccion`),
   CONSTRAINT `solicitud_ficha_FK` FOREIGN KEY (`ID_Ficha`) REFERENCES `ficha` (`ID_Ficha`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

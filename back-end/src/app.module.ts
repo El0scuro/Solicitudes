@@ -14,7 +14,6 @@ import { JustificacionModule } from './justificacion/justificacion.module.js';
 import { CambioSeccionModule } from './cambio_seccion/cambio_seccion.module.js';
 import { RutasJustificativosModule } from './rutas_justificativos/rutas_justificativos.module.js';
 import { SeccionModule } from './seccion/seccion.module.js';
-import { SecretariaSeccionModule } from './secretaria_seccion/secretaria_seccion.module.js';
 import { SecretariaModule } from './secretaria/secretaria.module.js';
 import { AdministradorModule } from './administrador/administrador.module.js';
 import { AsignaturaModule } from './asignatura/asignatura.module.js';
@@ -85,6 +84,32 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
       synchronize: false,
     }),
+    TypeOrmModule.forRoot({
+      name: "administrador",
+      type: 'mysql',
+      host: process.env.ALMACENAMIENTO_DB_HOST,
+      port: Number(process.env.ADMINISTRADOR_DB_PORT),
+      username: process.env.ADMINISTRADOR_DB_USER,
+      password: process.env.ADMINISTRADOR_DB_PASSWORD,
+      database: process.env.ADMINISTRADOR_DB_NAME,
+
+      autoLoadEntities: true,
+
+      synchronize: false,
+    }),
+    TypeOrmModule.forRoot({
+      name: "secretaria",
+      type: 'mysql',
+      host: process.env.SECRETARIA_DB_HOST,
+      port: Number(process.env.SECRETARIA_DB_PORT),
+      username: process.env.SECRETARIA_DB_USER,
+      password: process.env.SECRETARIA_DB_PASSWORD,
+      database: process.env.SECRETARIA_DB_NAME,
+
+      autoLoadEntities: true,
+
+      synchronize: false,
+    }),
 
     EstudianteModule,
     FichaModule,
@@ -101,8 +126,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     HibridoBackModule,
     HibridoFrontModule,
     MetadatosCifradoModule,
-    AlmacenamientoModule,
-    SecretariaSeccionModule,
+    AlmacenamientoModule
   ],
 
   controllers: [

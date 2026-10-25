@@ -78,6 +78,44 @@ services:
 
 
   # =========================
+  # MYSQL - ADMINISTRADOR
+  # =========================
+  solicitudes-mysql:
+    image: mysql:8.4
+    container_name: administrador-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: administrador
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init_administrador.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ficha-network
+
+
+  # =========================
+  # MYSQL - SECRETARIA
+  # =========================
+  solicitudes-mysql:
+    image: mysql:8.4
+    container_name: secretaria-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: secretaria
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init_secretaria.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ficha-network
+
+
+  # =========================
   # MYSQL - TRANSPORTE FRONT
   # =========================
   transporte_front-mysql:
@@ -130,6 +168,8 @@ services:
 
 volumes:
 
+  mysql_secretaria:
+  mysql_administrador:
   mysql_data:
   mysql_transporte_front_data:
   mysql_transporte_back_data:
