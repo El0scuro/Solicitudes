@@ -8,7 +8,7 @@ import { Secretaria } from './entities/secretaria.entity.js';
   imports: [
       TypeOrmModule.forFeature(
         [Secretaria],
-        "solicitudes"
+        "secretaria"
       )
     ],
   controllers: [SecretariaController],

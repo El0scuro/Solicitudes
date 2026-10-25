@@ -8,7 +8,7 @@ import { Administrador } from './entities/administrador.entity.js';
   imports: [
     TypeOrmModule.forFeature(
       [Administrador],
-      "solicitudes"
+      "administrador"
     )
   ],
   controllers: [AdministradorController],
