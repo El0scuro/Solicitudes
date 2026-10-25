@@ -50,20 +50,12 @@ DROP TABLE IF EXISTS `cambio_seccion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cambio_seccion` (
   `ID_Solicitud` int NOT NULL,
-  `Seccion_Original` int NOT NULL,
+  `num_Seccion_Original` int NOT NULL,
+  `Profesor_Original` varchar NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   CONSTRAINT `cambio_seccion_solicitud_FK` FOREIGN KEY (`ID_Solicitud`) REFERENCES `solicitud` (`ID_Solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cambio_seccion`
---
-
-LOCK TABLES `cambio_seccion` WRITE;
-/*!40000 ALTER TABLE `cambio_seccion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cambio_seccion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `estudiante`
@@ -293,8 +285,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `solicitud`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud` (
   `ID_Solicitud` int NOT NULL AUTO_INCREMENT,
   `ID_Ficha` int NOT NULL,
@@ -310,26 +300,4 @@ CREATE TABLE `solicitud` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `solicitud`
---
 
-LOCK TABLES `solicitud` WRITE;
-/*!40000 ALTER TABLE `solicitud` DISABLE KEYS */;
-/*!40000 ALTER TABLE `solicitud` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'solicitud'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2026-09-28 17:29:46

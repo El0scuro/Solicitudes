@@ -111,9 +111,7 @@ interface EstudianteDescifrado {
 interface InscripcionInterface {
     Tipo_Inscripcion: string;
 
-    Codigo: string;
-    Ano_Malla: string;
-    num_Seccion: number;
+    seccion: Seccion;
 }
 
 //Interface para las justificaciones//
@@ -122,18 +120,14 @@ interface JustificacionesInterface {
     Tipo_Justificacion: string;
     Semestre: string;
 
-    Codigo: string;
-    Ano_Malla: string;
-    num_Seccion: number;
+    seccion: Seccion;
 }
 
 //Interface para los cambios//
 interface CambioInterface {
-    Seccion_Original: number;
+    Seccion_Original: Seccion;
 
-    Codigo: string;
-    Ano_Malla: string;
-    num_Seccion: number;
+    Seccion_Cambio: Seccion;
 }
 
 //Interfaz para la creación de la ficha en la base de datos//
@@ -158,6 +152,7 @@ interface CrearFicha {
 
     Desinscripciones: InscripcionInterface[];
     cartaDesinscripcion?: FormData | null;
+
 
     //Clases y Evaluaciones//
     Clases: JustificacionesInterface[];
@@ -317,16 +312,14 @@ function Solicitud_Ficha_Content(){
                 const datos: InscripcionInterface = {
                     Tipo_Inscripcion: 'inscripcion',
 
-                    Codigo: seccion.asignatura!.Codigo,
-                    Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: seccion.num_Seccion!
+                    seccion: seccion
                 }
 
                 inscripciones.push(datos);
             }
 
             if(cartaInscripcion === null){
-                alert('Debe subir la carta para la sus inscripciones');
+                alert('Debe subir la carta para sus inscripciones');
                 return;
             }
             formDataInscripcion.append('cartaInscripcion', cartaInscripcion);
@@ -338,19 +331,17 @@ function Solicitud_Ficha_Content(){
                 const datos: InscripcionInterface = {
                     Tipo_Inscripcion: 'desinscripcion',
 
-                    Codigo: seccion.asignatura!.Codigo,
-                    Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: seccion.num_Seccion!
+                    seccion: seccion
                 }
 
                 desinscripciones.push(datos);
             }
 
             if(cartaDesinscripcion === null){
-                alert('Debe subir la carta para la sus desinscripciones');
+                alert('Debe subir la carta para sus desinscripciones');
                 return;
             }
-            formDataInscripcion.append('cartaInscripcion', cartaDesinscripcion);
+            formDataInscripcion.append('cartaDesinscripcion', cartaDesinscripcion);
         }
 
         if(stateClase){
@@ -371,11 +362,9 @@ function Solicitud_Ficha_Content(){
         if(stateCambio){
             for(const secciones of seccionesCambio){
                 const datos: CambioInterface = {
-                    Seccion_Original: secciones[0].num_Seccion!,
-
-                    Codigo: secciones[0].asignatura!.Codigo,
-                    Ano_Malla: estudianteDescifrado.Generacion,
-                    num_Seccion: secciones[1].num_Seccion!
+                    Seccion_Original: secciones[0],
+                    
+                    Seccion_Cambio: secciones[1]
                 }
 
                 cambios.push(datos);
