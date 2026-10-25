@@ -70,8 +70,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: solicitud
-    ports:
-      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init_solicitud.sql:/docker-entrypoint-initdb.d/init.sql
@@ -89,8 +87,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: administrador
-    ports:
-      - "3307:3306"
     volumes:
       - mysql_administrador:/var/lib/mysql
       - ./init_administrador.sql:/docker-entrypoint-initdb.d/init.sql
@@ -108,8 +104,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: secretaria
-    ports:
-      - "3307:3306"
     volumes:
       - mysql_secretaria:/var/lib/mysql
       - ./init_secretaria.sql:/docker-entrypoint-initdb.d/init.sql
