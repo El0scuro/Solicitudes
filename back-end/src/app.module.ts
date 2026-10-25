@@ -87,7 +87,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     TypeOrmModule.forRoot({
       name: "administrador",
       type: 'mysql',
-      host: process.env.ALMACENAMIENTO_DB_HOST,
+      host: process.env.ADMINSITRADOR_DB_HOST,
       port: Number(process.env.ADMINISTRADOR_DB_PORT),
       username: process.env.ADMINISTRADOR_DB_USER,
       password: process.env.ADMINISTRADOR_DB_PASSWORD,
