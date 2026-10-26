@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { Seccion } from "../../seccion/entities/seccion.entity.js";
+import { Solicitud } from "../../solicitud/entities/solicitud.entity.js";
 
 @Entity("asignatura", { schema: "solicitud" })
 export class Asignatura {
@@ -12,9 +12,9 @@ export class Asignatura {
     @Column("varchar", { name: "Semestre", length: 100 })
     Semestre: string;
 
-    @Column("varchar", { name: "Ano_Malla", length: 100 })
+    @Column("varchar", { primary: true, name: "Ano_Malla", length: 100 })
     Ano_Malla: string;
 
-    @OneToMany(() => Seccion, (seccion) => seccion.asignatura)
-    secciones: Seccion[];
+    @OneToMany(() => Solicitud, (solicitud) => solicitud.asignatura)
+    solicitudes: Solicitud[];
 }

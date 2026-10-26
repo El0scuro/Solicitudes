@@ -161,9 +161,25 @@ services:
     networks:
       - ficha-network
 
+  # =========================
+  # MYSQL - JEFE
+  # =========================
+  jefe-mysql:
+    image: mysql:8.4
+    container_name: jefe-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: jefe
+    volumes:
+      - mysql_jefe:/var/lib/mysql
+      - ./init_jefe.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ficha-network
+
 
 volumes:
-
+  mysql_jefe:
   mysql_secretaria:
   mysql_administrador:
   mysql_data:

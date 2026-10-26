@@ -13,8 +13,6 @@ import Logo_Publica from "@/Imagenes/Logo escuela blanco.png"
 
 import __url from "@/lib/const";
 
-import { Seccion } from "@/types/seccion";
-
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -22,6 +20,8 @@ import Inscribir_Page from "./components/inscribir";
 import Desinscribir_Page from "./components/desinscribir";
 import Justificar_Clase_Page from "./components/clase";
 import Cambio_Seccion from "./components/cambio";
+
+import { Asignatura } from "@/types/asignatura";
 
 
 //interfaz para el estudiante cifrado para transporte
@@ -107,11 +107,32 @@ interface EstudianteDescifrado {
 }
 
 
+interface Seccion {
+    Num_Seccion: number;
+    Profesor: string;
+    asignatura: Asignatura;
+}
+
+interface Inscripcion {
+    Tipo_Inscripcion: string;
+    seccion: Seccion;
+}
+
+interface CambioSeccion {
+    Num_Seccion_Original: number;
+    Profesor_Original: string;
+
+    Num_Seccion_Cambio: number;
+    Profesor_Cambio: string;
+}
+
+
 //Interface para las inscripciones de la solicitud//
 interface InscripcionInterface {
     Tipo_Inscripcion: string;
 
-    seccion: Seccion;
+    num_Seccion: number;
+    Nombre_Profesor: string;
 }
 
 //Interface para las justificaciones//
@@ -119,15 +140,15 @@ interface JustificacionesInterface {
     Fecha_Inasistencia: string;
     Tipo_Justificacion: string;
     Semestre: string;
-
-    seccion: Seccion;
 }
 
 //Interface para los cambios//
 interface CambioInterface {
-    Seccion_Original: Seccion;
+    Num_Seccion_Original: number;
+    Profesor_Original: string;
 
-    Seccion_Cambio: Seccion;
+    Num_Seccion_Cambio: number;
+    Profesor_Cambio: string;
 }
 
 //Interfaz para la creación de la ficha en la base de datos//
@@ -200,19 +221,19 @@ function Solicitud_Ficha_Content(){
     });
     
 
-    const [seccionesInscripcion, setSeccionesInscripcion] = useState<Seccion[]>([]);
+    const [inscripciones, setInscripciones] = useState<Inscripcion[]>([]);
     const [cartaInscripcion, setCartaInscripcion] = useState<File| null>(null);
 
-    const [seccionesDesinscripcion, setSeccionesDesinscripcion] = useState<Seccion[]>([]);
+    const [desinscripciones, setDesinscripciones] = useState<Inscripcion[]>([]);
     const [cartaDesinscripcion, setCartaDesinscripcion] = useState<File | null>(null);
 
-    const [seccionesClase, setSeccionesClase] = useState<Seccion[]>([]);
+    const [seccionesClase, setSeccionesClase] = useState<string[]>([]);
     const [justificativosClases, setJustificativosClases] = useState<File[] | null>(null);
 
-    const [seccionesEvaluacion, setSeccionesEvaluacion] = useState<Seccion[]>([]);
+    const [seccionesEvaluacion, setSeccionesEvaluacion] = useState<string[]>([]);
     const [justificativosEvaluaciones, setJustificativosEvaluaciones] = useState<File[] | null>(null);
     
-    const [seccionesCambio, setSeccionesCambio] = useState<Seccion[][]>([]);
+    const [cambios, setCambios] = useState<CambioSeccion[][]>([]);
 
 
     const [verInscribir, setVerInscribir] = useState(false);
@@ -307,12 +328,13 @@ function Solicitud_Ficha_Content(){
 
 
         if(stateInscripcion){
-            for(const seccion of seccionesInscripcion){
+            for(const inscripcion of inscripciones){
 
                 const datos: InscripcionInterface = {
                     Tipo_Inscripcion: 'inscripcion',
 
-                    seccion: seccion
+                    num_Seccion: inscripcion.num_Seccion,
+                    Nombre_Profesor: inscripcion.Nombre_Profesor
                 }
 
                 inscripciones.push(datos);
@@ -326,12 +348,13 @@ function Solicitud_Ficha_Content(){
         }
 
         if(stateDesinscripcion){
-            for(const seccion of seccionesDesinscripcion){
+            for(const desinscripcion of desinscripciones){
 
                 const datos: InscripcionInterface = {
                     Tipo_Inscripcion: 'desinscripcion',
 
-                    seccion: seccion
+                    num_Seccion: desinscripcion.num_Seccion,
+                    Nombre_Profesor: desinscripcion.Nombre_Profesor
                 }
 
                 desinscripciones.push(datos);
@@ -360,11 +383,13 @@ function Solicitud_Ficha_Content(){
         }
 
         if(stateCambio){
-            for(const secciones of seccionesCambio){
+            for(const cambio of cambios){
                 const datos: CambioInterface = {
-                    Seccion_Original: secciones[0],
-                    
-                    Seccion_Cambio: secciones[1]
+                    Num_Seccion_Original: cambio.Num_Seccion_Original,
+                    Profesor_Original: cambio.Profesor_Original,
+
+                    Num_Seccion_Cambio: cambio.Num_Seccion_Cambio,
+                    Profesor_Cambio: cambio.Profesor_Cambio
                 }
 
                 cambios.push(datos);
@@ -1246,8 +1271,8 @@ function Solicitud_Ficha_Content(){
                             close={() => 
                                 gestionarVista("cerrar", "inscripcion")
                             }
-                            seccionesSolicitud={seccionesInscripcion}
-                            setSeccionesSolicitud={setSeccionesInscripcion}
+                            inscripcionesSolicitud={inscripciones}
+                            setInscripcionesSolicitud={setInscripciones}
                             carta={cartaInscripcion}
                             setCarta={setCartaInscripcion}
                             setStateInscripciones={setStateInscripcion}
@@ -1259,8 +1284,8 @@ function Solicitud_Ficha_Content(){
                             close={() => 
                                 gestionarVista("cerrar", "desinscripcion")
                             }
-                            seccionesSolicitud={seccionesDesinscripcion}
-                            setSeccionesSolicitud={setSeccionesDesinscripcion}
+                            desinscripcionesSolicitud={desinscripciones}
+                            setDesinscripcionesSolicitud={setDesinscripciones}
                             carta={cartaDesinscripcion}
                             setCarta={setCartaDesinscripcion}
                             setStateDesinscripciones={setStateDesinscripcion}
@@ -1284,8 +1309,8 @@ function Solicitud_Ficha_Content(){
                         {verCambio && (
                             <Cambio_Seccion
                             close={() => gestionarVista("cerrar", "cambio")}
-                            seccionesSolicitud={seccionesCambio}
-                            setSeccionesSolicitud={setSeccionesCambio}
+                            seccionesSolicitud={cambios}
+                            setSeccionesSolicitud={setCambios}
                             setStateCambios={setStateCambio}
                             />
                         )}
@@ -1332,11 +1357,11 @@ function Solicitud_Ficha_Content(){
                     <Button
                     onClick={() => generarFicha()}
                     disabled={
-                        (verInscribir && !seccionesInscripcion) ||
-                        (verDesinscribir && !seccionesDesinscripcion) ||
+                        (verInscribir && !inscripciones) ||
+                        (verDesinscribir && !desinscripciones) ||
                         (verClase && !seccionesClase) ||
                         (verEvaluacion && !seccionesEvaluacion) ||
-                        (verCambio && !seccionesCambio)
+                        (verCambio && !cambios)
                     }
                     variant="contained"
                     sx={{

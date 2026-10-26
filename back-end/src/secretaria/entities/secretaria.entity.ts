@@ -8,5 +8,7 @@ export class Secretaria {
 
     @Column("varchar", {name: 'Contrasena', length: 384})
     Contrasena: string;
-
+    
+    @Column("varchar", { name: "Sede", length: 100 })
+    Sede: string;
 }

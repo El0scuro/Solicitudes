@@ -110,6 +110,19 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
       synchronize: false,
     }),
+    TypeOrmModule.forRoot({
+      name: "jefe",
+      type: 'mysql',
+      host: process.env.JEFE_DB_HOST,
+      port: Number(process.env.JEFE_DB_PORT),
+      username: process.env.JEFE_DB_USER,
+      password: process.env.JEFE_DB_PASSWORD,
+      database: process.env.JEFE_DB_NAME,
+
+      autoLoadEntities: true,
+
+      synchronize: false,
+    }),
 
     EstudianteModule,
     FichaModule,

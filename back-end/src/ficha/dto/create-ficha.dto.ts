@@ -16,6 +16,9 @@ export class CreateFichaDto {
     @IsString()
     Estado: string;
 
+    @IsString()
+    Sede: string;
+
 
     //Revisamos que solicitudes vienen en la ficha//
     @IsBoolean()

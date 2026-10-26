@@ -52,6 +52,8 @@ CREATE TABLE `cambio_seccion` (
   `ID_Solicitud` int NOT NULL,
   `num_Seccion_Original` int NOT NULL,
   `Profesor_Original` varchar(100) NOT NULL,
+  `num_Seccion_Cambio` int NOT NULL,
+  `Profesor_Cambio` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   CONSTRAINT `cambio_seccion_solicitud_FK` FOREIGN KEY (`ID_Solicitud`) REFERENCES `solicitud` (`ID_Solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -129,6 +131,8 @@ CREATE TABLE `inscripcion` (
   `ID_Solicitud` int NOT NULL,
   `Ruta_Carta` varchar(255) NOT NULL,
   `Tipo_Inscripcion` varchar(100) NOT NULL,
+  `num_Seccion` int NOT NULL,
+  `Nombre_Profesor` varchar(100) NOT NULL, 
   PRIMARY KEY (`ID_Solicitud`),
   CONSTRAINT `inscripcion_solicitud_FK` FOREIGN KEY (`ID_Solicitud`) REFERENCES `solicitud` (`ID_Solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -141,35 +145,6 @@ CREATE TABLE `inscripcion` (
 LOCK TABLES `inscripcion` WRITE;
 /*!40000 ALTER TABLE `inscripcion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inscripcion` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jefe_carrera`
---
-
-DROP TABLE IF EXISTS `jefe_carrera`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jefe_carrera` (
-  `Rut` varchar(55) NOT NULL,
-  `Digito_Verificador` varchar(55) NOT NULL,
-  `Primer_Nombre` varchar(100) NOT NULL,
-  `Segundo_Nombre` varchar(100) DEFAULT NULL,
-  `Primer_Apellido` varchar(100) NOT NULL,
-  `Segundo_Apellido` varchar(100) NOT NULL,
-  `Mail` varchar(100) NOT NULL,
-  `Sede` varchar(100) NOT NULL,
-  PRIMARY KEY (`Rut`,`Digito_Verificador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jefe_carrera`
---
-
-LOCK TABLES `jefe_carrera` WRITE;
-/*!40000 ALTER TABLE `jefe_carrera` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jefe_carrera` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -253,24 +228,6 @@ LOCK TABLES `rutas_justificativos` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `seccion`
---
-
-DROP TABLE IF EXISTS `seccion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `seccion` (
-  `Codigo` varchar(100) NOT NULL,
-  `Ano_Malla` varchar(100) NOT NULL,
-  `Nombre_Profesor` varchar(55) NOT NULL,
-  `num_Seccion` int NOT NULL,
-  `Sede` varchar(100) NOT NULL,
-  PRIMARY KEY (`Codigo`,`Ano_Malla`,`num_Seccion`),
-  CONSTRAINT `seccion_asignatura_FK` FOREIGN KEY (`Codigo`,`Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
---
 -- Table structure for table `solicitud`
 --
 
@@ -278,14 +235,13 @@ DROP TABLE IF EXISTS `solicitud`;
 CREATE TABLE `solicitud` (
   `ID_Solicitud` int NOT NULL AUTO_INCREMENT,
   `ID_Ficha` int NOT NULL,
-  `num_Seccion` int NOT NULL,
   `Codigo` varchar(100) NOT NULL,
   `Ano_Malla` varchar(100) NOT NULL,
   PRIMARY KEY (`ID_Solicitud`),
   KEY `solicitud_ficha_FK` (`ID_Ficha`),
   KEY `solicitud_seccion_FK` (`num_Seccion`),
   KEY `FK_solicitud_seccion_` (`Codigo`,`num_Seccion`, `Ano_Malla`),
-  CONSTRAINT `FK_solicitud_seccion_` FOREIGN KEY (`Codigo`, `Ano_Malla`, `num_Seccion`) REFERENCES `seccion` (`Codigo`, `Ano_Malla`, `num_Seccion`),
+  CONSTRAINT `FK_solicitud_asignatura_` FOREIGN KEY (`Codigo`, `Ano_Malla`) REFERENCES `asignatura` (`Codigo`, `Ano_Malla`),
   CONSTRAINT `solicitud_ficha_FK` FOREIGN KEY (`ID_Ficha`) REFERENCES `ficha` (`ID_Ficha`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

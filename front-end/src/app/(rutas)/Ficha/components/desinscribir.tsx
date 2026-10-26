@@ -18,24 +18,35 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import __url from "@/lib/const";
 
 import { Asignatura } from "@/types/asignatura";
-import { Seccion } from "@/types/seccion";
 
 
 interface PropRamo {
     close: () => void;
 
-    seccionesSolicitud: Seccion[];
-    setSeccionesSolicitud: React.Dispatch<React.SetStateAction<Seccion[]>>;
+    desinscripcionesSolicitud: Inscripcion[];
+    setDesinscripcionesSolicitud: React.Dispatch<React.SetStateAction<Inscripcion[]>>;
 
     carta: File | null;
     setCarta: React.Dispatch<React.SetStateAction<File | null>>;
 
-    setStateDesinscripciones: React.Dispatch<React.SetStateAction<boolean>>;
+    setStateDesinscripciones: React.Dispatch<React.SetStateAction<boolean>>
+
+}
+
+interface Seccion {
+    Num_Seccion: number;
+    Profesor: string;
+    asignatura: Asignatura;
+}
+
+interface Inscripcion {
+    Tipo_Inscripcion: string;
+    seccion: Seccion;
 }
 
 export default function Desinscribir_Page({
     close, 
-    seccionesSolicitud, setSeccionesSolicitud, 
+    desinscripcionesSolicitud: desinscripcionesSolicitud, setDesinscripcionesSolicitud: setDesinscripcionesSolicitud, 
     carta, setCarta,
     setStateDesinscripciones
 }: PropRamo){
@@ -89,37 +100,53 @@ export default function Desinscribir_Page({
     const [stateSeccionDuplicada, setStateSeccionDuplicada] = useState(false);
 
 
-    const seleccionarSeccion = () => {
-        setSeccionesSolicitud((seccionesActuales) => {
+    //Secciones Agregadas//
+    const [seccionesAgregadas, setSeccionesAgregadas] = useState<Seccion[]>([]);
 
-            const yaSeleccionado = seccionesActuales.some(sec => 
-                (sec.num_Seccion === num_Seccion) && 
-                (sec.asignatura?.Codigo === asignaturaActual!.Codigo)
+    const seleccionarSeccion = () => {
+        setDesinscripcionesSolicitud((desinscripcionesActuales) => {
+ 
+            const yaSeleccionado = desinscripcionesActuales.some(ins => 
+                (ins.seccion.Num_Seccion === num_Seccion) && 
+                (seccionesAgregadas.some(sec => sec.asignatura.Codigo === asignaturaActual!.Codigo))
             );
 
             if (yaSeleccionado) {
-                return seccionesActuales;
+                return desinscripcionesActuales;
             }
 
-            if(seccionesSolicitud.some(sec => sec.asignatura?.Nombre === asignaturaActual!.Nombre)){
+            if(seccionesAgregadas.some(sec => sec.asignatura.Nombre === asignaturaActual?.Nombre)){
                 mostrarDuplicado();
                 
-                return seccionesActuales;
+                return desinscripcionesActuales;
             }
 
             const nuevaSeccion: Seccion = {
-                Nombre_Profesor: nombreProfesor,
-                num_Seccion: num_Seccion,
+                Profesor: nombreProfesor,
+                Num_Seccion: Number(num_Seccion),
                 asignatura: asignaturaActual!
             }
 
+            const nuevaInscripcion: Inscripcion = {
+                Tipo_Inscripcion: 'inscripcion',
+                seccion: {
+                    Num_Seccion: Number(num_Seccion),
+                    Profesor: nombreProfesor,
+                    asignatura: asignaturaActual!
+                }
+                
+            }
+
             setStateDesinscripciones(true);
-            return [...seccionesActuales, nuevaSeccion];
+
+            setSeccionesAgregadas(prev => [...prev, nuevaSeccion]);
+
+            return [...desinscripcionesActuales, nuevaInscripcion];
         });
     };
 
-    const deseleccionarRamo = (seccion: Seccion) => {
-        setSeccionesSolicitud(seccionesSolicitud.filter(sec => sec !== seccion));
+    const deseleccionarRamo = (inscripcion: Inscripcion) => {
+        setDesinscripcionesSolicitud(desinscripcionesSolicitud.filter(ins => ins !== inscripcion));
         setStateDesinscripciones(false);
     };
 
@@ -200,7 +227,9 @@ export default function Desinscribir_Page({
         <Box
         sx={{
             display:'flex',
-            justifyContent:'center'
+            justifyContent:'center',
+            width:'100%',
+            height:'100%'
         }}
         >
             <Box
@@ -224,7 +253,7 @@ export default function Desinscribir_Page({
                     ml:'10px'
                 }}
                 >
-                    Desinscribir Asignaturas
+                    Inscribir Asignaturas
                 </Typography>
 
                 {/* Buscador - CheckBox's - Cerrar*/}
@@ -414,7 +443,6 @@ export default function Desinscribir_Page({
 
                     {/* Cerrar */}
                     <Button
-
                     onClick={() => close()}
                     sx={{
                         ml:'auto',
@@ -538,14 +566,14 @@ export default function Desinscribir_Page({
                                 </TableHead>
 
                                 <TableBody>
-                                    {seccionesSolicitud.map((seccion) => (
-                                        <TableRow key={seccion.num_Seccion}>
+                                    {desinscripcionesSolicitud.map((desinscripcion) => (
+                                        <TableRow key={desinscripcion.seccion.Num_Seccion}>
                                             <TableCell sx={{
                                                 border: '1px solid black',
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura?.Codigo}
+                                                {desinscripcion.seccion.asignatura?.Codigo}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -553,7 +581,7 @@ export default function Desinscribir_Page({
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.asignatura?.Nombre}
+                                                {desinscripcion.seccion.asignatura?.Nombre}
                                             </TableCell>
 
                                             <TableCell sx={{
@@ -561,7 +589,7 @@ export default function Desinscribir_Page({
                                                 py: 0.25,
                                                 px: 0.5
                                             }}>
-                                                {seccion.num_Seccion}
+                                                {desinscripcion.seccion.Num_Seccion}
                                             </TableCell>
                                             
                                             <TableCell sx={{
@@ -578,7 +606,7 @@ export default function Desinscribir_Page({
                                                 px: 0.5,
                                             }}>
                                                 <Button
-                                                onClick={() => deseleccionarRamo(seccion)}
+                                                onClick={() => deseleccionarRamo(desinscripcion)}
                                                 variant="outlined"
                                                 >
                                                     <DeleteIcon/>
@@ -671,8 +699,8 @@ export default function Desinscribir_Page({
                                                                     }}
                                                                     sx={{
                                                                         cursor: 'pointer',
-                                                                        backgroundColor: seccionesSolicitud.find(
-                                                                            sec => sec.asignatura?.Codigo === asig.Codigo
+                                                                        backgroundColor: desinscripcionesSolicitud.find(
+                                                                            des => des.seccion.asignatura?.Codigo === asig.Codigo
                                                                         ) || asignaturaActual?.Codigo === asig.Codigo
                                                                             ? 'lightblue'
                                                                             : 'transparent'

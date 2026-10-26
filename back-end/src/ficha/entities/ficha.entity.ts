@@ -14,11 +14,11 @@ export class Ficha {
     @Column("varchar", { name: "Estado", length: 55 })
     Estado: string;
 
+    @Column("varchar", { name: "Sede", length: 100 })
+    Sede: string;
+    
     @OneToMany(() => Solicitud, (solicitud) => solicitud.ficha)
     solicitudes: Solicitud[];
-
-    @ManyToOne(() => Jefe_Carrera, (jefe_carrera) => jefe_carrera.fichas)
-    jefe_carrera = Jefe_Carrera;
 
     @ManyToOne("Estudiante", (estudiante: Estudiante) => estudiante.fichas)
     @JoinColumn(
